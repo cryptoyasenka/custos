@@ -13,13 +13,29 @@ export interface FormatOptions {
   now?: () => Date;
 }
 
+export function safeStringify(value: unknown): string {
+  const seen = new WeakSet<object>();
+  try {
+    return JSON.stringify(value, (_key, val) => {
+      if (typeof val === "bigint") return val.toString();
+      if (typeof val === "object" && val !== null) {
+        if (seen.has(val)) return "[circular]";
+        seen.add(val);
+      }
+      return val;
+    });
+  } catch {
+    return "[unserializable]";
+  }
+}
+
 export function formatAlert(alert: Alert, opts: FormatOptions = {}): string {
   const color = opts.color ?? true;
   const now = opts.now ?? (() => new Date());
   const timestamp = now().toISOString();
   const sev = alert.severity.toUpperCase().padEnd(8);
   const tag = color ? `${SEVERITY_COLOR[alert.severity]}${sev}${RESET}` : sev;
-  const contextJson = JSON.stringify(alert.context);
+  const contextJson = safeStringify(alert.context);
   return [
     `${timestamp} ${tag} [${alert.detector}] ${alert.subject}`,
     `  link: ${alert.explorerLink}`,

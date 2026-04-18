@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { Alert } from "../types/events.js";
-import { formatAlert } from "./stdout.js";
+import { formatAlert, safeStringify } from "./stdout.js";
 
 function makeAlert(overrides: Partial<Alert> = {}): Alert {
   return {
@@ -41,6 +41,22 @@ describe("formatAlert", () => {
     expect(text).toMatch(/\x1b\[/);
   });
 
+  it("survives BigInt in context (Solana slot numbers in newer web3.js)", () => {
+    const alert = makeAlert({ context: { slot: 12345n, reason: "test" } });
+    const text = formatAlert(alert, { color: false, now: FIXED_NOW });
+    expect(text).toContain('"slot":"12345"');
+    expect(text).toContain('"reason":"test"');
+  });
+
+  it("survives circular references in context without throwing", () => {
+    const circular: Record<string, unknown> = { a: 1 };
+    circular.self = circular;
+    const alert = makeAlert({ context: circular });
+    expect(() => formatAlert(alert, { color: false, now: FIXED_NOW })).not.toThrow();
+    const text = formatAlert(alert, { color: false, now: FIXED_NOW });
+    expect(text).toContain("[circular]");
+  });
+
   it("pads severity label to fixed width for alignment", () => {
     const textHigh = formatAlert(makeAlert({ severity: "high" }), { color: false, now: FIXED_NOW });
     const textMedium = formatAlert(makeAlert({ severity: "medium" }), {
@@ -50,5 +66,30 @@ describe("formatAlert", () => {
     // "HIGH    " and "MEDIUM  " both 8 chars
     expect(textHigh).toContain("HIGH    ");
     expect(textMedium).toContain("MEDIUM  ");
+  });
+});
+
+describe("safeStringify", () => {
+  it("converts BigInt to string", () => {
+    expect(safeStringify({ n: 42n })).toBe('{"n":"42"}');
+  });
+
+  it("replaces circular refs with [circular]", () => {
+    const a: Record<string, unknown> = {};
+    a.self = a;
+    expect(safeStringify(a)).toBe('{"self":"[circular]"}');
+  });
+
+  it("returns [unserializable] on unexpected throw", () => {
+    const poison = {
+      toJSON(): never {
+        throw new Error("no JSON for you");
+      },
+    };
+    expect(safeStringify(poison)).toBe("[unserializable]");
+  });
+
+  it("passes through plain objects unchanged", () => {
+    expect(safeStringify({ a: 1, b: "x" })).toBe('{"a":1,"b":"x"}');
   });
 });

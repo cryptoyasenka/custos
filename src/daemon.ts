@@ -1,3 +1,4 @@
+import { pathToFileURL } from "node:url";
 import { type AlertSink, StdoutAlertSink } from "./alerts/stdout.js";
 import { DiscordAlertSink, FanOutAlertSink, SlackAlertSink } from "./alerts/webhook.js";
 import { type DaemonConfig, loadConfigFromEnv } from "./config.js";
@@ -59,7 +60,16 @@ async function main(): Promise<void> {
   await run(config, sink);
 }
 
-main().catch((err) => {
-  process.stderr.write(`[custos] fatal: ${String(err)}\n`);
-  process.exit(1);
-});
+// Only auto-start when this file is executed as the entry point (e.g. via
+// `node dist/daemon.js` or `tsx src/daemon.ts`). Importing it for its
+// exports — `run`, `buildSinkFromConfig` — must not kick off the daemon.
+// pathToFileURL normalizes Windows paths (drive letter, backslashes) so the
+// comparison with import.meta.url works on every platform.
+const entryPath = process.argv[1];
+const isEntryPoint = entryPath !== undefined && import.meta.url === pathToFileURL(entryPath).href;
+if (isEntryPoint) {
+  main().catch((err) => {
+    process.stderr.write(`[custos] fatal: ${String(err)}\n`);
+    process.exit(1);
+  });
+}

@@ -20,7 +20,8 @@
     "format": "biome format --write .",
     "fetch-fixture": "tsx scripts/fetch-fixture.ts",
     "smoke:create": "tsx scripts/devnet-create.ts",
-    "smoke:weaken": "tsx scripts/devnet-weaken.ts"
+    "smoke:weaken": "tsx scripts/devnet-weaken.ts",
+    "smoke:timelock": "tsx scripts/devnet-timelock.ts"
   },
   "engines": {
     "node": ">=20"

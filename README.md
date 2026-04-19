@@ -73,7 +73,7 @@ See [DEV-ENV-SETUP.md](./DEV-ENV-SETUP.md).
 
 ## Running the devnet demo
 
-End-to-end proof that Custos catches a real on-chain threshold drop.
+End-to-end proof that Custos catches real on-chain config changes.
 You need a funded devnet keypair at `~/.config/solana/id.json`
 (or set `SOLANA_KEYPAIR` to its path). `scripts/devnet-create.ts` will
 request a 1 SOL airdrop if your balance is below 0.5 SOL.
@@ -82,8 +82,8 @@ request a 1 SOL airdrop if your balance is below 0.5 SOL.
 cp .env.example .env
 npm install
 
-# Terminal 1 — create a 3-of-5 Squads multisig on devnet.
-# Copy the printed MULTISIG PDA.
+# Terminal 1 — create a 3-of-5 Squads multisig on devnet with a 1-day
+# time_lock. Copy the printed MULTISIG PDA.
 npm run smoke:create
 
 # Edit .env and paste the PDA into CUSTOS_WATCH.
@@ -91,13 +91,16 @@ npm run smoke:create
 # Terminal 2 — start the daemon.
 npm run dev
 
-# Terminal 1 — drop the threshold to 1, simulating an attacker takeover.
-npm run smoke:weaken -- <MULTISIG_PDA>
+# Terminal 1 — simulate the Drift attack chain, one step at a time.
+# Each command triggers an alert in Terminal 2.
+npm run smoke:timelock -- <MULTISIG_PDA>   # CRITICAL: timelock removed
+npm run smoke:weaken   -- <MULTISIG_PDA>   # HIGH: 3-of-5 → 1-of-5
 ```
 
-The daemon in Terminal 2 should print a `HIGH` alert from the
-`squads-multisig-weakening` detector within a few seconds of the config
-transaction confirming.
+Within a few seconds of each config transaction confirming, the daemon
+in Terminal 2 should print one alert per step — both from the same
+multisig account, both using the same detectors that would catch the
+real Drift exploit on mainnet.
 
 ## Architecture
 

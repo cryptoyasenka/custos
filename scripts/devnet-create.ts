@@ -10,6 +10,9 @@ const SQUADS_V4_PROGRAM_ID = new PublicKey("SQDS4ep65T869zMMBKyuUq6aD6EgTu8psMjk
 const RPC_URL = process.env.CUSTOS_RPC_URL ?? "https://api.devnet.solana.com";
 const MIN_BALANCE_SOL = 0.5;
 const AIRDROP_SOL = 1;
+// Baseline timelock so `smoke:timelock` has something meaningful to remove.
+// One day is both realistic and short enough that nothing blocks on devnet.
+const INITIAL_TIME_LOCK_SECONDS = 86_400;
 
 function loadLocalKeypair(): Keypair {
   const p = process.env.SOLANA_KEYPAIR ?? join(homedir(), ".config", "solana", "id.json");
@@ -56,7 +59,10 @@ async function main(): Promise<void> {
     programConfigPda,
   );
 
-  console.log(`[smoke] creating 3-of-5 Squads multisig at ${multisigPda.toBase58()}`);
+  console.log(
+    `[smoke] creating 3-of-5 Squads multisig at ${multisigPda.toBase58()} ` +
+      `with time_lock=${INITIAL_TIME_LOCK_SECONDS}s`,
+  );
   const sig = await multisig.rpc.multisigCreateV2({
     connection,
     treasury: programConfig.treasury,
@@ -66,7 +72,7 @@ async function main(): Promise<void> {
     configAuthority: creator.publicKey,
     threshold: 3,
     members,
-    timeLock: 0,
+    timeLock: INITIAL_TIME_LOCK_SECONDS,
     rentCollector: null,
   });
   console.log(`[smoke] create tx: ${sig}`);
@@ -78,7 +84,9 @@ async function main(): Promise<void> {
   console.log("  1. Copy the PDA above into .env:");
   console.log(`     CUSTOS_WATCH=${SQUADS_V4_PROGRAM_ID.toBase58()}:${multisigPda.toBase58()}`);
   console.log("  2. Start the daemon in a second terminal: npm run dev");
-  console.log("  3. Then run:     npm run smoke:weaken -- <PDA>");
+  console.log("  3. Run attack steps (in any order, each should alert):");
+  console.log("       npm run smoke:timelock -- <PDA>   # drops time_lock to 0");
+  console.log("       npm run smoke:weaken   -- <PDA>   # drops threshold to 1");
   console.log("========================================================");
 }
 

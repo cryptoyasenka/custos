@@ -1,5 +1,5 @@
-import { PublicKey, type AccountInfo } from "@solana/web3.js";
 import { Governance, GovernanceAccountParser } from "@solana/spl-governance";
+import { type AccountInfo, PublicKey } from "@solana/web3.js";
 
 export const SPL_GOVERNANCE_PROGRAM_ID = new PublicKey(
   "GovER5Lthms3bLBqWub97yVrMmEogzX7xNjdXpPPCVZw",

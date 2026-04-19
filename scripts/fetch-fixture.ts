@@ -1,4 +1,4 @@
-import { writeFileSync, mkdirSync } from "node:fs";
+import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { Connection, PublicKey } from "@solana/web3.js";
 

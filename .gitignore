@@ -12,3 +12,6 @@ coverage/
 .idea/
 .vscode/
 *.tsbuildinfo
+
+# Devnet smoke artifacts — ephemeral keypairs, never commit.
+.smoke-nonce.json

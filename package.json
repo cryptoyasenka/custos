@@ -21,7 +21,9 @@
     "fetch-fixture": "tsx scripts/fetch-fixture.ts",
     "smoke:create": "tsx scripts/devnet-create.ts",
     "smoke:weaken": "tsx scripts/devnet-weaken.ts",
-    "smoke:timelock": "tsx scripts/devnet-timelock.ts"
+    "smoke:timelock": "tsx scripts/devnet-timelock.ts",
+    "smoke:nonce-plan": "tsx scripts/devnet-nonce.ts --plan",
+    "smoke:nonce-init": "tsx scripts/devnet-nonce.ts --init"
   },
   "engines": {
     "node": ">=20"

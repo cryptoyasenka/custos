@@ -259,6 +259,51 @@ describe("startSupervisor integration", () => {
     await sup.stop();
   }, 10_000);
 
+  it("reconciles a state change that landed during the disconnect window", async () => {
+    const baselineA = Buffer.from([1, 2, 3]);
+    const baselineB = Buffer.from([9, 9, 9]);
+
+    let slotCalls = 0;
+    // First connection seeds baseline A, then fails its first health check.
+    const { connection: conn1 } = makeFakeConnection({
+      baselines: new Map([[WATCH_ACCOUNT.toBase58(), baselineA]]),
+      slotImpl: async () => {
+        slotCalls += 1;
+        if (slotCalls === 1) throw new Error("rpc dead");
+        return 1;
+      },
+    });
+    // Second connection: the on-chain state has moved to B while we were down.
+    const { connection: conn2 } = makeFakeConnection({
+      baselines: new Map([[WATCH_ACCOUNT.toBase58(), baselineB]]),
+    });
+    const factory = vi.fn().mockReturnValueOnce(conn1).mockReturnValueOnce(conn2);
+
+    const seen: SolanaEvent[] = [];
+    const detector = recordingDetector("rec", (e) => {
+      seen.push(e);
+    });
+
+    const sup = await startSupervisor({
+      config: makeConfig(),
+      sink: makeSink([]),
+      detectors: [detector],
+      connectionFactory: factory,
+      healthCheckIntervalMs: 20,
+    });
+
+    // Wait for the reconnect + reconcile to fire a synthetic event.
+    await vi.waitFor(() => expect(seen.length).toBe(1), { timeout: 3_000 });
+
+    expect(seen[0]?.kind).toBe("account_change");
+    if (seen[0]?.kind === "account_change") {
+      expect(seen[0].previousData?.equals(baselineA)).toBe(true);
+      expect(seen[0].data.equals(baselineB)).toBe(true);
+    }
+
+    await sup.stop();
+  }, 10_000);
+
   it("stop() prevents further reconnects", async () => {
     const { connection: conn1 } = makeFakeConnection({
       slotImpl: async () => {

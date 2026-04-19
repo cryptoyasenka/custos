@@ -53,8 +53,35 @@ export async function startSupervisor(opts: SupervisorOptions): Promise<Supervis
     const key = entry.account.toBase58();
     try {
       const initial = await conn.getAccountInfo(entry.account, "confirmed");
-      if (initial) {
-        previous.set(key, Buffer.from(initial.data));
+      const current = initial ? Buffer.from(initial.data) : null;
+      const prev = previous.get(key) ?? null;
+      // On reconnect, we already hold the baseline from before the drop. If
+      // the on-chain state shifted during the disconnect window, feed the
+      // diff through the detectors as a synthesized change so we don't
+      // silently lose an attack step that landed while the WS was down.
+      if (prev && current && !prev.equals(current)) {
+        log(`reconcile diff on ${key} after reconnect — dispatching synthetic event`);
+        const event: AccountChangeEvent = {
+          kind: "account_change",
+          program: entry.program,
+          account: entry.account,
+          data: current,
+          previousData: prev,
+          slot: 0,
+          signature: null,
+          timestamp: Math.floor(Date.now() / 1000),
+          cluster: config.cluster,
+        };
+        dispatch(event, detectors)
+          .then((alerts) => {
+            for (const alert of alerts) sink.handle(alert);
+          })
+          .catch((err) => {
+            process.stderr.write(`[custos] reconcile dispatch error: ${String(err)}\n`);
+          });
+      }
+      if (current) {
+        previous.set(key, current);
       }
     } catch (err) {
       log(`  baseline fetch failed for ${key}: ${String(err)}`);

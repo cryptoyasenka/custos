@@ -19,6 +19,7 @@
     "lint": "biome check .",
     "format": "biome format --write .",
     "fetch-fixture": "tsx scripts/fetch-fixture.ts",
+    "setup:devnet": "tsx scripts/devnet-setup.ts",
     "smoke:create": "tsx scripts/devnet-create.ts",
     "smoke:weaken": "tsx scripts/devnet-weaken.ts",
     "smoke:timelock": "tsx scripts/devnet-timelock.ts",

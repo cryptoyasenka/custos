@@ -19,15 +19,30 @@ function log(msg: string): void {
   process.stdout.write(`[custos] ${msg}\n`);
 }
 
-function subscribeWatch(
+async function subscribeWatch(
   connection: Connection,
   entry: WatchEntry,
   config: DaemonConfig,
   sink: AlertSink,
   previous: Map<string, Buffer>,
-): void {
+): Promise<void> {
   const key = entry.account.toBase58();
   log(`subscribe account=${key} program=${entry.program.toBase58()}`);
+
+  // Seed the baseline. web3.js `onAccountChange` does not deliver the initial
+  // snapshot, so without this the first real change would have no previousData
+  // and every field-weakening detector would silently skip it.
+  try {
+    const initial = await connection.getAccountInfo(entry.account, "confirmed");
+    if (initial) {
+      previous.set(key, Buffer.from(initial.data));
+      log(`  baseline: ${initial.data.length} bytes, owner=${initial.owner.toBase58()}`);
+    } else {
+      log(`  baseline: account not found on-chain yet`);
+    }
+  } catch (err) {
+    log(`  baseline fetch failed: ${String(err)}`);
+  }
 
   connection.onAccountChange(
     entry.account,
@@ -74,9 +89,9 @@ export async function run(config: DaemonConfig, sink: AlertSink): Promise<void> 
   });
 
   const previous = new Map<string, Buffer>();
-  for (const entry of config.watch) {
-    subscribeWatch(connection, entry, config, sink, previous);
-  }
+  await Promise.all(
+    config.watch.map((entry) => subscribeWatch(connection, entry, config, sink, previous)),
+  );
 
   const shutdown = (signal: string): void => {
     log(`received ${signal}, shutting down`);

@@ -64,8 +64,9 @@ wallets. Self-host in five minutes. MIT licensed.
 
 Pre-release. Built for the Solana Frontier Hackathon
 (submission 2026-05-10 23:59 PDT). Three detectors are running live
-on devnet; devnet smoke harness in `scripts/` reproduces the
-threshold-weakening step of the Drift chain end-to-end.
+on devnet; devnet smoke harness in `scripts/` reproduces three of the
+four Drift attack-chain steps end-to-end (timelock removal, multisig
+weakening, privileged-nonce initialization).
 
 ## Quick start
 
@@ -78,6 +79,9 @@ You need a funded devnet keypair at `~/.config/solana/id.json`
 (or set `SOLANA_KEYPAIR` to its path). `scripts/devnet-create.ts` will
 request a 1 SOL airdrop if your balance is below 0.5 SOL.
 
+The demo walks through three steps of the Drift attack chain, each
+firing a distinct detector:
+
 ```bash
 cp .env.example .env
 npm install
@@ -86,21 +90,42 @@ npm install
 # time_lock. Copy the printed MULTISIG PDA.
 npm run smoke:create
 
-# Edit .env and paste the PDA into CUSTOS_WATCH.
+# Generate a fresh Keypair for the privileged-nonce step. This prints
+# the pubkey to add to CUSTOS_WATCH. The account does not exist on
+# chain yet — we wire it into the daemon BEFORE it gets initialized.
+npm run smoke:nonce-plan
+
+# Edit .env and set CUSTOS_WATCH to both the MULTISIG PDA and the
+# nonce pubkey (comma-separated, each as program:account).
 
 # Terminal 2 — start the daemon.
 npm run dev
 
 # Terminal 1 — simulate the Drift attack chain, one step at a time.
 # Each command triggers an alert in Terminal 2.
-npm run smoke:timelock -- <MULTISIG_PDA>   # CRITICAL: timelock removed
-npm run smoke:weaken   -- <MULTISIG_PDA>   # HIGH: 3-of-5 → 1-of-5
+npm run smoke:timelock  -- <MULTISIG_PDA>   # CRITICAL: timelock removed
+npm run smoke:weaken    -- <MULTISIG_PDA>   # HIGH:     3-of-5 → 1-of-5
+npm run smoke:nonce-init                    # CRITICAL: nonce initialized
 ```
 
 Within a few seconds of each config transaction confirming, the daemon
-in Terminal 2 should print one alert per step — both from the same
-multisig account, both using the same detectors that would catch the
-real Drift exploit on mainnet.
+in Terminal 2 prints one alert per step — the same three detectors
+that would catch the real Drift exploit on mainnet.
+
+### Verifying your RPC before recording the demo
+
+The nonce step relies on the RPC delivering an `onAccountChange`
+notification when the watched pubkey transitions from "does not exist"
+to "initialized". Providers differ; run the diagnostic once before
+recording to confirm yours does:
+
+```bash
+npm run check:null-subscribe
+```
+
+Exit 0 means the detector will fire on `smoke:nonce-init`. Exit 1
+means the provider silently drops null-baseline notifications — switch
+to a provider that honors them, or fall back to polling.
 
 ## Self-host with Docker
 

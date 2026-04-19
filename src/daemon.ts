@@ -1,5 +1,6 @@
 import { type AccountInfo, Connection, type Context } from "@solana/web3.js";
 import { type AlertSink, StdoutAlertSink } from "./alerts/stdout.js";
+import { DiscordAlertSink, FanOutAlertSink, SlackAlertSink } from "./alerts/webhook.js";
 import { type DaemonConfig, type WatchEntry, loadConfigFromEnv } from "./config.js";
 import { SquadsMultisigWeakeningDetector } from "./detectors/multisig-weakening.js";
 import {
@@ -105,9 +106,20 @@ export async function run(config: DaemonConfig, sink: AlertSink): Promise<void> 
   });
 }
 
+export function buildSinkFromConfig(config: DaemonConfig): AlertSink {
+  const sinks: AlertSink[] = [new StdoutAlertSink()];
+  if (config.discordWebhookUrl) {
+    sinks.push(new DiscordAlertSink({ url: config.discordWebhookUrl, label: "discord-webhook" }));
+  }
+  if (config.slackWebhookUrl) {
+    sinks.push(new SlackAlertSink({ url: config.slackWebhookUrl, label: "slack-webhook" }));
+  }
+  return sinks.length === 1 ? (sinks[0] as AlertSink) : new FanOutAlertSink(sinks);
+}
+
 async function main(): Promise<void> {
   const config = loadConfigFromEnv();
-  const sink = new StdoutAlertSink();
+  const sink = buildSinkFromConfig(config);
   await run(config, sink);
 }
 

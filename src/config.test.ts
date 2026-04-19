@@ -82,4 +82,28 @@ describe("loadConfigFromEnv", () => {
       }),
     ).toThrow(/invalid base58/);
   });
+
+  it("leaves webhook URLs null when env vars are unset", () => {
+    const cfg = loadConfigFromEnv({ CUSTOS_RPC_URL: "https://a.com" });
+    expect(cfg.discordWebhookUrl).toBeNull();
+    expect(cfg.slackWebhookUrl).toBeNull();
+  });
+
+  it("reads CUSTOS_DISCORD_WEBHOOK and CUSTOS_SLACK_WEBHOOK when set", () => {
+    const cfg = loadConfigFromEnv({
+      CUSTOS_RPC_URL: "https://a.com",
+      CUSTOS_DISCORD_WEBHOOK: "https://discord.com/api/webhooks/1/abc",
+      CUSTOS_SLACK_WEBHOOK: "https://hooks.slack.com/services/T/B/X",
+    });
+    expect(cfg.discordWebhookUrl).toBe("https://discord.com/api/webhooks/1/abc");
+    expect(cfg.slackWebhookUrl).toBe("https://hooks.slack.com/services/T/B/X");
+  });
+
+  it("treats whitespace-only webhook URLs as unset", () => {
+    const cfg = loadConfigFromEnv({
+      CUSTOS_RPC_URL: "https://a.com",
+      CUSTOS_DISCORD_WEBHOOK: "   ",
+    });
+    expect(cfg.discordWebhookUrl).toBeNull();
+  });
 });

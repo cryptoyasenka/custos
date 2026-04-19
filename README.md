@@ -11,7 +11,8 @@ Four detectors run 24/7 against your Squads multisig or SPL Governance realm:
 - **PrivilegedNonceDetector** — alerts when an authority creates a durable nonce account
 - **StaleNonceExecutionDetector** — alerts when a pre-signed transaction older than N hours executes
 
-Alerts fan out to Discord, Slack, webhook, or CLI.
+Alerts fan out to Discord, Slack, or CLI. Every configured sink receives
+every alert; webhook failures are logged but do not block the others.
 
 ## Positioning
 

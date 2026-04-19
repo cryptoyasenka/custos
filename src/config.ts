@@ -11,6 +11,8 @@ export interface DaemonConfig {
   wsUrl: string;
   cluster: Cluster;
   watch: WatchEntry[];
+  discordWebhookUrl: string | null;
+  slackWebhookUrl: string | null;
 }
 
 const VALID_CLUSTERS: readonly Cluster[] = ["mainnet", "devnet", "testnet"];
@@ -56,5 +58,8 @@ export function loadConfigFromEnv(env: NodeJS.ProcessEnv = process.env): DaemonC
       }
     });
 
-  return { rpcUrl, wsUrl, cluster, watch };
+  const discordWebhookUrl = env.CUSTOS_DISCORD_WEBHOOK?.trim() || null;
+  const slackWebhookUrl = env.CUSTOS_SLACK_WEBHOOK?.trim() || null;
+
+  return { rpcUrl, wsUrl, cluster, watch, discordWebhookUrl, slackWebhookUrl };
 }

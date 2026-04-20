@@ -20,6 +20,12 @@
     "lineWidth": 100
   },
   "files": {
-    "ignore": ["dist", "node_modules", "src/parsers/__fixtures__/*.json"]
+    "ignore": [
+      "dist",
+      "node_modules",
+      "src/parsers/__fixtures__/*.json",
+      ".smoke-nonce.json",
+      "assets/*.svg"
+    ]
   }
 }

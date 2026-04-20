@@ -1,5 +1,5 @@
 {
-  "name": "custos",
+  "name": "custos-nox",
   "version": "0.0.1",
   "private": true,
   "description": "Open-source real-time monitor for Solana multisigs and DAOs. Detects Drift-class attack chains.",

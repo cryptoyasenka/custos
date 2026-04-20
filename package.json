@@ -5,10 +5,10 @@
   "description": "Open-source real-time monitor for Solana multisigs and DAOs. Detects Drift-class attack chains.",
   "license": "MIT",
   "author": "cryptoyasenka",
-  "homepage": "https://github.com/cryptoyasenka/custos",
+  "homepage": "https://github.com/cryptoyasenka/custos-nox",
   "repository": {
     "type": "git",
-    "url": "https://github.com/cryptoyasenka/custos"
+    "url": "https://github.com/cryptoyasenka/custos-nox"
   },
   "type": "module",
   "scripts": {

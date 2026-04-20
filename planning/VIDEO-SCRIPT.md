@@ -17,12 +17,12 @@ Visual: Solscan tab showing tx `2HvMSgDE...` at timestamp 2026-04-01 16:05:18 UT
 Visual: attack chain diagram, four steps annotated.
 
 ### 0:50–1:30 — Solution
-"Custos is a free, open-source, self-hosted monitor. Four detectors watch the full chain. Alerts hit Discord, Slack, or webhook in under five hundred milliseconds. You run it yourself — we hold no data. MIT license from day one."
+"Custos Nox is a free, open-source, self-hosted monitor. Four detectors watch the full chain. Alerts hit Discord, Slack, or webhook in under five hundred milliseconds. You run it yourself — we hold no data. MIT license from day one."
 
 Visual: GitHub repo page, four detector names, live alert popup in Discord.
 
 ### 1:30–2:10 — Target and validation
-"Every Solana multisig. Every DAO treasury. Every grant committee. Solana Foundation's STRIDE program funds monitoring for protocols above ten million TVL — Custos is for the ninety-nine percent below that line. Early conversations with [DAO-1], [DAO-2]: interest confirmed."
+"Every Solana multisig. Every DAO treasury. Every grant committee. Solana Foundation's STRIDE program funds monitoring for protocols above ten million TVL — Custos Nox is for the ninety-nine percent below that line. Early conversations with [DAO-1], [DAO-2]: interest confirmed."
 
 Visual: Squads dashboard, SPL Governance realms list.
 
@@ -32,7 +32,7 @@ Visual: Squads dashboard, SPL Governance realms list.
 Visual: Arena profile, past projects.
 
 ### 2:40–3:00 — CTA
-"github.com/cryptoyasenka/custos. Self-host in five minutes. If you hold a Solana multisig, you need this."
+"github.com/cryptoyasenka/custos-nox. Self-host in five minutes. If you hold a Solana multisig, you need this."
 
 Visual: GitHub URL, fade to logo.
 
@@ -47,7 +47,7 @@ Visual: `ARCHITECTURE.md` diagram animated.
 
 ### 0:20–1:00 — Live demo on devnet
 "I spun up a three-of-five Squads on devnet. I'm the admin. Watch what happens when I simulate the Drift chain."
-- Remove timelock → Custos fires critical alert in Discord
+- Remove timelock → Custos Nox fires critical alert in Discord
 - Create durable nonce → high-severity alert
 - Wait ten seconds → execute stale nonce → critical alert
 
@@ -57,19 +57,19 @@ Visual: `ARCHITECTURE.md` diagram animated.
 Visual: VS Code, scroll through detector source.
 
 ### 1:40–2:10 — Why Solana specifically
-"Durable nonces are a Solana feature — Ethereum has no equivalent. Squads v4's intent API exposes the exact instruction set we watch. Helius enhanced transactions handle deserialization. Custos could not be ported cleanly from EVM."
+"Durable nonces are a Solana feature — Ethereum has no equivalent. Squads v4's intent API exposes the exact instruction set we watch. Helius enhanced transactions handle deserialization. Custos Nox could not be ported cleanly from EVM."
 
 Visual: durable nonce docs page, Squads SDK page side by side.
 
 ### 2:10–2:45 — Replay real Drift
-"Three real transaction hashes from Chainalysis. Replayed through Custos's historical parser."
+"Three real transaction hashes from Chainalysis. Replayed through Custos Nox's historical parser."
 - `9zJGh…` (2026-03-26 timelock removal) → would have alerted
 - `2HvMS…` (2026-04-01 admin transfer) → would have alerted
 - `4BKBm…` (2026-04-01 execution) → would have alerted
 
 "Five days of warning before $285M moved."
 
-Visual: Solscan tabs for the three hashes, Custos output overlay.
+Visual: Solscan tabs for the three hashes, Custos Nox output overlay.
 
 ### 2:45–3:00 — Roadmap
 "GitHub Action for CI integration. Collateral risk scorer next. Open-source first, forever. Star the repo."

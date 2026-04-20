@@ -130,7 +130,7 @@ others. Built-in sinks:
 - `DiscordAlertSink` — severity-colored embed, fire-and-forget POST.
 - `SlackAlertSink` — `mrkdwn` blocks, fire-and-forget POST.
 
-Webhook URLs are user-owned; Custos stores no secrets.
+Webhook URLs are user-owned; Custos Nox stores no secrets.
 
 ## Config
 

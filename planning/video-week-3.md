@@ -1,7 +1,7 @@
 # Week 3 Arena update video — recording instructions
 
 Target upload date: **2026-04-26**. Goal: 60–75 sec video proving
-Custos is a working product, not a pitch deck. Live detection on
+Custos Nox is a working product, not a pitch deck. Live detection on
 devnet is the centerpiece — everything else is framing.
 
 Everything referenced below is already on `main` (commit `ed87daf` or
@@ -123,7 +123,7 @@ calm and flat — the content is dramatic enough.
 > was quietly weakened before the attack, and nobody was watching.
 
 > **[0:06 — 0:15]** *(still on Terminal 2)*
-> Custos is an open-source daemon that watches Solana multisigs and
+> Custos Nox is an open-source daemon that watches Solana multisigs and
 > DAOs for the exact config changes that enable attacks like that.
 > Three detectors, TypeScript, self-hostable, works with any RPC.
 
@@ -151,7 +151,7 @@ calm and flat — the content is dramatic enough.
 > and thirty-three tests green. Discord and Slack sinks already
 > wired up. Week four: the stale-nonce-execution detector and a
 > hosted demo. Repo is github dot com slash cryptoyasenka slash
-> custos.
+> custos dash nox.
 
 If you want it tighter, drop the second sentence of §[0:06–0:15]
 and the "works with any RPC" clause.
@@ -167,7 +167,7 @@ Minimum viable edit:
    longer than the narration, speed up the *waiting* sections
    (between typing and alert) to 1.5–2×; leave the alert frames at
    1× so viewers can read them.
-3. Add a **title card** for the first 2 seconds: `Custos — live
+3. Add a **title card** for the first 2 seconds: `Custos Nox — live
    multisig monitor / Week 3 update`.
 4. Add an **end card** for the last 2 seconds: the repo URL as text.
 
@@ -181,13 +181,13 @@ Export: 1080p, MP4, H.264, ≤100 MB for easy upload.
 posted on X and linked from the submission. Draft:
 
 ```
-Week 3 update on Custos — an open-source Solana multisig/DAO monitor
+Week 3 update on Custos Nox — an open-source Solana multisig/DAO monitor
 that would have caught the Drift config drift before the drain.
 
 Three detectors, live on devnet. Critical / High / Critical,
 sub-second, with Solscan links.
 
-github.com/cryptoyasenka/custos
+github.com/cryptoyasenka/custos-nox
 
 #Solana #SolanaHackathon #Colosseum
 ```

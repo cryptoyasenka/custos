@@ -1,6 +1,6 @@
-# Custos
+# Custos Nox
 
-[![ci](https://github.com/cryptoyasenka/custos/actions/workflows/ci.yml/badge.svg)](https://github.com/cryptoyasenka/custos/actions/workflows/ci.yml)
+[![ci](https://github.com/cryptoyasenka/custos-nox/actions/workflows/ci.yml/badge.svg)](https://github.com/cryptoyasenka/custos-nox/actions/workflows/ci.yml)
 
 Open-source real-time monitor for Solana multisigs and DAOs. Detects the
 attack chain that drained $285M from Drift on April 1, 2026.
@@ -27,7 +27,7 @@ operational alerts rather than disappearing into stderr.
 ## How this catches the Drift attack chain
 
 The April 2026 Drift exploit chained three on-chain config changes and
-one pre-signed execution. Custos's detectors map directly to those
+one pre-signed execution. Custos Nox's detectors map directly to those
 steps:
 
 | Attack step                                         | Detector                       | Severity |
@@ -38,13 +38,13 @@ steps:
 | Pre-signed withdrawal tx executed from stale nonce  | *(roadmap)* `stale-nonce-execution` | high     |
 
 Any single detector firing would have bought hours of response time.
-Custos catches all three that changed on-chain state; roadmap item
+Custos Nox catches all three that changed on-chain state; roadmap item
 covers the final execution step.
 
 ## Positioning
 
 Solana Foundation's STRIDE program funds commercial monitoring for
-protocols with $10M+ TVL. Custos is for the 99% below that line —
+protocols with $10M+ TVL. Custos Nox is for the 99% below that line —
 small DAOs, grant committees, treasury multisigs, solo-builder
 wallets. Self-host in five minutes. MIT licensed.
 
@@ -74,7 +74,7 @@ See [DEV-ENV-SETUP.md](./DEV-ENV-SETUP.md).
 
 ## Running the devnet demo
 
-End-to-end proof that Custos catches real on-chain config changes.
+End-to-end proof that Custos Nox catches real on-chain config changes.
 You need a funded devnet keypair at `~/.config/solana/id.json`
 (or set `SOLANA_KEYPAIR` to its path). `scripts/devnet-create.ts` will
 request a 1 SOL airdrop if your balance is below 0.5 SOL.

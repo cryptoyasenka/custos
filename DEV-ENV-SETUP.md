@@ -13,8 +13,8 @@ own validator). The `.env.example` defaults to the public devnet.
 ## Clone and install
 
 ```bash
-git clone https://github.com/cryptoyasenka/custos.git
-cd custos
+git clone https://github.com/cryptoyasenka/custos-nox.git
+cd custos-nox
 npm install
 ```
 

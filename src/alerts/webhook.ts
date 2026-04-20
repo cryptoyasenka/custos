@@ -24,7 +24,7 @@ export interface WebhookAlertSinkOptions {
 export function buildDiscordPayload(alert: Alert, now: () => Date): unknown {
   const timestamp = now().toISOString();
   return {
-    username: "Custos",
+    username: "Custos Nox",
     embeds: [
       {
         title: `[${alert.severity.toUpperCase()}] ${alert.subject}`,

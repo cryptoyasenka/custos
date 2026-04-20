@@ -1,6 +1,6 @@
 # Видео Week 3 — инструкция на русском
 
-**Цель:** 60–75 секунд видео. Доказать что Custos — живой рабочий продукт, а не презентация. Главное — живая детекция на devnet, всё остальное — рамка. Загрузить до **2026-04-26**.
+**Цель:** 60–75 секунд видео. Доказать что Custos Nox — живой рабочий продукт, а не презентация. Главное — живая детекция на devnet, всё остальное — рамка. Загрузить до **2026-04-26**.
 
 Всё уже в репо. Исходные данные прошлого прогона — в
 `planning/demo-run-2026-04-19.md`. Английский оригинал этой
@@ -112,11 +112,11 @@ tx" читается как настоящее; резкая склейка чи
 
 **[0:06–0:15]**
 
-> Custos is an open-source daemon that watches Solana multisigs and DAOs
+> Custos Nox is an open-source daemon that watches Solana multisigs and DAOs
 > for the exact config changes that enable attacks like that. Three
 > detectors, TypeScript, self-hostable, works with any RPC.
 
-*Перевод:* Custos — open-source демон, который следит за Solana-
+*Перевод:* Custos Nox — open-source демон, который следит за Solana-
 мультисигами и DAO на те самые изменения конфигов, что делают такие
 атаки возможными. Три детектора, TypeScript, self-hosted, работает с
 любым RPC.
@@ -162,12 +162,12 @@ devnet. Демон подписан, baseline загружен.
 > This is shipped code, on main, verified live on devnet, a hundred and
 > thirty-three tests green. Discord and Slack sinks already wired up.
 > Week four: the stale-nonce-execution detector and a hosted demo. Repo
-> is github dot com slash cryptoyasenka slash custos.
+> is github dot com slash cryptoyasenka slash custos dash nox.
 
 *Перевод:* Это отгруженный код, в main, проверен на живом devnet, 133
 теста зелёные. Discord и Slack sinks уже работают. 4-я неделя:
 stale-nonce-execution детектор и hosted-демо. Репо:
-github.com/cryptoyasenka/custos.
+github.com/cryptoyasenka/custos-nox.
 
 Если захочется короче — выкинь второе предложение из [0:06–0:15] и
 "works with any RPC".
@@ -182,7 +182,7 @@ github.com/cryptoyasenka/custos.
 2. Положить озвучку поверх записи экрана. Если демо длиннее озвучки —
    ускорь **ожидания** (между вводом команды и алертом) в 1.5–2×, а
    кадры с алертами оставь 1× чтоб читались.
-3. **Титульная карточка** первые 2 секунды: `Custos — live multisig
+3. **Титульная карточка** первые 2 секунды: `Custos Nox — live multisig
    monitor / Week 3 update`.
 4. **Финальная карточка** последние 2 сек: URL репо текстом.
 
@@ -195,13 +195,13 @@ github.com/cryptoyasenka/custos.
 **Главное — пост в X.** Черновик:
 
 ```
-Week 3 update on Custos — an open-source Solana multisig/DAO monitor
+Week 3 update on Custos Nox — an open-source Solana multisig/DAO monitor
 that would have caught the Drift config drift before the drain.
 
 Three detectors, live on devnet. Critical / High / Critical,
 sub-second, with Solscan links.
 
-github.com/cryptoyasenka/custos
+github.com/cryptoyasenka/custos-nox
 
 #Solana #SolanaHackathon #Colosseum
 ```

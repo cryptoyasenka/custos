@@ -1,4 +1,4 @@
-# Custos — idea summary
+# Custos Nox — idea summary
 
 Open-source, self-hostable real-time monitor for Solana multisigs and SPL Governance realms. Detects the Drift-class attack chain: privileged durable nonce creation + timelock removal + stale pre-signed execution. Free unlimited. Alerts to Discord, Slack, webhook, CLI.
 
@@ -6,12 +6,12 @@ Open-source, self-hostable real-time monitor for Solana multisigs and SPL Govern
 
 - Drift lost $285M on 2026-04-01 to exactly this chain (see `../../planning/DRIFT-ATTACK-FORENSICS.md`)
 - Solana Foundation launched STRIDE + SIRN on 2026-04-07 — but those cover only $10M+ TVL protocols
-- Custos covers the 99% below that: DAOs, grant committees, treasury multisigs, solo-builder wallets
+- Custos Nox covers the 99% below that: DAOs, grant committees, treasury multisigs, solo-builder wallets
 - Zero open-source competitors at start. Range, Sec3, Hypernative are commercial and enterprise-priced.
 
 ## Positioning
 
-- STRIDE funds the whales. **Custos is for everyone else.**
+- STRIDE funds the whales. **Custos Nox is for everyone else.**
 - Not a SaaS gatekeeper. MIT license, self-host in five minutes.
 - Compose over build: Squads SDK + SPL Governance + Helius RPC, thin detector layer on top.
 
@@ -38,7 +38,7 @@ Open-source, self-hostable real-time monitor for Solana multisigs and SPL Govern
 
 ## Demo narrative (90 seconds)
 
-See `VIDEO-SCRIPT.md` — technical demo section. Replays three real Drift tx hashes on Solscan with Custos reactions overlaid.
+See `VIDEO-SCRIPT.md` — technical demo section. Replays three real Drift tx hashes on Solscan with Custos Nox reactions overlaid.
 
 ## Roadmap after hackathon
 

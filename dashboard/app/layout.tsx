@@ -12,7 +12,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const siteUrl = "https://custos-nox.vercel.app";
+const siteUrl = "https://custos-nox.example.com";
 const description =
   "Open-source real-time attack monitor for Solana multisigs and DAOs. Detects 3 of the 4 on-chain vectors used to drain $285M from Drift on April 1, 2026. Self-host, MIT licensed.";
 

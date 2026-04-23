@@ -5,6 +5,10 @@
 Open-source real-time monitor for Solana multisigs and DAOs. Detects the
 attack chain that drained $285M from Drift on April 1, 2026.
 
+**Dashboard:** the marketing site + sample event feed lives in
+[`dashboard/`](./dashboard) (Next.js 16, deployed on Vercel with Root
+Directory = `dashboard`).
+
 ## What it catches
 
 Three detectors run 24/7 today; a fourth is on the roadmap:

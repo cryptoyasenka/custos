@@ -11,7 +11,7 @@ const STATS = [
   { label: "Detectors live", value: "3" },
   { label: "Tests passing", value: "135" },
   { label: "Drift loss tracked", value: "$285M" },
-  { label: "Paid tiers", value: "0" },
+  { label: "Alert latency", value: "< 1s" },
 ];
 
 export default function Home() {
@@ -27,21 +27,23 @@ export default function Home() {
             <span className="font-semibold tracking-tight">Custos Nox</span>
           </a>
           <div className="flex items-center gap-5 text-sm">
-            <a
-              href="#detectors"
-              className="text-muted-strong transition-colors hover:text-foreground"
-            >
-              Detectors
-            </a>
-            <a href="#live" className="text-muted-strong transition-colors hover:text-foreground">
-              Sample feed
-            </a>
-            <a
-              href="#install"
-              className="text-muted-strong transition-colors hover:text-foreground"
-            >
-              Install
-            </a>
+            <div className="hidden items-center gap-5 sm:flex">
+              <a
+                href="#detectors"
+                className="text-muted-strong transition-colors hover:text-foreground"
+              >
+                Detectors
+              </a>
+              <a href="#live" className="text-muted-strong transition-colors hover:text-foreground">
+                Sample feed
+              </a>
+              <a
+                href="#install"
+                className="text-muted-strong transition-colors hover:text-foreground"
+              >
+                Install
+              </a>
+            </div>
             <a
               href={GITHUB_URL}
               target="_blank"
@@ -118,21 +120,34 @@ export default function Home() {
               {productionDetectors.map((detector) => (
                 <DetectorCard key={detector.id} detector={detector} />
               ))}
-              {roadmapDetectors.map((detector) => (
-                <DetectorCard key={detector.id} detector={detector} />
-              ))}
             </div>
+            {roadmapDetectors.length > 0 && (
+              <div className="mt-8">
+                <div className="mb-4 flex items-center gap-3">
+                  <div className="h-px flex-1 bg-border" />
+                  <span className="font-mono text-[11px] uppercase tracking-wider text-muted">
+                    Coming in v0.2
+                  </span>
+                  <div className="h-px flex-1 bg-border" />
+                </div>
+                <div className="grid gap-4 md:grid-cols-2">
+                  {roadmapDetectors.map((detector) => (
+                    <DetectorCard key={detector.id} detector={detector} />
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </section>
 
         <section id="live" className="border-b border-border">
           <div className="mx-auto w-full max-w-5xl px-6 py-20">
             <div className="mb-10 flex flex-col gap-3">
-              <h2 className="text-3xl font-semibold tracking-tight">Sample event feed</h2>
+              <h2 className="text-3xl font-semibold tracking-tight">Attack chain replay</h2>
               <p className="max-w-2xl text-muted-strong">
-                Replay of the devnet smoke-harness run on 2026-04-24. Three attack-chain steps fire
-                three distinct detectors; the last row shows an operational low-severity alert from
-                a detector timeout.
+                The three Drift attack steps, replayed against a devnet harness. Each fires a
+                distinct detector within a second — the same sequence that went undetected on
+                mainnet in April 2026.
               </p>
               <p className="max-w-2xl font-mono text-xs uppercase tracking-wider text-muted">
                 ⚠ Not live mainnet data — sample events for demo purposes

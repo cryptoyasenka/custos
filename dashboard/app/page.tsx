@@ -35,7 +35,7 @@ export default function Home() {
                 Detectors
               </a>
               <a href="#live" className="text-muted-strong transition-colors hover:text-foreground">
-                Sample feed
+                Replay
               </a>
               <a
                 href="#install"

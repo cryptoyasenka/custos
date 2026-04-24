@@ -27,9 +27,7 @@ export function AlertRow({ alert }: { alert: SampleAlert }) {
         <div className="font-mono text-[11px] uppercase tracking-wider text-accent">
           {alert.detector}
         </div>
-        <div className="mt-0.5 text-sm leading-relaxed text-foreground">
-          {alert.subject}
-        </div>
+        <div className="mt-0.5 text-sm leading-relaxed text-foreground">{alert.subject}</div>
         {contextEntries.length > 0 && (
           <dl className="mt-2 grid gap-x-4 gap-y-0.5 font-mono text-[11px] text-muted-strong sm:grid-cols-[auto_1fr]">
             {contextEntries.map(([key, value]) => (

@@ -55,6 +55,13 @@ describe("buildDiscordPayload", () => {
     };
     expect(payload.embeds[0]?.color).toBe(0xb91c1c);
   });
+
+  it("omits url field when explorerLink is empty (operational alerts)", () => {
+    const payload = buildDiscordPayload(makeAlert({ explorerLink: "" }), FIXED_NOW) as {
+      embeds: Array<Record<string, unknown>>;
+    };
+    expect("url" in (payload.embeds[0] ?? {})).toBe(false);
+  });
 });
 
 describe("buildSlackPayload", () => {
@@ -68,6 +75,14 @@ describe("buildSlackPayload", () => {
     expect(payload.blocks[0]?.text.text).toContain("squads-multisig-weakening");
     expect(payload.blocks[0]?.text.text).toContain("solscan.io");
     expect(payload.blocks[1]?.text.text).toContain("threshold_reduced");
+  });
+
+  it("omits the Solscan link when explorerLink is empty (operational alerts)", () => {
+    const payload = buildSlackPayload(makeAlert({ explorerLink: "" })) as {
+      blocks: Array<{ text: { text: string } }>;
+    };
+    expect(payload.blocks[0]?.text.text).not.toContain("View on Solscan");
+    expect(payload.blocks[0]?.text.text).not.toContain("<|");
   });
 });
 

@@ -29,7 +29,7 @@ export function buildDiscordPayload(alert: Alert, now: () => Date): unknown {
       {
         title: `[${alert.severity.toUpperCase()}] ${alert.subject}`,
         color: DISCORD_COLOR[alert.severity],
-        url: alert.explorerLink,
+        ...(alert.explorerLink ? { url: alert.explorerLink } : {}),
         timestamp,
         fields: [
           { name: "Detector", value: alert.detector, inline: true },
@@ -45,6 +45,7 @@ export function buildDiscordPayload(alert: Alert, now: () => Date): unknown {
 }
 
 export function buildSlackPayload(alert: Alert): unknown {
+  const linkSuffix = alert.explorerLink ? `\n<${alert.explorerLink}|View on Solscan>` : "";
   return {
     text: `[${alert.severity.toUpperCase()}] ${alert.subject}`,
     blocks: [
@@ -52,7 +53,7 @@ export function buildSlackPayload(alert: Alert): unknown {
         type: "section",
         text: {
           type: "mrkdwn",
-          text: `*[${alert.severity.toUpperCase()}]* \`${alert.detector}\` — ${alert.subject}\n<${alert.explorerLink}|View on Solscan>`,
+          text: `*[${alert.severity.toUpperCase()}]* \`${alert.detector}\` — ${alert.subject}${linkSuffix}`,
         },
       },
       {

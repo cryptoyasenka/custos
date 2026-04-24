@@ -28,9 +28,7 @@ export function DetectorCard({ detector }: { detector: DetectorMeta }) {
         <span className="text-muted">attack step · </span>
         {detector.attackStep}
       </div>
-      <p className="text-sm leading-relaxed text-muted-strong">
-        {detector.description}
-      </p>
+      <p className="text-sm leading-relaxed text-muted-strong">{detector.description}</p>
     </div>
   );
 }

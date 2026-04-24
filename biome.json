@@ -23,6 +23,7 @@
     "ignore": [
       "dist",
       "node_modules",
+      "dashboard/.next",
       "src/parsers/__fixtures__/*.json",
       ".smoke-nonce.json",
       "assets/*.svg"

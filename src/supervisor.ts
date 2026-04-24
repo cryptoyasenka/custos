@@ -152,8 +152,9 @@ export async function startSupervisor(opts: SupervisorOptions): Promise<Supervis
 
   async function healthCheck(): Promise<void> {
     if (stopping || !connection || reconnecting) return;
+    const conn = connection;
     try {
-      await connection.getSlot("confirmed");
+      await conn.getSlot("confirmed");
     } catch (err) {
       log(`health check failed: ${String(err)}`);
       void reconnect("rpc health check failed");

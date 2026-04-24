@@ -29,10 +29,7 @@ export function SeverityChart({ alerts }: { alerts: SampleAlert[] }) {
         {counts.map(({ severity, count }) => {
           const heightPct = (count / maxCount) * 100;
           return (
-            <div
-              key={severity}
-              className="flex flex-1 flex-col items-center gap-2"
-            >
+            <div key={severity} className="flex flex-1 flex-col items-center gap-2">
               <div className="font-mono text-lg font-semibold tabular-nums text-foreground">
                 {count}
               </div>

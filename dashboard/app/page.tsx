@@ -1,9 +1,9 @@
-import Image from "next/image";
 import { AlertRow } from "@/components/alert-row";
 import { DetectorCard } from "@/components/detector-card";
 import { SeverityChart } from "@/components/severity-chart";
 import { DETECTORS } from "@/lib/detectors";
 import { SAMPLE_ALERTS } from "@/lib/sample-alerts";
+import Image from "next/image";
 
 const GITHUB_URL = "https://github.com/cryptoyasenka/custos-nox";
 
@@ -22,14 +22,8 @@ export default function Home() {
     <div className="relative flex min-h-screen flex-col">
       <nav className="sticky top-0 z-10 border-b border-border bg-background/80 backdrop-blur">
         <div className="mx-auto flex w-full max-w-5xl items-center justify-between px-6 py-4">
-          <a href="#" className="flex items-center gap-2.5">
-            <Image
-              src="/logo.svg"
-              alt="Custos Nox"
-              width={32}
-              height={32}
-              priority
-            />
+          <a href="/" className="flex items-center gap-2.5">
+            <Image src="/logo.svg" alt="Custos Nox" width={32} height={32} priority />
             <span className="font-semibold tracking-tight">Custos Nox</span>
           </a>
           <div className="flex items-center gap-5 text-sm">
@@ -39,10 +33,7 @@ export default function Home() {
             >
               Detectors
             </a>
-            <a
-              href="#live"
-              className="text-muted-strong transition-colors hover:text-foreground"
-            >
+            <a href="#live" className="text-muted-strong transition-colors hover:text-foreground">
               Sample feed
             </a>
             <a
@@ -77,10 +68,9 @@ export default function Home() {
                 <span className="text-accent">before it drains your treasury.</span>
               </h1>
               <p className="max-w-2xl text-lg leading-relaxed text-muted-strong">
-                Custos Nox is an open-source real-time attack monitor for Solana
-                multisigs and DAOs. It detects 3 of the 4 on-chain vectors used
-                to drain $285M from Drift on April 1, 2026 — before the stolen
-                funds leave the chain.
+                Custos Nox is an open-source real-time attack monitor for Solana multisigs and DAOs.
+                It detects 3 of the 4 on-chain vectors used to drain $285M from Drift on April 1,
+                2026 — before the stolen funds leave the chain.
               </p>
               <div className="flex flex-wrap gap-3">
                 <a
@@ -118,13 +108,10 @@ export default function Home() {
         <section id="detectors" className="border-b border-border">
           <div className="mx-auto w-full max-w-5xl px-6 py-20">
             <div className="mb-10 flex flex-col gap-3">
-              <h2 className="text-3xl font-semibold tracking-tight">
-                What it catches
-              </h2>
+              <h2 className="text-3xl font-semibold tracking-tight">What it catches</h2>
               <p className="max-w-2xl text-muted-strong">
-                Every detector maps directly to a step in the Drift April 2026
-                attack chain. Any single one firing would have bought hours of
-                response time.
+                Every detector maps directly to a step in the Drift April 2026 attack chain. Any
+                single one firing would have bought hours of response time.
               </p>
             </div>
             <div className="grid gap-4 md:grid-cols-2">
@@ -141,13 +128,11 @@ export default function Home() {
         <section id="live" className="border-b border-border">
           <div className="mx-auto w-full max-w-5xl px-6 py-20">
             <div className="mb-10 flex flex-col gap-3">
-              <h2 className="text-3xl font-semibold tracking-tight">
-                Sample event feed
-              </h2>
+              <h2 className="text-3xl font-semibold tracking-tight">Sample event feed</h2>
               <p className="max-w-2xl text-muted-strong">
-                Replay of the devnet smoke-harness run on 2026-04-23. Three
-                attack-chain steps fire three distinct detectors; the last row
-                shows an operational low-severity alert from a detector timeout.
+                Replay of the devnet smoke-harness run on 2026-04-23. Three attack-chain steps fire
+                three distinct detectors; the last row shows an operational low-severity alert from
+                a detector timeout.
               </p>
               <p className="max-w-2xl font-mono text-xs uppercase tracking-wider text-muted">
                 ⚠ Not live mainnet data — sample events for demo purposes
@@ -167,8 +152,8 @@ export default function Home() {
                   </span>
                 </div>
                 <ul className="divide-y divide-border">
-                  {SAMPLE_ALERTS.map((alert, idx) => (
-                    <AlertRow key={idx} alert={alert} />
+                  {SAMPLE_ALERTS.map((alert) => (
+                    <AlertRow key={`${alert.detector}-${alert.minutesAgo}`} alert={alert} />
                   ))}
                 </ul>
               </div>
@@ -179,13 +164,10 @@ export default function Home() {
         <section id="install" className="border-b border-border">
           <div className="mx-auto w-full max-w-5xl px-6 py-20">
             <div className="mb-8 flex flex-col gap-3">
-              <h2 className="text-3xl font-semibold tracking-tight">
-                Self-host in 5 minutes
-              </h2>
+              <h2 className="text-3xl font-semibold tracking-tight">Self-host in 5 minutes</h2>
               <p className="max-w-2xl text-muted-strong">
-                One binary, zero vendor lock-in. Runs on any Node.js 20+ or the
-                published Docker image. Free-tier Helius or the public devnet
-                RPC is enough to get started.
+                One binary, zero vendor lock-in. Runs on any Node.js 20+ or the published Docker
+                image. Free-tier Helius or the public devnet RPC is enough to get started.
               </p>
             </div>
             <div className="overflow-hidden rounded-lg border border-border bg-surface">
@@ -207,23 +189,22 @@ npm run dev                 # daemon connects, seeds baseline, starts watching`}
                 <div className="mb-1 font-mono text-[11px] uppercase tracking-wider text-muted">
                   Prereqs
                 </div>
-                Node.js 20+, an RPC endpoint (Helius free tier works), accounts
-                to watch (Squads PDA, SPL Governance realm, or nonce account).
+                Node.js 20+, an RPC endpoint (Helius free tier works), accounts to watch (Squads
+                PDA, SPL Governance realm, or nonce account).
               </div>
               <div>
                 <div className="mb-1 font-mono text-[11px] uppercase tracking-wider text-muted">
                   Alerts go to
                 </div>
-                stdout by default. Optional Discord and Slack webhooks fan out
-                every alert to every configured sink.
+                stdout by default. Optional Discord and Slack webhooks fan out every alert to every
+                configured sink.
               </div>
               <div>
                 <div className="mb-1 font-mono text-[11px] uppercase tracking-wider text-muted">
                   Reliability
                 </div>
-                WebSocket reconnect with exponential backoff, baseline seeding
-                before subscribe, 5s per-detector timeout with low-severity
-                surfaced errors.
+                WebSocket reconnect with exponential backoff, baseline seeding before subscribe, 5s
+                per-detector timeout with low-severity surfaced errors.
               </div>
             </div>
           </div>

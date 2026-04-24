@@ -8,9 +8,9 @@ function formatAgo(minutes: number): string {
   return `${hours}h ago`;
 }
 
-function truncateKey(key: string): string {
-  if (key.length <= 16) return key;
-  return `${key.slice(0, 4)}…${key.slice(-4)}`;
+function truncateValue(value: string): string {
+  if (value.length <= 20) return value;
+  return `${value.slice(0, 4)}…${value.slice(-4)}`;
 }
 
 export function AlertRow({ alert }: { alert: SampleAlert }) {
@@ -33,7 +33,7 @@ export function AlertRow({ alert }: { alert: SampleAlert }) {
             {contextEntries.map(([key, value]) => (
               <div key={key} className="contents">
                 <dt className="text-muted">{key}</dt>
-                <dd className="truncate">{truncateKey(String(value))}</dd>
+                <dd className="truncate">{truncateValue(String(value))}</dd>
               </div>
             ))}
           </dl>

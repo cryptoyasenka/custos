@@ -30,14 +30,12 @@ export const metadata: Metadata = {
     description,
     url: siteUrl,
     siteName: "Custos Nox",
-    images: [{ url: "/logo.png", width: 1024, height: 1024, alt: "Custos Nox" }],
     type: "website",
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Custos Nox",
     description,
-    images: ["/logo.png"],
   },
 };
 

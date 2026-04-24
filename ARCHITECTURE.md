@@ -145,10 +145,17 @@ Env-var driven (see `.env.example`):
 | `CUSTOS_DISCORD_WEBHOOK` | no       | Discord webhook URL                                          |
 | `CUSTOS_SLACK_WEBHOOK`   | no       | Slack webhook URL                                            |
 
+## Dashboard (marketing site)
+
+`dashboard/` is a Next.js static site with a detector catalog and
+sample event feed. It is a marketing/landing page with hardcoded sample
+data — it is NOT connected to a live daemon. A real-time monitoring
+dashboard that subscribes to a running daemon is roadmap.
+
 ## Out of MVP scope
 
 - `StaleNonceExecutionDetector` (roadmap — needs `onLogs` ingestor and
   nonce-creation-time tracking)
+- Real-time monitoring dashboard (live alert feed from a running daemon)
 - Multi-tenant SaaS
-- Dashboard web UI (v2)
 - Historical replay UI (CLI replay in MVP)

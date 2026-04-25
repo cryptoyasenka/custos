@@ -45,8 +45,9 @@ Living document — update statuses inline as work progresses.
 
 | # | Item | Status | Notes |
 | - | ---- | ------ | ----- |
-| C1 | Online Demo Day date + link found | ⬜ BLOCKER | Not on Luma (only offline Kyiv `luma.com/demodayua` 2026-05-09). Search TG @KumekaTeam or ask in @KumekaGroup |
-| C2 | Registration | ⬜ BLOCKED by C1 | Task #17 |
+| C1 | Online Demo Day date + link found | ✅ DONE | `luma.com/demodayonline` — requires wallet ownership verification. ~May 8 (search intel). Prizes: $500/$200/$100 for pitching MVP |
+| C2 | Registration (online) | ⬜ TODO | Visit `luma.com/demodayonline`, connect wallet, request approval |
+| C3 | Offline Demo Day Kyiv (optional) | ⬜ OPTIONAL | `luma.com/demodayua` — 2026-05-09 |
 
 ---
 
@@ -69,13 +70,37 @@ Living document — update statuses inline as work progresses.
 
 ---
 
+## G. Project X / Twitter account — MANDATORY for submission form
+
+Submission form asks for "Project X account link" — separate from personal @yasenka244.
+
+| # | Item | Status | Notes |
+| - | ---- | ------ | ----- |
+| G1 | Choose handle (check collisions) | ⬜ TODO | Candidates: `@CustosNox`, `@CustosNoxSec`, `@custos_nox`. WebSearch before creating |
+| G2 | Create X account | ⬜ TODO | Clean minimalist logo, banner with "Frontier Hackathon participant", bio: one sentence + @SuperteamUKR |
+| G3 | Pin intro thread | ⬜ TODO | Draft in `planning/X-PROJECT-ACCOUNT.md` (see below) |
+| G4 | Follow judges + @colosseum + @SuperteamUKR | ⬜ TODO | Engage on their posts for organic reach |
+
+---
+
+## H. Community visibility (Superteam UA guide requirements)
+
+| # | Item | Status | Notes |
+| - | ---- | ------ | ----- |
+| H1 | Legends.fun registration | ⬜ TODO | Guide says "register and announce listing" for ecosystem visibility |
+| H2 | Crafts.fun registration | ⬜ TODO | Same — tag platform when announcing |
+| H3 | Pitch draft → Karina review | ⬜ TODO | Guide says send pitch to @KumekaTeam (Karina) before Week 4. Review window closing soon |
+| H4 | Superteam UA TG announcement | ⬜ TODO | Post in @KumekaGroup: project name, GitHub, live URL, what it does |
+
+---
+
 ## F. Videos — single biggest block of remaining work
 
 | # | Purpose | Length | Lang | Status | Task |
 | - | ------- | ------ | ---- | ------ | ---- |
-| F1 | Week 3 progress Loom (community update) | 1 min | EN | 🟡 MONTAGE | #6 — demo-raw.mkv ✅, Sonia VO ✅. Yana in CapCut 2026-04-24. Upload → Arena Week 3 field |
-| F2 | Pitch video (final) | ≤2 min | EN | ⬜ TODO | #10 |
-| F3 | Tech demo video | 2–3 min | EN | ⬜ TODO | #11 |
+| F1 | Week 3 progress update | 1 min | EN | 🟡 UPLOAD NEEDED | `video-build/неделя 3/неделя 3.mp4` (25MB) ✅ assembled 2026-04-25. **Upload to YouTube (unlisted) + paste URL in Arena Week 3 field before 2026-04-26!** |
+| F2 | Pitch video (final) | ≤2 min | EN | ⬜ TODO | #10. Script draft in `planning/ARENA-SUBMISSION-DRAFT.md` |
+| F3 | Tech demo video | 2–3 min | EN | ⬜ TODO | #11. Show daemon + 3 alerts + architecture diagram |
 
 Scripts exist: `planning/VIDEO-SCRIPT.md`, `planning/video-week-3.md`, `planning/video-week-3-ru.md`.
 

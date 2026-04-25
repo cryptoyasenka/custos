@@ -110,10 +110,38 @@ If only one track allowed, choose **Security / DeFi Infrastructure**.
 
 ---
 
+## A9 — Project X / Twitter account
+
+**Required field** (per Superteam UA guide — submission form asks for project Twitter handle).
+
+→ Create `@CustosNox` account first. Full setup guide: `planning/X-PROJECT-ACCOUNT.md`
+
+Once created: `https://x.com/CustosNox`
+
+---
+
+## A10 — Pitch video URL (≤2 min, English)
+
+⬜ TODO — script outline in `planning/ARENA-SUBMISSION-DRAFT.md` A7 (Problem/Solution/Demo sections).
+
+Record on Loom (preferred by judges per guide). Or YouTube unlisted.
+
+---
+
+## A11 — Tech demo video URL (2–3 min, English)
+
+⬜ TODO — show: daemon start → alert for each of 3 detectors → architecture diagram.
+
+Anti-pattern to avoid: recording IDE/GitHub with voiceover — must show product running.
+
+---
+
 ## Arena form checklist before paste
 
+- [ ] Create project X account `@CustosNox` (needed for A9 field)
 - [ ] Verify character count for A6 in Arena's actual input field
-- [ ] Check if Arena allows markdown in A7 (if not, strip formatting)
+- [ ] Check if Arena allows markdown in A7 (if not, strip `**` / `###` formatting)
 - [ ] Check if Arena lets you select multiple tracks (A8)
-- [ ] A9/A10: video URLs ready before final submit
-- [ ] Click SUBMIT (A12) before 2026-05-10 23:59 PDT
+- [ ] Videos F2 + F3 recorded and uploaded (Loom preferred)
+- [ ] Mark "Superteam Ukraine" affiliation in form (mandatory for Ukrainian Sidetrack)
+- [ ] Click SUBMIT before 2026-05-10 23:59 PDT

@@ -6,10 +6,23 @@
 
 ---
 
+## SESSION 2026-04-25 DONE ✅
+
+- `StaleNonceExecutionDetector` live (4th detector, 12 tests) → 147/147 passing
+- README/dashboard/submission draft: all say "4 detectors", "147 tests", v0.2
+- `planning/PITCH-SCRIPT-F2.md` — complete 2-min pitch script (7 slides)
+- `planning/TECH-DEMO-SCRIPT-F3.md` — complete 2:40 tech demo script
+- `planning/X-PROJECT-ACCOUNT.md` — @CustosNox handle, bio, intro thread, content calendar
+- F1 marked DONE in checklist (Yana confirmed uploaded 2026-04-24)
+- C1 DONE: Online Demo Day = `luma.com/demodayonline` (~May 8)
+- Commits: `f20e279`, `27149aa`, `d21d459` (all pushed to main)
+
+---
+
 ## WHAT EXISTS NOW
 
 ### Code (daemon)
-- 3/4 MVP detectors live: TimelockRemoval, MultisigWeakening, PrivilegedNonce
+- **4/4 MVP detectors live:** TimelockRemoval, MultisigWeakening, PrivilegedNonce, StaleNonceExecution
 - WS supervisor (reconnect backoff), per-detector 5s timeout, FanOut alert sinks
 - Discord + Slack webhook sinks
 - 135 tests, GitHub Actions CI green
@@ -41,36 +54,35 @@
 ## CRITICAL PATH (remaining work to 2026-05-10)
 
 ```
-TODAY/TOMORROW (Yana action needed):
-  F1 upload → Arena Week 3 field  [DEADLINE 2026-04-26!]
+NOW (Yana action needed, no code):
+  Create @CustosNox X account → post intro thread  [guide: planning/X-PROJECT-ACCOUNT.md]
+  Register luma.com/demodayonline (~May 8, wallet auth needed)
+  Discord #show-and-tell: check rules → post link to dashboard
 
-THIS WEEK:
-  Create @CustosNox X account → post intro thread
-  Register luma.com/demodayonline (online Demo Day ~May 8, wallet auth)
-  Check Discord #show-and-tell rules → post there
-
-WEEKS 3-4:
-  F2: Pitch video ≤2 min EN (script in ARENA-SUBMISSION-DRAFT.md A7)
-  F3: Tech demo 2-3 min EN (daemon + 3 alerts + architecture diagram)
+WEEK 4 (before May 10):
+  Record F2 pitch video ≤2 min  [script: planning/PITCH-SCRIPT-F2.md]
+  Record F3 tech demo 2-3 min   [script: planning/TECH-DEMO-SCRIPT-F3.md]
   Register Legends.fun + Crafts.fun
   Send pitch draft to Karina @KumekaTeam for review
-  TG announcement in @KumekaGroup
+  Post in @KumekaGroup (Superteam UA TG)
 
-FINAL WEEK:
-  Fill Arena form (A5–A11) → mark Superteam Ukraine affiliation → A12 SUBMIT
-  Submit Ukrainian Sidetrack on Superteam Earn (B4)
+FINAL:
+  Fill Arena form (A5–A11) → Superteam Ukraine affiliation → A12 SUBMIT
+  Submit Ukrainian Sidetrack (B4)
   Discord final post (D4)
 ```
 
 ---
 
-## KNOWN GAPS (from Superteam UA guide comparison 2026-04-25)
+## KNOWN GAPS (all require Yana's action)
 
-1. **X project account** — `@CustosNox` not created (mandatory submission field)
-2. **Legends.fun + Crafts.fun** — not registered (guide requirement for ecosystem visibility)
-3. **Pitch review by Karina** — not sent (guide recommends Week 3 → Week 4)
-4. **Superteam UA TG announcement** — not posted in @KumekaGroup
-5. **Online Demo Day registration** — link found (`luma.com/demodayonline`), not registered
+1. **X project account** — `@CustosNox` not created (mandatory submission field). Guide: `planning/X-PROJECT-ACCOUNT.md`
+2. **F2 pitch video** — script ready at `planning/PITCH-SCRIPT-F2.md`, needs recording
+3. **F3 tech demo** — script ready at `planning/TECH-DEMO-SCRIPT-F3.md`, needs recording
+4. **Online Demo Day** — `luma.com/demodayonline`, not registered (wallet auth)
+5. **Legends.fun + Crafts.fun** — not registered
+6. **Pitch review by Karina** — not sent to @KumekaTeam
+7. **Superteam UA TG announcement** — not posted in @KumekaGroup
 
 ---
 
@@ -79,11 +91,15 @@ FINAL WEEK:
 - Arena account + founder profile (2026-04-18)
 - Project on Arena: Custos Nox, category Security Tools
 - GitHub repo public: `github.com/cryptoyasenka/custos-nox`
-- Live demo URL: `custos-nox-production.up.railway.app`
+- Live dashboard: `custos-nox-production.up.railway.app` (Railway)
 - Discord Colosseum intro posted (2026-04-23, D1 done)
-- 135 tests passing, CI green
-- Week 3 video assembled (needs upload only)
-- Full submission text drafted
+- **147 tests passing**, CI green, 4/4 detectors live
+- **F1 Week 3 video uploaded** (2026-04-24) ✅
+- **Online Demo Day link found**: `luma.com/demodayonline`
+- Full submission text drafted (`planning/ARENA-SUBMISSION-DRAFT.md`)
+- F2 pitch script ready (`planning/PITCH-SCRIPT-F2.md`)
+- F3 tech demo script ready (`planning/TECH-DEMO-SCRIPT-F3.md`)
+- X account guide ready (`planning/X-PROJECT-ACCOUNT.md`)
 
 ---
 
@@ -93,10 +109,9 @@ FINAL WEEK:
 cd /c/Projects/custos
 git log --oneline -3
 npm test --silent 2>&1 | tail -3
-ls video-build/неделя\ 3/
 ```
 
-Expected: `45223f8` or newer, 135 passing, `неделя 3.mp4` present (25MB).
+Expected: `d21d459` on top, 147 passing.
 
 ---
 

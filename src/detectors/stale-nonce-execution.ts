@@ -16,9 +16,40 @@ const BLOCKHASH_LENGTH = 32;
 // Default: nonce created ≥1 hour before use is considered stale.
 export const DEFAULT_STALE_THRESHOLD_SECS = 3600;
 
+// Hard cap on tracked nonces. With the default 1h threshold and a 100-event
+// eviction cadence this is generous; it only matters if an operator points the
+// daemon at thousands of nonces with a multi-decade staleSecs.
+export const MAX_TRACKED_NONCES = 10_000;
+
+// Eviction runs every Nth call to keep per-event overhead negligible.
+export const EVICTION_CADENCE = 100;
+
+// Entries older than `thresholdMs * STALE_RETENTION_MULTIPLIER` cannot trigger
+// any future alert that wasn't already triggered, so they are safe to drop.
+const STALE_RETENTION_MULTIPLIER = 2;
+
+export function evictStale(
+  map: Map<string, number>,
+  nowMsValue: number,
+  thresholdMs: number,
+  maxTracked: number = MAX_TRACKED_NONCES,
+): void {
+  const cutoffMs = nowMsValue - thresholdMs * STALE_RETENTION_MULTIPLIER;
+  for (const [key, ts] of map) {
+    if (ts < cutoffMs) map.delete(key);
+  }
+  if (map.size > maxTracked) {
+    const excess = map.size - maxTracked;
+    const oldest = [...map.entries()].sort((a, b) => a[1] - b[1]).slice(0, excess);
+    for (const [key] of oldest) map.delete(key);
+  }
+}
+
 export interface StaleNonceExecutionDetectorOptions {
   staleSecs?: number;
   nowMs?: () => number;
+  maxTracked?: number;
+  evictionCadence?: number;
 }
 
 export function makeStaleNonceExecutionDetector(
@@ -26,9 +57,18 @@ export function makeStaleNonceExecutionDetector(
 ): Detector {
   const thresholdMs = (opts.staleSecs ?? DEFAULT_STALE_THRESHOLD_SECS) * 1000;
   const nowMs = opts.nowMs ?? (() => Date.now());
+  const maxTracked = opts.maxTracked ?? MAX_TRACKED_NONCES;
+  const evictionCadence = opts.evictionCadence ?? EVICTION_CADENCE;
 
   // account base58 → timestamp (ms) when nonce was first seen as initialized
   const firstSeenAt = new Map<string, number>();
+  let inspectCount = 0;
+
+  function maybeEvict(): void {
+    inspectCount += 1;
+    if (inspectCount % evictionCadence !== 0) return;
+    evictStale(firstSeenAt, nowMs(), thresholdMs, maxTracked);
+  }
 
   return {
     name: STALE_NONCE_DETECTOR_NAME,
@@ -52,6 +92,7 @@ export function makeStaleNonceExecutionDetector(
       if (event.previousData === null) {
         if (!firstSeenAt.has(accountBase58)) {
           firstSeenAt.set(accountBase58, event.timestamp * 1000);
+          maybeEvict();
         }
         return null;
       }
@@ -61,6 +102,7 @@ export function makeStaleNonceExecutionDetector(
       if (!prev || prev.state !== "initialized") {
         if (!firstSeenAt.has(accountBase58)) {
           firstSeenAt.set(accountBase58, event.timestamp * 1000);
+          maybeEvict();
         }
         return null;
       }
@@ -81,6 +123,7 @@ export function makeStaleNonceExecutionDetector(
       if (seenAt === undefined) {
         // Daemon started after nonce was created; record now and skip.
         firstSeenAt.set(accountBase58, nowMs());
+        maybeEvict();
         return null;
       }
 

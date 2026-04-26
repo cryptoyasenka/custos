@@ -5,6 +5,7 @@ import type { AccountChangeEvent, TransactionEvent } from "../types/events.js";
 import {
   DEFAULT_STALE_THRESHOLD_SECS,
   STALE_NONCE_DETECTOR_NAME,
+  evictStale,
   makeStaleNonceExecutionDetector,
 } from "./stale-nonce-execution.js";
 
@@ -190,6 +191,35 @@ describe("StaleNonceExecutionDetector", () => {
     );
     // No prior seed → should NOT fire (can't determine real staleness)
     expect(alert).toBeNull();
+  });
+
+  it("evicts entries older than 2x threshold from firstSeenAt", () => {
+    const map = new Map<string, number>();
+    const thresholdMs = 1_000;
+    const nowMsValue = 10_000;
+    // 3000 < (10000 - 2*1000) = 8000 → fresh entry actually older than cutoff → evict
+    map.set("old", 3_000);
+    // 9000 > 8000 → kept
+    map.set("fresh", 9_000);
+    evictStale(map, nowMsValue, thresholdMs);
+    expect(map.has("old")).toBe(false);
+    expect(map.has("fresh")).toBe(true);
+  });
+
+  it("respects MAX_TRACKED hard cap by dropping the oldest entries", () => {
+    const map = new Map<string, number>();
+    // All entries are inside the 2x threshold window so the time-based pass
+    // doesn't touch them — only the cap should fire.
+    const nowMsValue = 100_000;
+    const thresholdMs = 1_000_000;
+    map.set("a", 90_000);
+    map.set("b", 91_000);
+    map.set("c", 92_000);
+    evictStale(map, nowMsValue, thresholdMs, 2);
+    expect(map.size).toBe(2);
+    expect(map.has("a")).toBe(false);
+    expect(map.has("b")).toBe(true);
+    expect(map.has("c")).toBe(true);
   });
 
   it("uses account explorer link when signature is null", async () => {

@@ -43,11 +43,12 @@ Here's what it does:
 
 **Tweet 2:**
 ```
-Three detectors live on devnet:
+Four detectors live on devnet:
 
 • TimelockRemovalDetector — fires when governance timelock drops to zero
-• MultisigWeakeningDetector — fires when Squads signer threshold is reduced (5-of-7 → 1-of-7)
+• MultisigWeakeningDetector — fires when Squads signer threshold is reduced (e.g. 5-of-7 → 1-of-7)
 • PrivilegedNonceDetector — fires when a nonce account is initialized or authority rotated
+• StaleNonceExecutionDetector — fires when a pre-signed durable nonce executes hours after seeding
 
 Each = one step of the April 2026 Drift attack chain.
 ```
@@ -65,7 +66,7 @@ Custos Nox watches. Sub-second alerts to Discord or Slack.
 
 **Tweet 4:**
 ```
-Tech: TypeScript daemon, Helius WebSocket, @solana. Zero Rust. 135 tests. MIT licensed.
+Tech: TypeScript daemon, Helius WebSocket, @solana. Zero Rust. 147 tests, GitHub Actions CI green. MIT licensed.
 
 Self-host in 5 min:
 npm install && npm run dev
@@ -105,11 +106,11 @@ Days 6+ (every other day):
 6. Detector deep-dive: TimelockRemoval
 7. Detector deep-dive: MultisigWeakening
 8. Detector deep-dive: PrivilegedNonce
-9. "StaleNonceExecution — what we're building next"
-10. Progress update: 135 tests, CI green, GitHub Actions
+9. Detector deep-dive: StaleNonceExecution (the final-step detector that catches the drain itself)
+10. Progress update: 147 tests, CI green, GitHub Actions
 11. How to self-host in 5 minutes
 12. Call to action: "What DAO/multisig should we add next?"
-13. Demo Day announcement post
+13. Demo Day Online announcement post (link luma.com/demodayonline)
 14. Submission week post
 15. Final "thank you" + results post
 
@@ -120,5 +121,5 @@ Tag sparingly (1-2 max, only contextually). Engage their existing posts.
 
 ## Platforms to register (after X account created)
 
-- **Legends.fun** — create profile, announce project listing
-- **Crafts.fun** — same; tag @legends_fun / @CraftsSolana in announcement post
+- **Legends.fun** — create profile, announce project listing (real platform, Solana VCs scout there)
+- ~~Crafts.fun~~ — REMOVED 2026-04-26: platform not found via WebSearch, do not waste time

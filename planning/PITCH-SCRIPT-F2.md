@@ -14,12 +14,13 @@ Suggested slides: 5–7 slides, minimal text, one idea each.
 
 **[SLIDE 1 — "April 1, 2026"]**
 
-On April 1, 2026, $285 million was drained from Drift Protocol.
+On April 1, 2026, $285 million was drained from Drift Protocol — more than half
+of its total value locked.
 
-The attack didn't happen in one transaction. It took days. The attacker quietly
-removed a governance timelock, weakened a multisig to single-signer control,
-seeded a durable nonce — and then waited. Every one of those moves happened on
-chain. In public. Nobody noticed.
+The attack didn't happen in one transaction. It took weeks. A migrated Security
+Council multisig with a 2-of-5 threshold and zero timelock. Durable nonces
+seeded by privileged signers. A pre-signed admin transfer waiting in the queue.
+Every one of those moves happened on chain. In public. Nobody noticed.
 
 ---
 
@@ -91,18 +92,18 @@ devnet, and the four detectors are watching right now.
 
 | Section | ~Words | ~Time |
 | ------- | ------ | ----- |
-| Hook (Drift attack) | 55 | 0:22 |
+| Hook (Drift attack) | 65 | 0:26 |
 | Problem (STRIDE gap) | 40 | 0:16 |
 | Solution | 60 | 0:24 |
 | Traction | 40 | 0:16 |
 | GTM | 45 | 0:18 |
 | Vision | 45 | 0:18 |
 | Close | 30 | 0:12 |
-| **Total** | **315** | **~2:06** |
+| **Total** | **325** | **~2:10** |
 
 **To hit 1:50:** Cut one of these:
-- Option A: Drop the Vision slide (cut ~45 words → 270 words, 1:48) ← recommended
-- Option B: Tighten GTM to 2 sentences
+- Option A: Drop the Vision slide (cut ~45 words → 280 words, 1:52) ← recommended
+- Option B: Drop Vision + tighten GTM to 2 sentences (260 words, 1:44)
 
 ---
 

@@ -26,11 +26,14 @@ interface FakeHandle {
   getAccountInfoMock: ReturnType<typeof vi.fn>;
   getSlotMock: ReturnType<typeof vi.fn>;
   onAccountChangeMock: ReturnType<typeof vi.fn>;
+  removeListenerMock: ReturnType<typeof vi.fn>;
+  getSignaturesForAddressMock: ReturnType<typeof vi.fn>;
 }
 
 function makeFakeConnection(opts?: {
   baselines?: Map<string, Buffer>;
   slotImpl?: () => Promise<number>;
+  signaturesImpl?: (account: PublicKey, slot: number) => Array<{ signature: string; slot: number }>;
 }): { connection: Connection; handle: FakeHandle } {
   const listeners = new Map<string, (info: AccountInfo<Buffer>, ctx: Context) => void>();
 
@@ -51,10 +54,26 @@ function makeFakeConnection(opts?: {
     return 1;
   });
 
+  let nextSubId = 1;
   const onAccountChangeMock = vi.fn(
     (account: PublicKey, cb: (info: AccountInfo<Buffer>, ctx: Context) => void) => {
       listeners.set(account.toBase58(), cb);
-      return 0;
+      return nextSubId++;
+    },
+  );
+
+  const removeListenerMock = vi.fn(async (_id: number): Promise<void> => {
+    // Real Connection clears its server-side subscription. We don't model that
+    // here — tests only assert the call happened.
+  });
+
+  const getSignaturesForAddressMock = vi.fn(
+    async (account: PublicKey, conf: { limit?: number }, _commitment?: string) => {
+      if (opts?.signaturesImpl) {
+        // Slot is best-effort context; pass 0 if unknown.
+        return opts.signaturesImpl(account, 0).slice(0, conf.limit ?? 10);
+      }
+      return [];
     },
   );
 
@@ -62,6 +81,8 @@ function makeFakeConnection(opts?: {
     getAccountInfo: getAccountInfoMock,
     getSlot: getSlotMock,
     onAccountChange: onAccountChangeMock,
+    removeAccountChangeListener: removeListenerMock,
+    getSignaturesForAddress: getSignaturesForAddressMock,
   } as unknown as Connection;
 
   const handle: FakeHandle = {
@@ -80,6 +101,8 @@ function makeFakeConnection(opts?: {
     getAccountInfoMock,
     getSlotMock,
     onAccountChangeMock,
+    removeListenerMock,
+    getSignaturesForAddressMock,
   };
 
   return { connection, handle };
@@ -303,6 +326,150 @@ describe("startSupervisor integration", () => {
 
     await sup.stop();
   }, 10_000);
+
+  it("removes the account-change listener on reconnect", async () => {
+    let slotCalls = 0;
+    const { connection: conn1, handle: h1 } = makeFakeConnection({
+      slotImpl: async () => {
+        slotCalls += 1;
+        if (slotCalls === 1) throw new Error("rpc dead");
+        return 1;
+      },
+    });
+    const { connection: conn2 } = makeFakeConnection();
+    const factory = vi.fn().mockReturnValueOnce(conn1).mockReturnValueOnce(conn2);
+
+    const sup = await startSupervisor({
+      config: makeConfig(),
+      sink: makeSink([]),
+      detectors: [],
+      connectionFactory: factory,
+      healthCheckIntervalMs: 20,
+    });
+
+    // Initial subscribe registered exactly one listener with id=1.
+    expect(h1.onAccountChangeMock).toHaveBeenCalledTimes(1);
+    expect(h1.removeListenerMock).not.toHaveBeenCalled();
+
+    // After reconnect, the supervisor should have unregistered the old listener.
+    await vi.waitFor(() => expect(h1.removeListenerMock).toHaveBeenCalledTimes(1), {
+      timeout: 3_000,
+    });
+    expect(h1.removeListenerMock).toHaveBeenCalledWith(1);
+
+    await sup.stop();
+  }, 10_000);
+
+  it("removes account-change listeners on stop()", async () => {
+    const { connection, handle } = makeFakeConnection();
+    const sup = await startSupervisor({
+      config: makeConfig(),
+      sink: makeSink([]),
+      detectors: [],
+      connectionFactory: () => connection,
+      healthCheckIntervalMs: 60_000,
+    });
+
+    expect(handle.removeListenerMock).not.toHaveBeenCalled();
+    await sup.stop();
+    expect(handle.removeListenerMock).toHaveBeenCalledTimes(1);
+    expect(handle.removeListenerMock).toHaveBeenCalledWith(1);
+  });
+
+  it("backfills txSignature via getSignaturesForAddress when an alert fires", async () => {
+    const received: Alert[] = [];
+    const { connection, handle } = makeFakeConnection({
+      signaturesImpl: () => [{ signature: "backfilled-sig-abc", slot: 2 }],
+    });
+
+    const firing: Detector = {
+      name: "firing",
+      description: "",
+      inspect: async (event) => ({
+        detector: "firing",
+        severity: "high",
+        subject: "x",
+        txSignature: null,
+        cluster: event.cluster,
+        timestamp: event.timestamp,
+        explorerLink: "",
+        context: {},
+      }),
+    };
+
+    const sup = await startSupervisor({
+      config: makeConfig(),
+      sink: makeSink(received),
+      detectors: [firing],
+      connectionFactory: () => connection,
+      healthCheckIntervalMs: 60_000,
+    });
+
+    handle.fireChange(WATCH_ACCOUNT, Buffer.from([1]), 2);
+    await vi.waitFor(() => expect(received.length).toBe(1));
+    expect(handle.getSignaturesForAddressMock).toHaveBeenCalledTimes(1);
+    expect(received[0]?.txSignature).toBe("backfilled-sig-abc");
+    expect(received[0]?.explorerLink).toContain("/tx/backfilled-sig-abc");
+
+    await sup.stop();
+  });
+
+  it("does not call getSignaturesForAddress when no detector fires", async () => {
+    const { connection, handle } = makeFakeConnection();
+    const silent = recordingDetector("silent", () => {});
+
+    const sup = await startSupervisor({
+      config: makeConfig(),
+      sink: makeSink([]),
+      detectors: [silent],
+      connectionFactory: () => connection,
+      healthCheckIntervalMs: 60_000,
+    });
+
+    handle.fireChange(WATCH_ACCOUNT, Buffer.from([1]));
+    // Give dispatch a tick to settle.
+    await new Promise((r) => setTimeout(r, 30));
+    expect(handle.getSignaturesForAddressMock).not.toHaveBeenCalled();
+
+    await sup.stop();
+  });
+
+  it("falls back to alert with null signature when backfill returns empty", async () => {
+    const received: Alert[] = [];
+    const { connection, handle } = makeFakeConnection({
+      signaturesImpl: () => [],
+    });
+
+    const firing: Detector = {
+      name: "firing",
+      description: "",
+      inspect: async (event) => ({
+        detector: "firing",
+        severity: "high",
+        subject: "x",
+        txSignature: null,
+        cluster: event.cluster,
+        timestamp: event.timestamp,
+        explorerLink: "fallback-link",
+        context: {},
+      }),
+    };
+
+    const sup = await startSupervisor({
+      config: makeConfig(),
+      sink: makeSink(received),
+      detectors: [firing],
+      connectionFactory: () => connection,
+      healthCheckIntervalMs: 60_000,
+    });
+
+    handle.fireChange(WATCH_ACCOUNT, Buffer.from([1]));
+    await vi.waitFor(() => expect(received.length).toBe(1));
+    expect(received[0]?.txSignature).toBeNull();
+    expect(received[0]?.explorerLink).toBe("fallback-link");
+
+    await sup.stop();
+  });
 
   it("stop() prevents further reconnects", async () => {
     const { connection: conn1 } = makeFakeConnection({

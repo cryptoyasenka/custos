@@ -1,15 +1,54 @@
-import { type AccountInfo, Connection, type Context } from "@solana/web3.js";
+import { type AccountInfo, Connection, type Context, type PublicKey } from "@solana/web3.js";
 import type { AlertSink } from "./alerts/stdout.js";
 import type { DaemonConfig, WatchEntry } from "./config.js";
+import { buildExplorerLink } from "./detectors/_shared.js";
 import { dispatch } from "./registry.js";
-import type { AccountChangeEvent, Detector } from "./types/events.js";
+import type { AccountChangeEvent, Alert, Cluster, Detector } from "./types/events.js";
 
 const INITIAL_BACKOFF_MS = 1_000;
 const MAX_BACKOFF_MS = 60_000;
 const DEFAULT_HEALTH_CHECK_INTERVAL_MS = 30_000;
+// How many recent signatures to scan when backfilling the trigger tx for an
+// account-change alert. The triggering tx is overwhelmingly the most recent;
+// 5 gives slack for slot fan-out.
+const SIGNATURE_BACKFILL_LIMIT = 5;
 
 export function nextBackoff(current: number): number {
   return Math.min(current * 2, MAX_BACKOFF_MS);
+}
+
+export async function backfillSignature(
+  conn: Connection,
+  account: PublicKey,
+  slot: number,
+): Promise<string | null> {
+  try {
+    const sigs = await conn.getSignaturesForAddress(
+      account,
+      { limit: SIGNATURE_BACKFILL_LIMIT },
+      "confirmed",
+    );
+    // Prefer an exact slot match; fall back to the newest entry. The websocket
+    // event slot is the slot the change was observed in, which equals the
+    // confirmed slot of the triggering tx.
+    const match = sigs.find((s) => s.slot === slot) ?? sigs[0];
+    return match?.signature ?? null;
+  } catch {
+    return null;
+  }
+}
+
+function enrichAlertWithSignature(
+  alert: Alert,
+  signature: string,
+  account: PublicKey,
+  cluster: Cluster,
+): Alert {
+  return {
+    ...alert,
+    txSignature: signature,
+    explorerLink: buildExplorerLink(signature, account, cluster),
+  };
 }
 
 export interface SupervisorOptions {
@@ -44,10 +83,26 @@ export async function startSupervisor(opts: SupervisorOptions): Promise<Supervis
 
   const previous = new Map<string, Buffer>();
   let connection: Connection | null = null;
+  // Subscription IDs returned by Connection.onAccountChange. Tracked so we can
+  // explicitly removeAccountChangeListener on reconnect/stop instead of
+  // relying on Connection garbage collection (zombie callbacks risk).
+  let subIds: number[] = [];
   let healthTimer: NodeJS.Timeout | null = null;
   let backoffMs = INITIAL_BACKOFF_MS;
   let stopping = false;
   let reconnecting = false;
+
+  async function unsubscribeAll(conn: Connection): Promise<void> {
+    const ids = subIds;
+    subIds = [];
+    for (const id of ids) {
+      try {
+        await conn.removeAccountChangeListener(id);
+      } catch (err) {
+        log(`unsubscribe ${id} failed: ${String(err)}`);
+      }
+    }
+  }
 
   async function seedBaseline(conn: Connection, entry: WatchEntry): Promise<void> {
     const key = entry.account.toBase58();
@@ -91,7 +146,7 @@ export async function startSupervisor(opts: SupervisorOptions): Promise<Supervis
   function subscribe(conn: Connection, entry: WatchEntry): void {
     const key = entry.account.toBase58();
     log(`subscribe account=${key} program=${entry.program.toBase58()}`);
-    conn.onAccountChange(
+    const subId = conn.onAccountChange(
       entry.account,
       (info: AccountInfo<Buffer>, ctx: Context) => {
         const prev = previous.get(key) ?? null;
@@ -109,8 +164,17 @@ export async function startSupervisor(opts: SupervisorOptions): Promise<Supervis
           cluster: config.cluster,
         };
         dispatch(event, detectors)
-          .then((alerts) => {
-            for (const alert of alerts) sink.handle(alert);
+          .then(async (alerts) => {
+            if (alerts.length === 0) return;
+            // Backfill the trigger tx signature once per change — onAccountChange
+            // doesn't carry it, so without this Solscan links go to /account/.
+            const sig = await backfillSignature(conn, entry.account, ctx.slot);
+            for (const alert of alerts) {
+              const enriched = sig
+                ? enrichAlertWithSignature(alert, sig, entry.account, config.cluster)
+                : alert;
+              sink.handle(enriched);
+            }
           })
           .catch((err) => {
             process.stderr.write(`[custos] dispatch error: ${String(err)}\n`);
@@ -118,6 +182,7 @@ export async function startSupervisor(opts: SupervisorOptions): Promise<Supervis
       },
       "confirmed",
     );
+    subIds.push(subId);
   }
 
   async function connectAndSubscribe(): Promise<void> {
@@ -132,6 +197,7 @@ export async function startSupervisor(opts: SupervisorOptions): Promise<Supervis
     if (stopping || reconnecting) return;
     reconnecting = true;
     log(`reconnecting (${reason}), backoff=${backoffMs}ms`);
+    if (connection) await unsubscribeAll(connection);
     connection = null; // drop old connection; GC closes underlying WS
     await sleep(backoffMs);
     if (stopping) {
@@ -175,6 +241,7 @@ export async function startSupervisor(opts: SupervisorOptions): Promise<Supervis
       }
       // Give in-flight dispatches a brief moment to finish before dropping.
       await sleep(50);
+      if (connection) await unsubscribeAll(connection);
       connection = null;
     },
   };

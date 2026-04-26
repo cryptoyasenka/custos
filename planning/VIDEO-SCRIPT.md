@@ -1,5 +1,17 @@
 # Video scripts — submission
 
+> **⚠️ ARCHIVED 2026-04-26 — DO NOT USE for Frontier May 9 submission.**
+>
+> This is an early draft from before the 4th detector (StaleNonceExecutionDetector)
+> shipped — it says "Three detectors are live today" and references 133 tests.
+>
+> Current scripts for F2/F3 hackathon submission:
+> - **F2 pitch video (≤2 min):** `PITCH-SCRIPT-F2.md`
+> - **F3 tech demo (2–3 min):** `TECH-DEMO-SCRIPT-F3.md`
+>
+> Both updated 2026-04-26 with all four detectors, $285M figure (Chainalysis),
+> 147 tests passing, and source-backed Drift attack-chain wording.
+
 Two videos required by Colosseum Frontier (see `../../planning/SUBMISSION-RULES.md`). Drafts below; iterate after detector #1 ships.
 
 ## Pitch video (≤3 minutes)

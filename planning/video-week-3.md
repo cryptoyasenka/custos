@@ -1,5 +1,16 @@
 # Week 3 Arena update video — recording instructions
 
+> **⚠️ ARCHIVED 2026-04-26 — Week 3 deadline. NOT for Frontier May 9 submission.**
+>
+> This script targets the 60–75 sec **Week 3 Arena update**, recorded with
+> only 3 detectors live and 133/135 tests. The 4th detector
+> (StaleNonceExecutionDetector) and 12 additional tests landed after this
+> script was finalized.
+>
+> For the Frontier May 9 submission, use:
+> - **F2 pitch video (≤2 min):** `PITCH-SCRIPT-F2.md`
+> - **F3 tech demo (2–3 min):** `TECH-DEMO-SCRIPT-F3.md`
+
 Target upload date: **2026-04-26**. Goal: 60–75 sec video proving
 Custos Nox is a working product, not a pitch deck. Live detection on
 devnet is the centerpiece — everything else is framing.

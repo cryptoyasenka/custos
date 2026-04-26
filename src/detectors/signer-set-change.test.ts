@@ -241,4 +241,60 @@ describe("SignerSetChangeDetector", () => {
       `https://solscan.io/account/${STUB_ACCOUNT.toBase58()}?cluster=devnet`,
     );
   });
+
+  // Boundary: empty members vector → first signer added. Real-world this
+  // happens during multisig genesis. Pure addition, MEDIUM.
+  it("emits MEDIUM when going from zero signers to one (genesis case)", async () => {
+    const first = Keypair.generate().publicKey;
+    const event = accountChangeEvent({
+      data: buildSquadsBuffer({ signers: [first] }),
+      previousData: buildSquadsBuffer({ signers: [] }),
+    });
+    const alert = await SignerSetChangeDetector.inspect(event);
+    expect(alert?.severity).toBe("medium");
+    expect(alert?.subject).toContain("1 signer(s) added");
+    expect(alert?.context).toMatchObject({
+      added: [first.toBase58()],
+      removed: [],
+      previousCount: 0,
+      currentCount: 1,
+    });
+  });
+
+  // Boundary: every signer removed. Pathological but observable on-chain.
+  // HIGH (multiple removals, no additions).
+  it("emits HIGH when every signer is removed (multisig fully purged)", async () => {
+    const a = Keypair.generate().publicKey;
+    const b = Keypair.generate().publicKey;
+    const event = accountChangeEvent({
+      data: buildSquadsBuffer({ signers: [] }),
+      previousData: buildSquadsBuffer({ signers: [a, b] }),
+    });
+    const alert = await SignerSetChangeDetector.inspect(event);
+    expect(alert?.severity).toBe("high");
+    expect(alert?.subject).toContain("2 signer(s) removed");
+    const ctx = alert?.context as { added: string[]; removed: string[] };
+    expect(ctx.added).toEqual([]);
+    expect(ctx.removed.sort()).toEqual([a.toBase58(), b.toBase58()].sort());
+  });
+
+  // Context shape contract: added/removed always arrays (never undefined),
+  // previousCount/currentCount always numbers. Webhook formatters depend on
+  // this — a missing field would crash the Discord embed builder.
+  it("guarantees stable context shape (added/removed always arrays, counts always numbers)", async () => {
+    const a = Keypair.generate().publicKey;
+    const b = Keypair.generate().publicKey;
+    const event = accountChangeEvent({
+      data: buildSquadsBuffer({ signers: [a, b] }),
+      previousData: buildSquadsBuffer({ signers: [a] }),
+    });
+    const alert = await SignerSetChangeDetector.inspect(event);
+    const ctx = alert?.context as Record<string, unknown>;
+    expect(Array.isArray(ctx.added)).toBe(true);
+    expect(Array.isArray(ctx.removed)).toBe(true);
+    expect(typeof ctx.previousCount).toBe("number");
+    expect(typeof ctx.currentCount).toBe("number");
+    expect(ctx.reason).toBe("signer_set_changed");
+    expect(typeof ctx.account).toBe("string");
+  });
 });

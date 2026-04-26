@@ -167,9 +167,9 @@ export default function Home() {
             <div className="mb-10 flex flex-col gap-3">
               <h2 className="text-3xl font-semibold tracking-tight">Attack chain replay</h2>
               <p className="max-w-2xl text-muted-strong">
-                All four Drift attack steps replayed against a devnet harness. Each fires a distinct
-                detector within a second — the same sequence that went undetected on mainnet in
-                April 2026.
+                All four Drift attack steps replayed against a devnet harness, plus an adjacent
+                signer-rotation event. Each fires a distinct detector within a second — the Drift
+                sequence is the one that went undetected on mainnet in April 2026.
               </p>
               <p className="max-w-2xl font-mono text-xs uppercase tracking-wider text-muted">
                 ⚠ Not live mainnet data — sample events for demo purposes

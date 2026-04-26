@@ -46,6 +46,27 @@ export const SAMPLE_ALERTS: SampleAlert[] = [
     },
   },
   {
+    detector: "squads-signer-set-change",
+    severity: "high",
+    subject: "Multisig AjULUVaCpzdGvCXgUkHLitkBR6nmn1M7AsHJ8sGgMZNy: 1 signer(s) removed, 1 added",
+    txSignature: null,
+    cluster: "devnet",
+    minutesAgo: 4,
+    explorerLink:
+      "https://solscan.io/account/AjULUVaCpzdGvCXgUkHLitkBR6nmn1M7AsHJ8sGgMZNy?cluster=devnet",
+    // Real detector context has `added` and `removed` as string[] (sorted base58).
+    // For the demo this rotation involves one signer each, so we render them as
+    // single base58 strings to match the existing AlertRow's truncation pattern.
+    context: {
+      reason: "signer_set_changed",
+      account: "AjULUVaCpzdGvCXgUkHLitkBR6nmn1M7AsHJ8sGgMZNy",
+      removed: "8wNTaRpyQqvBNeUpu5sHEiVj4kCksWpsLWQGcgctKuaB",
+      added: "GpojCu8tiL1FCnA1pMGxqYDpLJyJjPZN7vSkPCFyx5Yh",
+      previousCount: "5",
+      currentCount: "5",
+    },
+  },
+  {
     detector: "privileged-nonce",
     severity: "critical",
     subject:

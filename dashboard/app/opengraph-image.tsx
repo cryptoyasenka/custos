@@ -107,7 +107,7 @@ export default function OGImage() {
         <span
           style={{ fontSize: 12, color: MUTED, letterSpacing: 1.5, textTransform: "uppercase" }}
         >
-          v0.2 · MIT
+          v0.3 · MIT
         </span>
       </div>
 
@@ -148,7 +148,7 @@ export default function OGImage() {
       <div style={{ display: "flex", gap: 20, marginTop: 40 }}>
         {[
           { value: "4", label: "Detectors live" },
-          { value: "147", label: "Tests passing" },
+          { value: "164", label: "Tests passing" },
           { value: "$285M", label: "Drift loss tracked" },
           { value: "MIT", label: "License" },
         ].map((stat) => (

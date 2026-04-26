@@ -10,7 +10,7 @@ const GITHUB_URL = "https://github.com/cryptoyasenka/custos-nox";
 
 const STATS = [
   { label: "Detectors live", value: "4" },
-  { label: "Tests passing", value: "147" },
+  { label: "Tests passing", value: "164" },
   { label: "Drift loss tracked", value: "$285M" },
   { label: "Alert latency", value: "< 1s" },
 ];
@@ -69,7 +69,7 @@ export default function Home() {
             <div className="flex flex-col gap-6">
               <span className="inline-flex w-fit items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-muted-strong">
                 <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-                v0.2 · 4 detectors · MIT
+                v0.3 · 4 detectors · MIT
               </span>
               <h1 className="max-w-3xl text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
                 Watch the chain
@@ -133,7 +133,7 @@ export default function Home() {
                 <div className="mb-4 flex items-center gap-3">
                   <div className="h-px flex-1 bg-border" />
                   <span className="font-mono text-[11px] uppercase tracking-wider text-muted">
-                    Coming in v0.2
+                    Roadmap
                   </span>
                   <div className="h-px flex-1 bg-border" />
                 </div>

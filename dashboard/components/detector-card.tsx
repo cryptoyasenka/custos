@@ -18,7 +18,7 @@ export function DetectorCard({ detector }: { detector: DetectorMeta }) {
         </div>
         {isRoadmap ? (
           <span className="inline-flex items-center rounded border border-border px-1.5 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wider text-muted-strong">
-            v0.2
+            Roadmap
           </span>
         ) : (
           <SeverityBadge severity={detector.severity} />

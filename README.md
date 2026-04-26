@@ -145,6 +145,16 @@ docker logs -f custos
 The image runs as the built-in unprivileged `node` user and reads the
 same `CUSTOS_*` env vars documented in `.env.example`.
 
+## Contributing
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md). The short version: add a detector,
+write ≥10 unit tests, pass lint and typecheck.
+
+## Security
+
+To report a vulnerability in Custos Nox itself, see [SECURITY.md](./SECURITY.md).
+Do not open a public issue for security reports.
+
 ## Architecture
 
 See [ARCHITECTURE.md](./ARCHITECTURE.md).

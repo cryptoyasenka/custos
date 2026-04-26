@@ -52,6 +52,17 @@ steps:
 Any single detector firing would have bought hours of response time.
 Custos Nox catches all four steps of the attack chain.
 
+Beyond the Drift chain, the fifth detector covers an adjacent multisig
+takeover vector that has hit other Solana protocols — an attacker with
+config-authority access rewriting the members vector to evict legitimate
+signers. The vector is independent of the Drift chain (Drift used a
+threshold reduction, not a member rotation), but the same baseline-
+seeding and account-diff machinery catches it for free:
+
+| Adjacent vector                                    | Detector                       | Severity |
+| -------------------------------------------------- | ------------------------------ | -------- |
+| Members vector mutated (signer rotation/eviction)  | `squads-signer-set-change`     | high     |
+
 ## Positioning
 
 Solana Foundation's STRIDE program funds commercial monitoring for

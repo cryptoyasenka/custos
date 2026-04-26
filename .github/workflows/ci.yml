@@ -19,8 +19,11 @@ jobs:
 
       - run: npm ci
 
-      - name: Audit (high+)
-        run: npm audit --audit-level=high
+      - name: Audit prod deps (high+)
+        # Prod-only: devDeps (vitest, @sqds/multisig) carry their own CVE chains
+        # that never ship to operators. We only fail if something in `dist/`'s
+        # runtime closure has a high-severity advisory.
+        run: npm audit --omit=dev --audit-level=high
 
       - name: Lint
         run: npm run lint

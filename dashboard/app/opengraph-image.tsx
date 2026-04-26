@@ -59,6 +59,7 @@ export default function OGImage() {
           { sev: "CRITICAL", color: RED, label: "squads-timelock-removal" },
           { sev: "HIGH", color: AMBER, label: "squads-multisig-weakening" },
           { sev: "CRITICAL", color: RED, label: "privileged-nonce" },
+          { sev: "HIGH", color: AMBER, label: "stale-nonce-execution" },
         ].map((a) => (
           <div
             key={a.label}
@@ -106,7 +107,7 @@ export default function OGImage() {
         <span
           style={{ fontSize: 12, color: MUTED, letterSpacing: 1.5, textTransform: "uppercase" }}
         >
-          v0.1 · MIT
+          v0.2 · MIT
         </span>
       </div>
 
@@ -139,15 +140,15 @@ export default function OGImage() {
           fontFamily: "sans-serif",
         }}
       >
-        Open-source real-time attack monitor for Solana multisigs and DAOs. Catches 3 of the 4 steps
-        used to drain $285M from Drift.
+        Open-source real-time attack monitor for Solana multisigs and DAOs. Catches all 4 on-chain
+        steps used to drain $285M from Drift.
       </div>
 
       {/* Stats row */}
       <div style={{ display: "flex", gap: 20, marginTop: 40 }}>
         {[
-          { value: "3", label: "Detectors live" },
-          { value: "135", label: "Tests passing" },
+          { value: "4", label: "Detectors live" },
+          { value: "147", label: "Tests passing" },
           { value: "$285M", label: "Drift loss tracked" },
           { value: "MIT", label: "License" },
         ].map((stat) => (

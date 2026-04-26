@@ -31,11 +31,11 @@ const STEPS: TimelineStep[] = [
   {
     date: "Mar 26, 2026",
     leadTime: "6 days before drain",
-    event: "Threshold weakened",
+    event: "Multisig migrated",
     detector: "MultisigWeakeningDetector",
     severity: "high",
     description:
-      "Squads threshold reduced from 5-of-9 to 2-of-5. Treasury is now single-signer-equivalent.",
+      "Security Council multisig migrated to a new 2-of-5 threshold with zero timelock — minimum quorum, instant execution.",
   },
   {
     date: "Apr 1, 2026",
@@ -66,8 +66,8 @@ export function DriftTimeline() {
         <div className="absolute top-5 right-0 left-0 hidden h-px bg-border md:block" />
 
         <div className="grid gap-4 md:grid-cols-4">
-          {STEPS.map((step, i) => (
-            <div key={i} className="relative flex flex-col gap-3">
+          {STEPS.map((step) => (
+            <div key={step.event} className="relative flex flex-col gap-3">
               {/* Dot on the line */}
               <div className="hidden items-start md:flex">
                 <div

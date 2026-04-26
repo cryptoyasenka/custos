@@ -52,7 +52,9 @@ The other 99% — small DAOs, grant committees, treasury multisigs — have noth
 Custos Nox is an open-source daemon that watches Solana accounts over WebSocket
 and fires alerts the moment a config change matches a known attack pattern.
 
-Four detectors run live today, covering the full Drift April 2026 attack chain:
+Five detectors run live today. Four cover every on-chain step of the Drift
+April 2026 attack chain; the fifth catches an adjacent multisig takeover vector
+that has hit other Solana protocols.
 
 - **TimelockRemovalDetector** — fires when a governance timelock drops to zero
   or below half (Squads v4 + SPL Governance programs).
@@ -63,9 +65,13 @@ Four detectors run live today, covering the full Drift April 2026 attack chain:
 - **StaleNonceExecutionDetector** — fires when a durable nonce is advanced
   (pre-signed transaction executes) more than 1 hour after initialization.
   Catches the final step: the moment the attacker's pre-signed drain tx lands.
+- **SignerSetChangeDetector** — fires when a Squads v4 multisig's members
+  vector is mutated. Removal or rotation of a legitimate signer is HIGH; pure
+  additions are MEDIUM. The vector Drift didn't use, but other protocols have.
 
-Each detector maps directly to one step in the Drift April 2026 attack chain.
-Any single alert would have bought hours of response time.
+Four of the detectors map directly to one step each in the Drift April 2026
+attack chain; the fifth covers an adjacent signer-set takeover vector. Any
+single alert would have bought hours of response time.
 
 ### Architecture highlights
 
@@ -80,9 +86,12 @@ Any single alert would have bought hours of response time.
 
 ### Demo
 
-A devnet smoke harness (`scripts/`) reproduces all three Drift attack-chain steps
-end-to-end. Each script fires a real on-chain transaction; the daemon prints the
-corresponding alert within seconds.
+A devnet smoke harness (`scripts/`) reproduces three core Drift attack-chain
+steps end-to-end on chain (timelock removal, multisig weakening, privileged-nonce
+init), plus the adjacent signer-set rotation that the fifth detector catches.
+Each script fires a real on-chain transaction; the daemon prints the
+corresponding alert within seconds. The fourth Drift step — stale-nonce
+execution — is covered by 12 unit tests that match the exact Drift pattern.
 
 Live dashboard: https://custos-nox-production.up.railway.app
 GitHub: https://github.com/cryptoyasenka/custos-nox
@@ -93,7 +102,6 @@ GitHub: https://github.com/cryptoyasenka/custos-nox
   alerts via REST endpoint with webhook fan-out to any consumer.
 - **Mainnet watchlist** — pre-configured list of the top 50 Squads multisigs
   by TVL for zero-config monitoring.
-- API mode and hosted alert feed for teams that can't self-host.
 
 ---
 

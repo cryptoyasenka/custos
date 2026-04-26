@@ -50,7 +50,7 @@ tiers.
 
 **[SLIDE 4 — Traction / evidence]**
 
-The repo is public. 147 tests, GitHub Actions CI green. A devnet smoke harness
+The repo is public. 164 tests, GitHub Actions CI green. A devnet smoke harness
 lets any developer reproduce all four attack steps and watch the alerts fire in
 real time.
 
@@ -115,7 +115,7 @@ devnet, and the four detectors are watching right now.
 
 **Slide 3:** Image: architecture diagram (Helius WS → 4 Detectors → FanOut → Discord/Slack). Or: screenshot of daemon output showing all four colored alerts (timelock-removal, multisig-weakening, privileged-nonce, stale-nonce-execution).
 
-**Slide 4:** Screenshot: `npm test` showing 147 passing. Or: GitHub CI badge green.
+**Slide 4:** Screenshot: `npm test` showing 164 passing. Or: GitHub CI badge green.
 
 **Slide 5:** Text: "First users: Squads operators / One webhook URL / 5-min self-host"
 

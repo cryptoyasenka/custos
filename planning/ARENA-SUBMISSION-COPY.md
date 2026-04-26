@@ -43,7 +43,7 @@ Architecture highlights:
 • WebSocket with exponential backoff (1s → 60s) and 30-second slot health checks.
 • Alert fan-out to Discord webhooks, Slack webhooks, and stdout — all sinks receive every alert; one failing sink doesn't block the others.
 • Per-detector 5s timeout: a hanging detector surfaces a low-severity operational alert instead of silently blocking the pipeline.
-• 147 unit + integration tests; GitHub Actions CI on every push.
+• 164 unit + integration tests; GitHub Actions CI on every push.
 
 ---
 

@@ -37,7 +37,7 @@ Custos Nox fires on all 4. Here's the live devnet demo 🧵
 
 Week 4 on Custos Nox.
 
-4 detectors live. 147 tests green. Full Drift attack chain covered.
+4 detectors live. 164 tests green. Full Drift attack chain covered.
 
 Recording the pitch and tech demo this week, then submitting to @colosseum Frontier.
 

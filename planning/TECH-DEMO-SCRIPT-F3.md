@@ -121,7 +121,7 @@ operational alert instead of disappearing silently."
 
 **[2:20–2:40] — Close**
 
-"147 tests, all green. GitHub Actions CI on every push.
+"164 tests, all green. GitHub Actions CI on every push.
 Self-host: clone the repo, set three env vars, `npm run dev`.
 
 The code is at github.com/cryptoyasenka/custos-nox."
@@ -149,7 +149,7 @@ The code is at github.com/cryptoyasenka/custos-nox."
 2. Terminal 1 typing commands → Terminal 2 receiving colored alerts
 3. All 3 live alerts visible together in Terminal 2 scrollback (the 4th, stale-nonce-execution, is shown via test output rather than a live trigger — see script note at 1:40)
 4. Architecture diagram (README section or ARCHITECTURE.md)
-5. `npm test` output — 147 passing (optional, quick cut)
+5. `npm test` output — 164 passing (optional, quick cut)
 6. GitHub repo home page (final 5 seconds)
 
 ---

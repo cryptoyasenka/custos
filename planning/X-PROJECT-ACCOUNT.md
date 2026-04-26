@@ -66,7 +66,7 @@ Custos Nox watches. Sub-second alerts to Discord or Slack.
 
 **Tweet 4:**
 ```
-Tech: TypeScript daemon, Helius WebSocket, @solana. Zero Rust. 147 tests, GitHub Actions CI green. MIT licensed.
+Tech: TypeScript daemon, Helius WebSocket, @solana. Zero Rust. 164 tests, GitHub Actions CI green. MIT licensed.
 
 Self-host in 5 min:
 npm install && npm run dev
@@ -107,7 +107,7 @@ Days 6+ (every other day):
 7. Detector deep-dive: MultisigWeakening
 8. Detector deep-dive: PrivilegedNonce
 9. Detector deep-dive: StaleNonceExecution (the final-step detector that catches the drain itself)
-10. Progress update: 147 tests, CI green, GitHub Actions
+10. Progress update: 164 tests, CI green, GitHub Actions
 11. How to self-host in 5 minutes
 12. Call to action: "What DAO/multisig should we add next?"
 13. Demo Day Online announcement post (link luma.com/demodayonline)

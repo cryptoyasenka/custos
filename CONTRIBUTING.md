@@ -10,7 +10,7 @@ git clone https://github.com/cryptoyasenka/custos-nox
 cd custos-nox
 npm install
 cp .env.example .env      # set CUSTOS_RPC_URL and CUSTOS_WATCH
-npm test                  # 147 tests, all must pass
+npm test                  # 164 tests, all must pass
 npm run lint              # biome — no warnings allowed
 npm run typecheck         # strict mode
 ```
@@ -65,7 +65,7 @@ npm run smoke:nonce         # reproduces the March 23 Drift step on devnet
 
 ## PR checklist
 
-- [ ] `npm test` passes (all 147+ tests green)
+- [ ] `npm test` passes (all 164+ tests green)
 - [ ] `npm run lint` — zero warnings
 - [ ] `npm run typecheck` — zero errors
 - [ ] New detector has a co-located `.test.ts` with ≥10 unit tests

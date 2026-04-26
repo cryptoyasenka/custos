@@ -16,7 +16,7 @@ Watches Squads multisigs and durable-nonce accounts over WebSocket and fires sub
 Live dashboard: https://custos-nox-production.up.railway.app
 GitHub: https://github.com/cryptoyasenka/custos-nox
 
-147 tests, MIT licensed, self-host in 5 minutes. Feedback welcome.
+164 tests, MIT licensed, self-host in 5 minutes. Feedback welcome.
 ```
 
 ---

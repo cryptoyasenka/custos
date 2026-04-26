@@ -116,8 +116,11 @@ npm run smoke:nonce-init                    # CRITICAL: nonce initialized
 ```
 
 Within a few seconds of each config transaction confirming, the daemon
-in Terminal 2 prints one alert per step — the same three detectors
-that would catch the real Drift exploit on mainnet.
+in Terminal 2 prints one alert per step — three of the four live
+detectors firing on this quickstart chain. The fourth
+(`StaleNonceExecutionDetector`) arms automatically once the nonce is
+initialized and would fire later, when a stale pre-signed transaction
+advances it — i.e. the actual drain step on mainnet.
 
 ### Verifying your RPC before recording the demo
 

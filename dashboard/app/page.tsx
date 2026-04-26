@@ -78,8 +78,8 @@ export default function Home() {
               </h1>
               <p className="max-w-2xl text-lg leading-relaxed text-muted-strong">
                 Custos Nox is an open-source real-time attack monitor for Solana multisigs and DAOs.
-                It detects all 4 on-chain vectors used to drain $285M from Drift on April 1,
-                2026 — before the stolen funds leave the chain.
+                It detects all 4 on-chain vectors used to drain $285M from Drift on April 1, 2026 —
+                before the stolen funds leave the chain.
               </p>
               <div className="flex flex-wrap gap-3">
                 <a
@@ -150,7 +150,9 @@ export default function Home() {
         <section id="timeline" className="border-b border-border">
           <div className="mx-auto w-full max-w-5xl px-6 py-20">
             <div className="mb-10 flex flex-col gap-3">
-              <h2 className="text-3xl font-semibold tracking-tight">How the Drift attack unfolded</h2>
+              <h2 className="text-3xl font-semibold tracking-tight">
+                How the Drift attack unfolded
+              </h2>
               <p className="max-w-2xl text-muted-strong">
                 The April 2026 Drift exploit was not a zero-day — it was a 9-day on-chain
                 preparation. Every step was observable. None were flagged.
@@ -165,9 +167,9 @@ export default function Home() {
             <div className="mb-10 flex flex-col gap-3">
               <h2 className="text-3xl font-semibold tracking-tight">Attack chain replay</h2>
               <p className="max-w-2xl text-muted-strong">
-                All four Drift attack steps replayed against a devnet harness. Each fires a
-                distinct detector within a second — the same sequence that went undetected on
-                mainnet in April 2026.
+                All four Drift attack steps replayed against a devnet harness. Each fires a distinct
+                detector within a second — the same sequence that went undetected on mainnet in
+                April 2026.
               </p>
               <p className="max-w-2xl font-mono text-xs uppercase tracking-wider text-muted">
                 ⚠ Not live mainnet data — sample events for demo purposes

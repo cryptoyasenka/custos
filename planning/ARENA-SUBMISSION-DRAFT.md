@@ -134,7 +134,7 @@ Record on Loom (preferred by judges per guide). Or YouTube unlisted.
 
 ## A11 — Tech demo video URL (2–3 min, English)
 
-⬜ TODO — show: daemon start → alert for each of 3 detectors → architecture diagram.
+⬜ TODO — show: daemon start → alert for each of the 4 detectors (timelock-removal, multisig-weakening, privileged-nonce, stale-nonce-execution) → architecture diagram. NOTE: this is the older DRAFT; final submission copy lives in `ARENA-SUBMISSION-COPY.md` (already updated to "Four detectors run live today").
 
 Anti-pattern to avoid: recording IDE/GitHub with voiceover — must show product running.
 

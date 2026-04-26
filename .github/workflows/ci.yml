@@ -28,6 +28,14 @@ jobs:
       - name: Typecheck
         run: npx tsc --noEmit -p tsconfig.json
 
+      - name: Install dashboard deps
+        run: npm ci
+        working-directory: dashboard
+
+      - name: Typecheck (dashboard)
+        run: npx tsc --noEmit
+        working-directory: dashboard
+
       - name: Test
         run: npm test
 

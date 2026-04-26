@@ -9,7 +9,7 @@
 //
 // This is a devnet-only hot wallet. Do not reuse on mainnet.
 
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { homedir } from "node:os";
 import { dirname, join } from "node:path";
 import { Connection, Keypair, LAMPORTS_PER_SOL } from "@solana/web3.js";
@@ -25,15 +25,20 @@ function loadKeypair(): Keypair {
 }
 
 function ensureKeypair(): { keypair: Keypair; created: boolean } {
-  if (existsSync(KEYPAIR_PATH)) {
+  // Try-load-first, no existsSync gate — that pattern is the TOCTOU race.
+  // ENOENT means "no keypair yet, create one"; anything else is a real error.
+  try {
     return { keypair: loadKeypair(), created: false };
+  } catch (err) {
+    if ((err as NodeJS.ErrnoException).code !== "ENOENT") throw err;
   }
+
   mkdirSync(dirname(KEYPAIR_PATH), { recursive: true });
   const keypair = Keypair.generate();
   try {
-    // flag "wx" = exclusive create (fails with EEXIST if a concurrent run won
-    // the race between existsSync above and this write). mode 0o600 keeps the
-    // secret key readable only by the owner.
+    // flag "wx" = exclusive create (EEXIST if a concurrent run created it
+    // between our load attempt and this write). mode 0o600 keeps the secret
+    // key readable only by the owner.
     writeFileSync(KEYPAIR_PATH, JSON.stringify(Array.from(keypair.secretKey)), {
       flag: "wx",
       mode: 0o600,

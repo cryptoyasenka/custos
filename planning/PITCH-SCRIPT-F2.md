@@ -1,7 +1,7 @@
 # F2 — Pitch Video Script (≤2 min, English)
 
 **Recording:** Loom, face-cam + slides or just talking head.
-**Target:** ~267 words (~1:47 at 150 wpm). Stay under 2 min.
+**Target:** 272 words. Stay under 2 min — see TIMING CHECK below for pace caveat.
 **Style:** calm, direct, no buzzwords. Evidence first, enthusiasm second.
 **Deck:** 7 slides, see `assets/pitch-slides/deck.html` (arrow keys, F11 fullscreen).
 
@@ -18,7 +18,7 @@ On April 1, 2026, $285 million drained from Drift Protocol — more than half of
 The attack didn't happen in one transaction. It took weeks. A migrated Security
 Council multisig with a 2-of-5 threshold and zero timelock. Durable nonces
 seeded by privileged signers. A pre-signed admin transfer waiting in the queue.
-Every move happened on chain. In public. Nobody noticed.
+Every step happened on chain. In public. Nobody noticed.
 
 ---
 
@@ -67,7 +67,7 @@ paid tiers. Issue tracker is open for detector requests.
 
 Long term: a hosted feed that any DAO subscribes to with zero infra. Top-50
 Solana multisigs pre-watched. The security layer between on-chain governance
-and the first Discord ping.
+and the first Discord alert.
 
 ---
 
@@ -82,19 +82,26 @@ five detectors are watching right now.
 
 ## TIMING CHECK
 
-| Section | ~Words | ~Time |
-| ------- | ------ | ----- |
-| Hook (Drift attack) | 60 | 0:24 |
-| Problem (STRIDE gap) | 33 | 0:13 |
-| Solution | 57 | 0:23 |
-| Traction | 33 | 0:13 |
-| GTM | 32 | 0:13 |
-| Vision | 30 | 0:12 |
-| Close | 22 | 0:09 |
-| **Total** | **267** | **~1:47** |
+| Section | Words |
+| ------- | ----- |
+| Hook (Drift attack) | 61 |
+| Problem (STRIDE gap) | 32 |
+| Solution | 59 |
+| Traction | 33 |
+| GTM | 38 |
+| Vision | 28 |
+| Close | 21 |
+| **Total** | **272** |
 
-Comfortably under 2 min with breathing room for pacing/pauses. If a take runs
-long, drop Slide 6 Vision (saves ~12s, lands ~1:35).
+| Pace | Total time | Notes |
+| ---- | ---------- | ----- |
+| 150 wpm | **1:48** | Fast/conversational, hard to land emphasis |
+| 140 wpm | **1:56** | Recommended — brisk but clear, lands inside 2 min |
+| 130 wpm | **2:05** | Deliberate pauses — overshoots, drop Slide 6 |
+
+**Plan A (default):** target ~140 wpm → ~1:56. First take, watch the clock.
+**Plan B (if take runs ≥ 2:00):** drop Slide 6 Vision (saves 28 words / ~12s) →
+244 words / ~1:44 at 140 wpm.
 
 ---
 

@@ -1,7 +1,7 @@
 # NEXT-SESSION-STATE — Custos Nox
 
 **Updated:** 2026-04-29
-**Latest commit:** `ccd7cef` (main, clean working tree)
+**Latest commit:** `f61f457` (main, clean working tree)
 **Tests:** 205/205 passing, CI green
 **Detectors live:** 5 (4 covering Drift attack chain + 1 adjacent signer-rotation)
 

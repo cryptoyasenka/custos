@@ -23,7 +23,7 @@ github.com/cryptoyasenka/custos-nox
 The Drift attack didn't start with a drain tx. It started 9 days earlier, on-chain:
 
 Day 1: Realm timelock → 0
-Day 3: Squads threshold 5-of-9 → 1-of-9
+Day 3: Squads multisig migrated to 2-of-5, zero timelock
 Day 6: Durable nonce seeded under attacker key
 Day 9: Pre-signed drain tx executes
 

@@ -10,6 +10,22 @@
     "type": "git",
     "url": "https://github.com/cryptoyasenka/custos-nox"
   },
+  "bugs": {
+    "url": "https://github.com/cryptoyasenka/custos-nox/issues"
+  },
+  "keywords": [
+    "solana",
+    "security",
+    "monitoring",
+    "multisig",
+    "dao",
+    "alerts",
+    "squads",
+    "spl-governance",
+    "drift",
+    "websocket",
+    "helius"
+  ],
   "type": "module",
   "scripts": {
     "dev": "tsx watch --env-file=.env src/daemon.ts",

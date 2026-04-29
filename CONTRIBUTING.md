@@ -12,7 +12,7 @@ npm install
 cp .env.example .env      # set CUSTOS_RPC_URL and CUSTOS_WATCH
 npm test                  # 205 tests, all must pass
 npm run lint              # biome — no warnings allowed
-npm run typecheck         # strict mode
+npm run build             # tsc — strict mode, must succeed
 ```
 
 ## What makes a good contribution
@@ -30,17 +30,20 @@ npm run typecheck         # strict mode
 
 ## Writing a new detector
 
-Every detector implements the `Detector` interface from `src/types/detector.ts`.
+Every detector implements the `Detector` interface from `src/types/events.ts`.
 Look at `src/detectors/timelock-removal.ts` for the simplest example.
 
 **Contract:**
 ```typescript
 interface Detector {
-  id: string;                                         // kebab-case, unique
-  watchedPrograms: PublicKey[];                       // accounts to subscribe
-  onAccountChange(prev: AccountInfo | null, next: AccountInfo, pubkey: PublicKey): Alert | null;
+  name: string;
+  description: string;
+  inspect(event: SolanaEvent): Promise<Alert | null>;
 }
 ```
+
+`SolanaEvent` is currently always an `AccountChangeEvent` (see `src/types/events.ts`).
+Detectors switch on `event.kind` and inspect `event.data` vs `event.previousData`.
 
 **Rules:**
 - Return `null` when nothing suspicious happened
@@ -69,7 +72,7 @@ npm run smoke:rotate-signers  # exercises SignerSetChangeDetector (adjacent vect
 
 - [ ] `npm test` passes (all 205+ tests green)
 - [ ] `npm run lint` — zero warnings
-- [ ] `npm run typecheck` — zero errors
+- [ ] `npm run build` — `tsc` strict mode, zero errors
 - [ ] New detector has a co-located `.test.ts` with ≥10 unit tests
 - [ ] PR description explains what attack pattern the change detects or prevents
 

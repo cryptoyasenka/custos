@@ -2,7 +2,7 @@
 
 ## Supported versions
 
-Custos Nox is pre-release (`v0.3`). Security fixes are applied to the latest commit on `main`.
+Custos Nox is pre-release. Security fixes are applied to the latest commit on `main`.
 
 ## Reporting a vulnerability
 

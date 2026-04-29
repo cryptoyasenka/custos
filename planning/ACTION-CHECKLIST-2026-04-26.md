@@ -7,9 +7,9 @@
 
 ### 🔴 ОБЯЗАТЕЛЬНО — без этого нельзя нажать Submit в Arena
 
-- [ ] **П1. Создать @CustosNox на X** — сегодня/завтра
-  Гайд: `planning/X-PROJECT-ACCOUNT.md` (bio, intro thread — всё написано)
-  Arena форма требует "Project X account link"
+- [x] **П1. @CustosNox на X создан** — 2026-04-29 (banner, hex avatar, pinned opener post 2026-04-28, 14 followers)
+  URL для Arena A9: https://x.com/CustosNox
+  Контент-библиотека: `planning/X-PROJECT-ACCOUNT.md` (bio, intro thread — для будущих постов)
 
 - [ ] **П2. Записать F2 pitch video (≤2 мин, English)** — до Apr 30
   Скрипт: `planning/PITCH-SCRIPT-F2.md` (7 слайдов, обновлённая версия без bold claim о 5 teams)
@@ -79,7 +79,7 @@
 ## TIMELINE
 
 ```
-Apr 26-27  →  П1: @CustosNox создать
+Apr 26-29  →  П1: @CustosNox создан 2026-04-29 ✅
 Apr 27-29  →  П3: F3 demo запись (TX хэши верифицированы)
 Apr 29-30  →  П2: F2 pitch запись
 May 1      →  П7: Discord show-and-tell + П8: Karina review

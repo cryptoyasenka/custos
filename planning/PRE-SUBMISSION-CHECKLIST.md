@@ -76,9 +76,9 @@ Submission form asks for "Project X account link" — separate from personal @ya
 
 | # | Item | Status | Notes |
 | - | ---- | ------ | ----- |
-| G1 | Choose handle (check collisions) | ⬜ TODO | Candidates: `@CustosNox`, `@CustosNoxSec`, `@custos_nox`. WebSearch before creating |
-| G2 | Create X account | ⬜ TODO | Clean minimalist logo, banner with "Frontier Hackathon participant", bio: one sentence + @SuperteamUKR |
-| G3 | Pin intro thread | ⬜ TODO | Draft in `planning/X-PROJECT-ACCOUNT.md` (see below) |
+| G1 | Choose handle (check collisions) | ✅ DONE | `@CustosNox` selected, no crypto collision (WebSearch 2026-04-25) |
+| G2 | Create X account | ✅ DONE 2026-04-29 | Banner = center variant, hex avatar, verified, 14 followers as of 2026-04-30 |
+| G3 | Pin intro thread | ✅ DONE 2026-04-28 | Pinned opener: "$285M drained from Drift in 12 minutes" + 9-day timeline visual; 11 likes / 9 replies / 3 reposts / 483 views |
 | G4 | Follow judges + @colosseum + @SuperteamUKR | ⬜ TODO | Engage on their posts for organic reach |
 
 ---

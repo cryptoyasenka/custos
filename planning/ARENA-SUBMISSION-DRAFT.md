@@ -126,9 +126,7 @@ If only one track allowed, choose **Security / DeFi Infrastructure**.
 
 **Required field** (per Superteam UA guide — submission form asks for project Twitter handle).
 
-→ Create `@CustosNox` account first. Full setup guide: `planning/X-PROJECT-ACCOUNT.md`
-
-Once created: `https://x.com/CustosNox`
+✅ `@CustosNox` created 2026-04-29 (banner, hex avatar, pinned opener post 2026-04-28). URL ready: `https://x.com/CustosNox`. Reference content library: `planning/X-PROJECT-ACCOUNT.md`.
 
 ---
 
@@ -150,7 +148,7 @@ Anti-pattern to avoid: recording IDE/GitHub with voiceover — must show product
 
 ## Arena form checklist before paste
 
-- [ ] Create project X account `@CustosNox` (needed for A9 field)
+- [x] Project X account `@CustosNox` created (2026-04-29 — handle live for A9 field)
 - [ ] Verify character count for A6 in Arena's actual input field
 - [ ] Check if Arena allows markdown in A7 (if not, strip `**` / `###` formatting)
 - [ ] Check if Arena lets you select multiple tracks (A8)

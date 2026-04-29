@@ -1,9 +1,12 @@
 # X / Twitter Project Account — Custos Nox
 
-**Recommended handle:** `@CustosNox`
-(No crypto collision found via WebSearch 2026-04-25. Backup: `@CustosNoxSec`)
+**Handle:** `@CustosNox` (https://x.com/CustosNox)
 
-**Status:** ⬜ Not created yet. Needed for submission form field "Project X account link".
+**Status:** ✅ Created 2026-04-29. Banner = center variant, hex avatar, verified, 14 followers as of 2026-04-30. Use this URL for Arena A9 field.
+
+**Pinned post:** 2026-04-28 opener "$285M drained from Drift in 12 minutes" + 9-day timeline visual (`assets/post-visual-timeline.png`), tags @colosseum + @SuperteamUKR. Engagement: 11 likes / 9 replies / 3 reposts / 483 views. **Do NOT duplicate this hook in new posts** — "9 днів / Drift drain / nobody watching" вже покрита.
+
+Below is the original setup playbook + content library — kept as reference for bio/banner copy, intro thread template, and content calendar.
 
 ---
 

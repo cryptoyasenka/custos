@@ -66,7 +66,7 @@
 
 ```
 NOW (Yana action needed, no code):
-  Create @CustosNox X account → post intro thread  [guide: planning/X-PROJECT-ACCOUNT.md]
+  @CustosNox X account ✅ created 2026-04-29 (pinned opener post 2026-04-28)
   Register luma.com/demodayonline (~May 8, wallet auth needed)
   Discord #show-and-tell: check rules → post link to dashboard
 
@@ -87,7 +87,7 @@ FINAL:
 
 ## KNOWN GAPS (all require Yana's action)
 
-1. **X project account** — `@CustosNox` not created (mandatory submission field). Guide: `planning/X-PROJECT-ACCOUNT.md`
+1. **X project account** — `@CustosNox` ✅ created 2026-04-29 (https://x.com/CustosNox). Content library: `planning/X-PROJECT-ACCOUNT.md`
 2. **F2 pitch video** — script ready at `planning/PITCH-SCRIPT-F2.md`, needs recording
 3. **F3 tech demo** — script ready at `planning/TECH-DEMO-SCRIPT-F3.md`, needs recording
 4. **Online Demo Day** — `luma.com/demodayonline`, not registered (wallet auth)

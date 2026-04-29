@@ -82,9 +82,11 @@ https://github.com/cryptoyasenka/custos-nox
 
 ---
 
-## PROJECT TWITTER / X (A9) — CREATE @CustosNox FIRST
+## PROJECT TWITTER / X (A9)
 
 https://x.com/CustosNox
+
+(@CustosNox created 2026-04-29 — handle is live, paste URL as-is)
 
 ---
 
@@ -102,7 +104,7 @@ https://x.com/CustosNox
 
 ## FINAL CHECKLIST BEFORE CLICKING SUBMIT
 
-- [ ] @CustosNox X account created and linked
+- [x] @CustosNox X account created and linked (2026-04-29)
 - [ ] Pitch video (F2) uploaded to YouTube (Unlisted) — URL works in incognito
 - [ ] Tech demo (F3) uploaded to YouTube (Unlisted) — URL works in incognito
 - [ ] "Superteam Ukraine" affiliation marked in form (mandatory for Ukrainian Sidetrack)

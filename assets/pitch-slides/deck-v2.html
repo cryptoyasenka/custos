@@ -37,14 +37,14 @@
   /* ── Slides ── */
   .slide {
     position: absolute; inset: 0;
-    display: flex;
+    display: none;
     flex-direction: column;
     opacity: 0;
     pointer-events: none;
     transition: opacity 140ms ease-out;
     padding: 72px 96px 60px;
   }
-  .slide.active { opacity: 1; pointer-events: auto; }
+  .slide.active { display: flex; opacity: 1; pointer-events: auto; }
 
   /* ── Global header bar ── */
   .slide-header {

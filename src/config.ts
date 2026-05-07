@@ -13,6 +13,8 @@ export interface DaemonConfig {
   watch: WatchEntry[];
   discordWebhookUrl: string | null;
   slackWebhookUrl: string | null;
+  telegramBotToken: string | null;
+  telegramChatId: string | null;
 }
 
 const VALID_CLUSTERS: readonly Cluster[] = ["mainnet", "devnet", "testnet"];
@@ -60,6 +62,8 @@ export function loadConfigFromEnv(env: NodeJS.ProcessEnv = process.env): DaemonC
 
   const discordWebhookUrl = env.CUSTOS_DISCORD_WEBHOOK?.trim() || null;
   const slackWebhookUrl = env.CUSTOS_SLACK_WEBHOOK?.trim() || null;
+  const telegramBotToken = env.CUSTOS_TELEGRAM_BOT_TOKEN?.trim() || null;
+  const telegramChatId = env.CUSTOS_TELEGRAM_CHAT_ID?.trim() || null;
 
-  return { rpcUrl, wsUrl, cluster, watch, discordWebhookUrl, slackWebhookUrl };
+  return { rpcUrl, wsUrl, cluster, watch, discordWebhookUrl, slackWebhookUrl, telegramBotToken, telegramChatId };
 }

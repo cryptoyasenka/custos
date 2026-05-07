@@ -42,9 +42,9 @@ Architecture highlights:
 
 • TypeScript daemon, zero Rust, pure npm — contributors don't need a Solana dev environment to build or test.
 • WebSocket with exponential backoff (1s → 60s) and 30-second slot health checks.
-• Alert fan-out to Discord webhooks, Slack webhooks, and stdout — all sinks receive every alert; one failing sink doesn't block the others.
+• Alert fan-out to Discord, Slack, and Telegram webhooks, plus stdout — all sinks receive every alert; one failing sink doesn't block the others.
 • Per-detector 5s timeout: a hanging detector surfaces a low-severity operational alert instead of silently blocking the pipeline.
-• 205 unit + integration tests; GitHub Actions CI on every push.
+• 215 unit + integration tests; GitHub Actions CI on every push.
 
 ---
 
@@ -56,8 +56,34 @@ GitHub: https://github.com/cryptoyasenka/custos-nox
 ---
 
 Roadmap:
+• Telegram bot alerts — the third major channel alongside Discord and Slack (implemented in v0.4, shipping May 2026).
 • API mode and hosted alert feed — for teams that can't self-host.
-• Mainnet watchlist — pre-configured list of top 50 Squads multisigs by TVL.
+• Mainnet watchlist — pre-configured coverage of the top 50 Squads multisigs by TVL.
+
+---
+
+Team:
+
+Solo founder. Full-stack developer with two years building in the Solana ecosystem. Built Custos Nox out of direct frustration: after the Drift exploit I went looking for a tool that would have caught the attack chain before the drain, and found nothing that worked outside STRIDE's $10M+ TVL threshold. Started building the next day. Intend to maintain and grow this as an open-source security primitive for the ecosystem.
+
+---
+
+Go-to-market:
+
+Target: the 10,000+ Squads v4 multisig owners visible on-chain today — DAOs, grant committees, protocol core teams that fall below STRIDE's TVL threshold.
+
+Acquisition path:
+• GitHub organic: developers searching "solana multisig monitor" or "squads alert" — the README and dashboard are written to rank for exactly these queries.
+• Squads ecosystem: the Squads Discord and governance channels host exactly the teams who need this. Plan to share in the #security and #dao-ops channels post-hackathon.
+• Superteam network: 15+ country chapters with active developer communities. Superteam Ukraine has already been briefed; wider rollout through country leads after submission.
+• Security researchers and auditors: publicly watching multisigs is useful for building watchdog dashboards; the MIT license makes it forkable with zero friction.
+
+Monetization:
+• v1 (now): Free, MIT, self-hosted — community trust and adoption first.
+• v2: Hosted alert feed subscription ($10–30/month) for teams who want managed delivery without running infrastructure.
+• v3: Mainnet watchlist as a service — subscribe to any public multisig, API access, public threat feed for the ecosystem.
+
+The self-hosted tier stays free permanently. The paid tiers fund maintenance, new detectors, and the eventual hosted platform.
 
 ---
 

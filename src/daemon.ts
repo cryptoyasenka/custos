@@ -1,7 +1,7 @@
 import { pathToFileURL } from "node:url";
 import { Connection } from "@solana/web3.js";
 import { type AlertSink, StdoutAlertSink } from "./alerts/stdout.js";
-import { DiscordAlertSink, FanOutAlertSink, SlackAlertSink } from "./alerts/webhook.js";
+import { DiscordAlertSink, FanOutAlertSink, SlackAlertSink, TelegramAlertSink } from "./alerts/webhook.js";
 import { type DaemonConfig, loadConfigFromEnv } from "./config.js";
 import { SquadsMultisigWeakeningDetector } from "./detectors/multisig-weakening.js";
 import { PrivilegedNonceDetector } from "./detectors/privileged-nonce.js";
@@ -68,6 +68,9 @@ export function buildSinkFromConfig(config: DaemonConfig): AlertSink {
   }
   if (config.slackWebhookUrl) {
     sinks.push(new SlackAlertSink({ url: config.slackWebhookUrl, label: "slack-webhook" }));
+  }
+  if (config.telegramBotToken && config.telegramChatId) {
+    sinks.push(new TelegramAlertSink({ botToken: config.telegramBotToken, chatId: config.telegramChatId }));
   }
   return sinks.length === 1 ? (sinks[0] as AlertSink) : new FanOutAlertSink(sinks);
 }

@@ -56,20 +56,28 @@ I'm going to trigger each one right now."
 
 ---
 
-### [0:22–0:38] — Switch to terminals — frame the simulation
+### [0:22–0:42] — Switch to terminals — architecture + frame the simulation
 
 *(Switch to two-terminal layout)*
 
-"I'm going to simulate the Drift attack right now — step by step, on devnet.
+"Before I start — here's how it works under the hood.
 
-In the left terminal: Custos Nox, watching a Squads multisig and a nonce account.
-That's the defender's side — a DAO running this tool in their Discord.
+Custos Nox is a TypeScript daemon. It opens a WebSocket to a Solana RPC node
+and subscribes to account changes. Every time an account is updated on-chain,
+the new state runs through five detectors — each one knows what a specific attack
+step looks like. If any detector fires, an alert fans out in parallel
+to Discord, Slack, Telegram, and stdout. One slow webhook never blocks the others.
+215 tests. GitHub CI on every push. Zero Rust — any JavaScript developer can contribute.
 
-In the right terminal: me, playing the role of the attacker —
-running the same sequence of on-chain operations that drained Drift.
+Now let me simulate the Drift attack, step by step, on devnet.
 
-The daemon has already seeded baseline state for both accounts.
-Watch what happens to the left terminal with each move."
+Left terminal: Custos Nox watching a Squads multisig and a nonce account —
+the defender's side.
+
+Right terminal: me, playing the attacker —
+running the same on-chain operations that drained Drift.
+
+Watch the left terminal with each move."
 
 ---
 
@@ -172,7 +180,7 @@ Same baseline-diff machinery — one extra detector covering a second attack sha
 "Every one of those four alerts landed in Discord simultaneously —
 severity color-coded, Solscan link, exact values before and after.
 
-The fan-out is parallel: Discord, Slack, and stdout all fire at once.
+The fan-out is parallel: Discord, Slack, Telegram, and stdout all fire at once.
 One failing webhook never blocks the others.
 A team watching this channel would have had actionable alerts
 for every step of the Drift chain."
@@ -211,11 +219,11 @@ npm test src/detectors/stale-nonce-execution
 You have a Squads multisig. The PDA is visible in app.squads.so —
 it's just an address, like a wallet address.
 You put that address in one environment variable: CUSTOS_WATCH.
-Add a Discord or Slack webhook. Run npm run dev, or the Docker one-liner.
+Add a Discord, Slack, or Telegram webhook. Run npm run dev, or the Docker one-liner.
 
 From that moment, any config change on your multisig —
 threshold, signers, timelock, nonce — fires an immediate alert
-in your team's Discord or Slack. You don't need to check anything manually.
+in your team's Discord, Slack, or Telegram. You don't need to check anything manually.
 If something changes, you hear about it within a second."
 
 *(Show the code block: git clone → npm install → cp .env.example .env → npm run dev)*
@@ -245,7 +253,7 @@ github.com/cryptoyasenka/custos-nox"
 | Section | ~Sec | On screen |
 |---------|------|-----------|
 | Opening + Drift timeline | 0:22 | Browser |
-| Transition + attack framing | 0:16 | Terminals |
+| Architecture + attack framing | 0:35 | Terminals |
 | Detector 1: timelock | 0:23 | Terminal |
 | Detector 2: weakening | 0:20 | Terminal |
 | Detector 3: nonce | 0:20 | Terminal |
@@ -254,7 +262,7 @@ github.com/cryptoyasenka/custos-nox"
 | Detector 4: stale nonce tests | 0:10 | Terminal |
 | How to use this | 0:22 | Browser |
 | Close | 0:15 | Browser |
-| **Total** | **~2:55** | |
+| **Total** | **~3:17** | |
 
 80% of screen time = live product (terminal + Discord). 20% = website.
 

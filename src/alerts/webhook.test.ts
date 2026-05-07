@@ -4,8 +4,10 @@ import {
   DiscordAlertSink,
   FanOutAlertSink,
   SlackAlertSink,
+  TelegramAlertSink,
   buildDiscordPayload,
   buildSlackPayload,
+  buildTelegramPayload,
   parseRetryAfter,
   postWithRetry,
 } from "./webhook.js";
@@ -161,6 +163,77 @@ describe("SlackAlertSink", () => {
     const body = JSON.parse((fetchImpl.mock.calls[0]?.[1]?.body as string | undefined) ?? "{}");
     expect(body.text).toContain("HIGH");
     expect(body.blocks).toBeInstanceOf(Array);
+  });
+});
+
+describe("buildTelegramPayload", () => {
+  it("includes severity, subject, detector, cluster, context, and Solscan link", () => {
+    const payload = buildTelegramPayload(makeAlert()) as { parse_mode: string; text: string };
+    expect(payload.parse_mode).toBe("HTML");
+    expect(payload.text).toContain("[HIGH]");
+    expect(payload.text).toContain("Threshold weakened 3 → 1");
+    expect(payload.text).toContain("squads-multisig-weakening");
+    expect(payload.text).toContain("devnet");
+    expect(payload.text).toContain("threshold_reduced");
+    expect(payload.text).toContain("solscan.io");
+  });
+
+  it("omits link line when explorerLink is empty", () => {
+    const payload = buildTelegramPayload(makeAlert({ explorerLink: "" })) as { text: string };
+    expect(payload.text).not.toContain("Solscan");
+    expect(payload.text).not.toContain("🔗");
+  });
+});
+
+describe("TelegramAlertSink", () => {
+  it("POSTs to the correct Telegram Bot API URL with chat_id", async () => {
+    const fetchImpl = vi.fn().mockResolvedValue(new Response(null, { status: 200 }));
+    const sink = new TelegramAlertSink({
+      botToken: "123:ABC",
+      chatId: "-100123",
+      fetchImpl,
+    });
+    sink.handle(makeAlert());
+    await vi.waitFor(() => expect(fetchImpl).toHaveBeenCalledTimes(1));
+    const [url, init] = fetchImpl.mock.calls[0] ?? [];
+    expect(url).toBe("https://api.telegram.org/bot123:ABC/sendMessage");
+    const body = JSON.parse((init?.body as string | undefined) ?? "{}");
+    expect(body.chat_id).toBe("-100123");
+    expect(body.parse_mode).toBe("HTML");
+    expect(body.text).toContain("[HIGH]");
+  });
+
+  it("reports non-2xx to onError after retries exhausted", async () => {
+    const fetchImpl = vi.fn().mockResolvedValue(new Response(null, { status: 400 }));
+    const onError = vi.fn();
+    const sink = new TelegramAlertSink({
+      botToken: "tok",
+      chatId: "-1",
+      fetchImpl,
+      onError,
+      maxAttempts: 1,
+    });
+    sink.handle(makeAlert());
+    await vi.waitFor(() => expect(onError).toHaveBeenCalled());
+    expect((onError.mock.calls[0]?.[0] as Error).message).toContain("400");
+  });
+
+  it("reports fetch throws to onError", async () => {
+    const fetchImpl = vi.fn().mockRejectedValue(new Error("ECONNRESET"));
+    const sleepImpl = vi.fn().mockResolvedValue(undefined);
+    const onError = vi.fn();
+    const sink = new TelegramAlertSink({
+      botToken: "tok",
+      chatId: "-1",
+      fetchImpl,
+      sleepImpl,
+      onError,
+      maxAttempts: 2,
+      baseDelayMs: 1,
+    });
+    sink.handle(makeAlert());
+    await vi.waitFor(() => expect(onError).toHaveBeenCalled());
+    expect((onError.mock.calls[0]?.[0] as Error).message).toBe("ECONNRESET");
   });
 });
 

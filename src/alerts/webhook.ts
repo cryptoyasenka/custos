@@ -212,6 +212,63 @@ export class SlackAlertSink implements AlertSink {
   }
 }
 
+export interface TelegramAlertSinkOptions extends RetryOptions {
+  botToken: string;
+  chatId: string;
+  fetchImpl?: typeof fetch;
+  onError?: (err: unknown) => void;
+}
+
+export function buildTelegramPayload(alert: Alert): unknown {
+  const severity = alert.severity.toUpperCase();
+  const linkLine = alert.explorerLink
+    ? `\n<a href="${alert.explorerLink}">🔗 View on Solscan</a>`
+    : "";
+  return {
+    parse_mode: "HTML",
+    text: `<b>[${severity}]</b> ${alert.subject}${linkLine}\n\n<b>Detector:</b> <code>${alert.detector}</code>\n<b>Cluster:</b> ${alert.cluster}\n\n<pre>${safeStringify(alert.context)}</pre>`,
+  };
+}
+
+export class TelegramAlertSink implements AlertSink {
+  private readonly botToken: string;
+  private readonly chatId: string;
+  private readonly fetchImpl: typeof fetch;
+  private readonly onError: (err: unknown) => void;
+  private readonly retryOpts: RetryOptions;
+
+  constructor(opts: TelegramAlertSinkOptions) {
+    this.botToken = opts.botToken;
+    this.chatId = opts.chatId;
+    this.fetchImpl = opts.fetchImpl ?? fetch;
+    this.onError =
+      opts.onError ?? ((err) => process.stderr.write(`[telegram-bot] ${String(err)}\n`));
+    this.retryOpts = pickRetryOptions(opts);
+  }
+
+  handle(alert: Alert): void {
+    void this.dispatch(alert);
+  }
+
+  private async dispatch(alert: Alert): Promise<void> {
+    const url = `https://api.telegram.org/bot${this.botToken}/sendMessage`;
+    try {
+      const payload = buildTelegramPayload(alert) as Record<string, unknown>;
+      const res = await postWithRetry(
+        url,
+        { chat_id: this.chatId, ...payload },
+        this.fetchImpl,
+        this.retryOpts,
+      );
+      if (!res.ok) {
+        this.onError(new Error(`telegram bot returned ${res.status} ${res.statusText}`));
+      }
+    } catch (err) {
+      this.onError(err);
+    }
+  }
+}
+
 export class FanOutAlertSink implements AlertSink {
   private readonly sinks: readonly AlertSink[];
 

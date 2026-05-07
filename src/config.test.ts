@@ -87,6 +87,8 @@ describe("loadConfigFromEnv", () => {
     const cfg = loadConfigFromEnv({ CUSTOS_RPC_URL: "https://a.com" });
     expect(cfg.discordWebhookUrl).toBeNull();
     expect(cfg.slackWebhookUrl).toBeNull();
+    expect(cfg.telegramBotToken).toBeNull();
+    expect(cfg.telegramChatId).toBeNull();
   });
 
   it("reads CUSTOS_DISCORD_WEBHOOK and CUSTOS_SLACK_WEBHOOK when set", () => {
@@ -105,5 +107,25 @@ describe("loadConfigFromEnv", () => {
       CUSTOS_DISCORD_WEBHOOK: "   ",
     });
     expect(cfg.discordWebhookUrl).toBeNull();
+  });
+
+  it("reads CUSTOS_TELEGRAM_BOT_TOKEN and CUSTOS_TELEGRAM_CHAT_ID when set", () => {
+    const cfg = loadConfigFromEnv({
+      CUSTOS_RPC_URL: "https://a.com",
+      CUSTOS_TELEGRAM_BOT_TOKEN: "123:ABC",
+      CUSTOS_TELEGRAM_CHAT_ID: "-100123",
+    });
+    expect(cfg.telegramBotToken).toBe("123:ABC");
+    expect(cfg.telegramChatId).toBe("-100123");
+  });
+
+  it("treats whitespace-only Telegram vars as unset", () => {
+    const cfg = loadConfigFromEnv({
+      CUSTOS_RPC_URL: "https://a.com",
+      CUSTOS_TELEGRAM_BOT_TOKEN: "   ",
+      CUSTOS_TELEGRAM_CHAT_ID: "",
+    });
+    expect(cfg.telegramBotToken).toBeNull();
+    expect(cfg.telegramChatId).toBeNull();
   });
 });

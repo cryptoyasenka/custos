@@ -11,7 +11,7 @@ const GITHUB_URL = "https://github.com/cryptoyasenka/custos-nox";
 
 const STATS = [
   { label: "Detectors live", value: "5" },
-  { label: "Tests passing", value: "205" },
+  { label: "Tests passing", value: "215" },
   { label: "Drift loss tracked", value: "$285M" },
   { label: "Alert latency", value: "< 1s" },
 ];
@@ -166,9 +166,9 @@ export default function Home() {
               <div className="flex flex-col gap-3 rounded-lg border border-border bg-surface p-5">
                 <div className="font-mono text-[11px] uppercase tracking-wider text-accent">DAO treasuries</div>
                 <p className="text-sm leading-relaxed text-muted-strong">
-                  Your multisig PDA is one environment variable. Add a Discord or Slack webhook.
-                  Any threshold change, timelock removal, or signer rotation fires an alert to your
-                  team within a second.
+                  Your multisig PDA is one environment variable. Add a Discord, Slack, or Telegram
+                  webhook. Any threshold change, timelock removal, or signer rotation fires an alert
+                  to your team within a second.
                 </p>
               </div>
               <div className="flex flex-col gap-3 rounded-lg border border-border bg-surface p-5">
@@ -289,7 +289,7 @@ export default function Home() {
                     CUSTOS_WATCH
                   </code>{" "}
                   to your Squads PDA or SPL Governance realm. Comma-separate multiple accounts.
-                  Optionally add a Discord or Slack webhook URL.
+                  Optionally add a Discord, Slack, or Telegram webhook.
                 </p>
               </div>
               <div className="rounded-lg border border-border bg-surface p-5">
@@ -302,7 +302,7 @@ export default function Home() {
                   <code className="rounded bg-surface-elevated px-1 font-mono text-xs">
                     npm run dev
                   </code>{" "}
-                  or the Docker one-liner below. Alerts arrive in Discord, Slack, or stdout within a
+                  or the Docker one-liner below. Alerts arrive in Discord, Slack, Telegram, or stdout within a
                   second of any config change.
                 </p>
               </div>
@@ -347,7 +347,7 @@ docker logs -f custos`}</code>
                 <div className="mb-1 font-mono text-[11px] uppercase tracking-wider text-muted">
                   Alerts go to
                 </div>
-                stdout by default. Optional Discord and Slack webhooks fan out every alert to every
+                stdout by default. Optional Discord, Slack, and Telegram webhooks fan out every alert to every
                 configured sink.
               </div>
               <div>

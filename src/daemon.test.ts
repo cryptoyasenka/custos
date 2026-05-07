@@ -1,7 +1,7 @@
 import { PublicKey } from "@solana/web3.js";
 import { describe, expect, it, vi } from "vitest";
 import { StdoutAlertSink } from "./alerts/stdout.js";
-import { DiscordAlertSink, FanOutAlertSink, SlackAlertSink } from "./alerts/webhook.js";
+import { DiscordAlertSink, FanOutAlertSink, SlackAlertSink, TelegramAlertSink } from "./alerts/webhook.js";
 import type { DaemonConfig } from "./config.js";
 import { buildSinkFromConfig, redactRpcUrl, validate } from "./daemon.js";
 
@@ -16,6 +16,8 @@ function makeConfig(overrides: Partial<DaemonConfig> = {}): DaemonConfig {
     watch: [{ program: PROGRAM, account: ACCOUNT }],
     discordWebhookUrl: null,
     slackWebhookUrl: null,
+    telegramBotToken: null,
+    telegramChatId: null,
     ...overrides,
   };
 }
@@ -88,6 +90,39 @@ describe("buildSinkFromConfig", () => {
     expect(sinks[0]).toBeInstanceOf(StdoutAlertSink);
     expect(sinks[1]).toBeInstanceOf(DiscordAlertSink);
     expect(sinks[2]).toBeInstanceOf(SlackAlertSink);
+  });
+
+  it("fans out to stdout + Telegram when Telegram is configured", () => {
+    const sink = buildSinkFromConfig(
+      makeConfig({ telegramBotToken: "123:ABC", telegramChatId: "-100123" }),
+    );
+    expect(sink).toBeInstanceOf(FanOutAlertSink);
+    const sinks = (sink as unknown as { sinks: readonly unknown[] }).sinks;
+    expect(sinks).toHaveLength(2);
+    expect(sinks[0]).toBeInstanceOf(StdoutAlertSink);
+    expect(sinks[1]).toBeInstanceOf(TelegramAlertSink);
+  });
+
+  it("requires both Telegram vars — omits sink when only one is set", () => {
+    const sinkA = buildSinkFromConfig(makeConfig({ telegramBotToken: "123:ABC" }));
+    expect(sinkA).toBeInstanceOf(StdoutAlertSink);
+    const sinkB = buildSinkFromConfig(makeConfig({ telegramChatId: "-100" }));
+    expect(sinkB).toBeInstanceOf(StdoutAlertSink);
+  });
+
+  it("fans out to all three sinks when Discord + Slack + Telegram configured", () => {
+    const sink = buildSinkFromConfig(
+      makeConfig({
+        discordWebhookUrl: "https://discord.com/api/webhooks/1/abc",
+        slackWebhookUrl: "https://hooks.slack.com/services/T/B/X",
+        telegramBotToken: "123:ABC",
+        telegramChatId: "-100123",
+      }),
+    );
+    expect(sink).toBeInstanceOf(FanOutAlertSink);
+    const sinks = (sink as unknown as { sinks: readonly unknown[] }).sinks;
+    expect(sinks).toHaveLength(4);
+    expect(sinks[3]).toBeInstanceOf(TelegramAlertSink);
   });
 });
 

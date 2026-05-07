@@ -1,6 +1,7 @@
 import { AlertRow } from "@/components/alert-row";
 import { DetectorCard } from "@/components/detector-card";
 import { DriftTimeline } from "@/components/drift-timeline";
+import { LiveStatusBar } from "@/components/live-status-bar";
 import { SeverityChart } from "@/components/severity-chart";
 import { DETECTORS } from "@/lib/detectors";
 import { SAMPLE_ALERTS } from "@/lib/sample-alerts";
@@ -68,10 +69,13 @@ export default function Home() {
         <section className="border-b border-border">
           <div className="mx-auto flex w-full max-w-5xl flex-col gap-10 px-6 py-20 lg:py-28">
             <div className="flex flex-col gap-6">
-              <span className="inline-flex w-fit items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-muted-strong">
-                <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-                v0.3 · 5 detectors · MIT
-              </span>
+              <div className="flex flex-wrap items-center gap-3">
+                <span className="inline-flex w-fit items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-muted-strong">
+                  <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+                  v0.3 · 5 detectors · MIT
+                </span>
+                <LiveStatusBar />
+              </div>
               <h1 className="max-w-3xl text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
                 Watch the chain
                 <br />

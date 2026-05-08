@@ -44,7 +44,8 @@ Large dark font. Two terminals side by side take the full screen. Switch to brow
 "On April 1, 2026, Drift Protocol lost $285 million in twelve minutes.
 
 It wasn't a zero-day exploit. The attacker spent nine days preparing on-chain —
-changing governance settings, weakening the multisig, arming a pre-signed transaction.
+staging pre-signed transactions via durable nonces, reconfiguring the multisig
+to a 2-of-5 threshold with zero timelock, then arming the drain.
 Every step was visible on-chain. None of it was flagged.
 
 This is Custos Nox. It catches that attack chain — in real time."

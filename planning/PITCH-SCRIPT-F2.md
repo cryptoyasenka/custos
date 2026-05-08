@@ -28,7 +28,7 @@
 
 "April 1, 2026. Drift Protocol lost $285 million in twelve minutes.
 
-This wasn't a zero-day. Nine days of on-chain warnings — and zero alerts fired."
+This wasn't a zero-day. Nine days of on-chain preparation — and zero alerts fired."
 
 ---
 
@@ -36,8 +36,9 @@ This wasn't a zero-day. Nine days of on-chain warnings — and zero alerts fired
 
 *(pause while timeline animates)*
 
-"The attacker removed the governance timelock. Weakened the multisig to one signer.
-Armed a pre-signed drain transaction. Every step was visible on-chain. None of it was flagged."
+"The Security Council multisig was migrated to a 2-of-5 threshold with zero timelock —
+minimum quorum, instant execution. A pre-signed drain transaction was armed via durable nonce.
+Every step was visible on-chain. None of it was flagged."
 
 ---
 
@@ -131,7 +132,7 @@ CapCut: Veo3 clip → 6–8 sec → cut to slide recording starting at Slide 1.
 
 ## KEY LINES TO LAND
 
-1. **"Nine days of on-chain warnings — and zero alerts fired."** — pause after, let it sit
+1. **"Nine days of on-chain preparation — and zero alerts fired."** — pause after, let it sit
 2. **"The other ten thousand multisigs and DAOs have nothing."** — the core market claim
 3. **"Any single alert would have bought hours of response time."** — the value prop
 4. **"Five minutes. MIT licensed. No paid tiers, ever."** — removes all friction objections

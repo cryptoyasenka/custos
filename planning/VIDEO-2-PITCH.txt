@@ -48,7 +48,7 @@
   in twelve minutes.
 
   This wasn't a zero-day. Nine days of on-chain
-  warnings — and zero alerts fired."
+  preparation — and zero alerts fired."
 
 → нажми стрелку ВПРАВО
 
@@ -58,9 +58,12 @@
 → ПАУЗА пока 4 шага появятся, потом говори:
 ──────────────────────────────────────────────────────
 
-  "The attacker removed the governance timelock.
-  Weakened the multisig to one signer.
-  Armed a pre-signed drain transaction.
+  "The Security Council multisig was migrated
+  to a 2-of-5 threshold with zero timelock —
+  minimum quorum, instant execution.
+
+  A pre-signed drain transaction was armed
+  via durable nonce.
 
   Every step was visible on-chain.
   None of it was flagged."
@@ -242,7 +245,7 @@ arena.colosseum.org → твой проект → Edit submission
 КЛЮЧЕВЫЕ ФРАЗЫ — ВЫУЧИ ДО ЗАПИСИ
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-1. "Nine days of on-chain warnings — and zero alerts fired."
+1. "Nine days of on-chain preparation — and zero alerts fired."
 2. "The other ten thousand multisigs and DAOs have nothing."
 3. "Any single alert would have bought hours of response time."
 4. "MIT licensed — no paid tiers, ever."

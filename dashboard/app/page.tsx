@@ -94,6 +94,13 @@ export default function Home() {
               </div>
               <div className="flex flex-wrap gap-3">
                 <a
+                  href="#live"
+                  className="inline-flex items-center gap-2 rounded-md bg-accent px-5 py-2.5 text-sm font-medium text-background transition-colors hover:bg-accent/85"
+                >
+                  <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-background" />
+                  See live mainnet monitor
+                </a>
+                <a
                   href={GITHUB_URL}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -155,6 +162,28 @@ export default function Home() {
                 </div>
               </div>
             )}
+          </div>
+        </section>
+
+        <section id="live" className="border-b border-border">
+          <div className="mx-auto w-full max-w-5xl px-6 py-20">
+            <div className="mb-10 flex flex-col gap-3">
+              <h2 className="text-3xl font-semibold tracking-tight">
+                Live mainnet — 12 Solana DAOs under continuous watch
+              </h2>
+              <p className="max-w-2xl text-muted-strong">
+                Custos Nox is running on mainnet right now, subscribed to the governance accounts of
+                12 ecosystem DAOs (Mango, Marinade, Pyth, Solend, Jupiter, Raydium, Orca, Bonk,
+                Helius, Squads, Superteam, MonkeDAO). The feed below polls the daemon every 5
+                seconds. When configs are calm the dots stay green; if any of the five detectors
+                fires, the alert lands here within a second.
+              </p>
+              <p className="max-w-2xl font-mono text-xs uppercase tracking-wider text-muted">
+                Falls back to a devnet attack-simulation sample when the daemon is unreachable so
+                you can still see what an active alert looks like.
+              </p>
+            </div>
+            <LiveFeed />
           </div>
         </section>
 
@@ -280,28 +309,6 @@ export default function Home() {
               </p>
             </div>
             <DriftTimeline />
-          </div>
-        </section>
-
-        <section id="live" className="border-b border-border">
-          <div className="mx-auto w-full max-w-5xl px-6 py-20">
-            <div className="mb-10 flex flex-col gap-3">
-              <h2 className="text-3xl font-semibold tracking-tight">
-                Live mainnet — 12 Solana DAOs under continuous watch
-              </h2>
-              <p className="max-w-2xl text-muted-strong">
-                Custos Nox is running on mainnet right now, subscribed to the governance accounts of
-                12 ecosystem DAOs (Mango, Marinade, Pyth, Solend, Jupiter, Raydium, Orca, Bonk,
-                Helius, Squads, Superteam, MonkeDAO). The feed below polls the daemon every 5
-                seconds. When configs are calm the dots stay green; if any of the five detectors
-                fires, the alert lands here within a second.
-              </p>
-              <p className="max-w-2xl font-mono text-xs uppercase tracking-wider text-muted">
-                Falls back to a devnet attack-simulation sample when the daemon is unreachable so
-                you can still see what an active alert looks like.
-              </p>
-            </div>
-            <LiveFeed />
           </div>
         </section>
 

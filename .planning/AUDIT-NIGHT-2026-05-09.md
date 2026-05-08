@@ -144,6 +144,12 @@ Drafts уже есть:
 
 4. **F3 mainnet narrative** — daemon `lastEventAt: null` после 11 минут uptime. Скрипт говорит "watching 12 mainnet DAOs right now... if any of them changes a threshold". Это ОК — главное чтобы во время записи дашборд показывал зелёные точки и DAO имена. Devnet replay для алертов уже учтён в скрипте.
 
+5. **F3 v5 script — 2 устаревших факта в SETUP секции** (не в озвученной части, но при чтении глазами могут запутать):
+   - Line 15: `"watching":8` → реально `watching:12` (старый watchlist count)
+   - Line 16: упоминание Vercel `NEXT_PUBLIC_CUSTOS_DAEMON_URL` — но dashboard теперь на Railway (URL swap done 2026-05-09 01:15). Корректный setup: Railway dashboard env var. Vercel из истории, до URL swap.
+
+   Это **только в PRE-RECORDING SETUP**. Сама озвученная часть скрипта (0:00–3:00) говорит "twelve Solana DAOs" корректно. Не критично если Yana записывает по timing'у и не читает setup секцию вслух.
+
 ---
 
 ## ЧТО Я БЫ ПЕРЕПРОВЕРИЛ ПЕРЕД SUBMIT (0 риск, 5 мин)

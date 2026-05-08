@@ -1,7 +1,15 @@
 # CURRENT — custos (Custos Nox)
 
-**Last touched:** 2026-05-08 late evening — F3 v5 + voice DONE
-**Status:** REWORK FRONT-LOADED — F2 deck/voice ✅, F3 script/voice ✅. Remaining: Yana finishes Railway deploy (Helius key) + records both videos in OBS/Loom. Deadline 2026-05-10 23:59 PDT.
+**Last touched:** 2026-05-08 ~23:55 — Railway blocked, pivot to local-daemon for recording
+**Status:** F2/F3 both content-ready. Railway deploy hit a stuck-config bug (rootDirectory `dashboard` cached server-side, UI shows `.` but build daemon ignores). Pivoting: Yana runs daemon locally during F3 recording. Deadline 2026-05-10 23:59 PDT.
+
+## Railway blocker (2026-05-08 23:50)
+
+UI saved rootDirectory=`.`, builder=Dockerfile. Build daemon every deploy logs `[DBUG] root directory set as 'dashboard'` and uses dashboard/ as build context — src/ not present, COPY fails. 7 deploys all failed same way. Helius key works (curl getHealth → ok). railway.json + commits 394a173 and 864c180 are correct, won't fix unless Railway propagates UI save server-side.
+
+**Workaround for F3 demo:** Yana runs `npm run dev` (daemon) + `cd dashboard && npm run dev` (Next dev) on her laptop during recording. Both localhost:8080 + localhost:3000. Dashboard auto-reads `NEXT_PUBLIC_CUSTOS_DAEMON_URL=http://localhost:8080` (or unset → default http://localhost:8080 already). Live mainnet feed renders during recording. No Railway needed.
+
+**To retry Railway later:** disconnect + reconnect GitHub source repo in Railway settings. That usually flushes the cached rootDirectory. OR create a fresh service from scratch.
 
 ## ⚠️ READ FIRST on resume — DO NOT roll back
 

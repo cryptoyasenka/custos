@@ -1,7 +1,7 @@
 # CURRENT — custos (Custos Nox)
 
 **Last touched:** 2026-05-08
-**Status:** F2+F3 pipeline ready; awaiting Yana's recording session (deadline May 10 23:59 PDT)
+**Status:** F2 deck v2 cleaned (no periods in taglines, 5 detector cards, Telegram in fan-out); slides.webm v2 generated (~109s). Awaiting Yana's recording session (deadline May 10 23:59 PDT)
 
 ## Open files
 - `planning/VIDEO-2-PITCH.txt` — F2 pipeline (Playwright record + AI voice + CapCut)
@@ -30,6 +30,8 @@ Yana runs (in this order):
 - **Architecture diagram = вариант III** (separate `architecture.html`, CapCut overlay 0:45–0:55, fade in/out 0.3s)
 - **F2 voice = AI** (Yana накладывает в CapCut), F3 voice = live recording
 - **Test count alignment:** "200+" (real grep = 199), "14 passing" for stale-nonce (real = 14)
+- **Sinks:** webhook.ts confirms Discord + Slack + Telegram + Console (4 total). Deck slide 7 + architecture.html updated 2026-05-08
+- **Tagline rule:** no periods in headlines / subs / footer-lines / arch-footer (memory feedback_no_periods_in_taglines.md). Body text in cards keeps periods
 - Veo3 intro clip already exists: `assets/Blockchain_transactions_flow_red…_202605081236.mp4` (2026-05-08)
 
 ## Open questions for Yana (verify before recording)

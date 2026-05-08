@@ -235,35 +235,39 @@
     font-size: 30px; color: var(--muted); margin-bottom: 60px;
   }
   .detector-grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 28px;
+    display: flex; flex-wrap: wrap;
+    justify-content: center;
+    gap: 22px;
     flex: 1;
   }
   .detector-card {
-    border-radius: 14px; padding: 36px 40px;
+    flex: 0 0 calc(33.333% - 16px);
+    border-radius: 14px; padding: 28px 30px;
     background: #0f0f0f; border: 1px solid #27272a;
-    display: flex; flex-direction: column; gap: 12px;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .detector-card.adjacent {
+    border-color: rgba(34,211,238,0.35);
+    background: linear-gradient(180deg, #0f1418 0%, #0f0f0f 100%);
   }
   .det-badge {
     display: inline-flex; align-items: center;
     padding: 4px 14px; border-radius: 6px;
-    font-size: 15px; font-weight: 700; letter-spacing: 0.08em;
+    font-size: 14px; font-weight: 700; letter-spacing: 0.08em;
     text-transform: uppercase; width: fit-content;
   }
   .det-badge.critical { background: rgba(239,68,68,0.15); color: var(--red); }
   .det-badge.high     { background: rgba(249,115,22,0.15); color: var(--orange); }
+  .det-badge.adjacent { background: rgba(34,211,238,0.15); color: var(--cyan); }
   .det-name {
-    font-size: 30px; font-weight: 800; color: var(--fg); line-height: 1.1;
+    font-size: 26px; font-weight: 800; color: var(--fg); line-height: 1.1;
   }
   .det-step {
-    font-size: 25px; color: var(--muted); line-height: 1.4;
+    font-size: 21px; color: var(--muted); line-height: 1.4;
   }
   .det-drift {
-    font-size: 16px; color: var(--dimmed); letter-spacing: 0.06em;
+    font-size: 15px; color: var(--dimmed); letter-spacing: 0.06em;
     text-transform: uppercase; margin-top: 4px;
-  }
-  .s4-plus {
-    text-align: center; font-size: 26px; color: var(--cyan);
-    margin-top: 32px; font-weight: 500;
   }
 
   /* ═══════════════════════════════════════════
@@ -560,8 +564,8 @@
       </div>
     </div>
 
-    <div class="s2-headline">Nine days of preparation. All on-chain.</div>
-    <div class="s2-sub">The Drift exploit timeline, confirmed by Chainalysis.</div>
+    <div class="s2-headline">Nine days of preparation, all on-chain</div>
+    <div class="s2-sub">The Drift exploit timeline, confirmed by Chainalysis</div>
 
     <div class="timeline">
       <div class="tl-step">
@@ -590,7 +594,7 @@
       </div>
     </div>
 
-    <div class="s2-footer-line">Four config changes. Nine days. Zero alerts.</div>
+    <div class="s2-footer-line">Four config changes · Nine days · Zero alerts</div>
 
     <div class="slide-footer">
       <span></span>
@@ -613,7 +617,7 @@
       </div>
     </div>
 
-    <div class="s3-headline">Solana has a monitoring program.<br>It covers <span style="color:var(--dimmed)">1%</span> of multisigs.</div>
+    <div class="s3-headline">Solana has a monitoring program<br>It covers <span style="color:var(--dimmed)">1%</span> of multisigs</div>
 
     <div class="gap-row">
       <div class="gap-box left">
@@ -628,7 +632,7 @@
       </div>
     </div>
 
-    <div class="gap-footer">The other 99% have nothing. Custos Nox is for them.</div>
+    <div class="gap-footer">The other 99% have nothing — Custos Nox is for them</div>
 
     <div class="slide-footer">
       <span></span>
@@ -651,8 +655,8 @@
       </div>
     </div>
 
-    <div class="s4-headline">One detector per step in the Drift attack chain.</div>
-    <div class="s4-sub">Any single alert would have bought hours of response time.</div>
+    <div class="s4-headline">One detector per step in the Drift attack chain</div>
+    <div class="s4-sub">Any single alert would have bought hours of response time</div>
 
     <div class="detector-grid">
       <div class="detector-card">
@@ -679,9 +683,13 @@
         <div class="det-step">Fires when a durable nonce advances more than 1 hour after seeding.</div>
         <div class="det-drift">Drift step 4 — the drain itself</div>
       </div>
+      <div class="detector-card adjacent">
+        <div class="det-badge adjacent">ADJACENT</div>
+        <div class="det-name">SignerSetChange<br>Detector</div>
+        <div class="det-step">Fires when Squads signer set rotates — covers attack chains that have hit other Solana protocols.</div>
+        <div class="det-drift">Beyond Drift · ecosystem-wide</div>
+      </div>
     </div>
-
-    <div class="s4-plus">+ SignerSetChangeDetector — covers adjacent signer-rotation attacks that have hit other Solana protocols</div>
 
     <div class="slide-footer">
       <span></span>
@@ -704,8 +712,8 @@
       </div>
     </div>
 
-    <div class="s6-headline">It's built. It's tested. It's running.</div>
-    <div class="s6-sub">Not a prototype. A working product on devnet today.</div>
+    <div class="s6-headline">It's built · It's tested · It's running</div>
+    <div class="s6-sub">Not a prototype — a working product on devnet today</div>
 
     <div class="proof-row">
       <div class="proof-card">
@@ -754,8 +762,8 @@
       </div>
     </div>
 
-    <div class="s7-headline">From vulnerable to protected<br>in 5 minutes.</div>
-    <div class="s7-sub">No Rust. No credit card. No configuration hell.</div>
+    <div class="s7-headline">From vulnerable to protected<br>in 5 minutes</div>
+    <div class="s7-sub">No Rust · No credit card · No configuration hell</div>
 
     <div class="steps-row">
       <div class="step-card">
@@ -767,7 +775,7 @@
         <div class="step-num">2</div>
         <div class="step-action">Set one env variable</div>
         <div class="code-block">CUSTOS_WATCH=&lt;PROGRAM&gt;:&lt;YOUR_PDA&gt;</div>
-        <div class="step-detail">Add a Discord or Telegram webhook URL. That's the full config.</div>
+        <div class="step-detail">Pick any sink: Discord, Slack, Telegram, or stdout JSON — that's the full config.</div>
       </div>
       <div class="step-card">
         <div class="step-num">3</div>
@@ -802,8 +810,8 @@
       </div>
     </div>
 
-    <div class="s9-headline">The security layer Solana doesn't have yet.</div>
-    <div class="s9-sub">From self-hosted daemon to ecosystem-wide threat intelligence.</div>
+    <div class="s9-headline">The security layer Solana doesn't have yet</div>
+    <div class="s9-sub">From self-hosted daemon to ecosystem-wide threat intelligence</div>
 
     <div class="vision-col">
       <div class="vision-row">
@@ -826,7 +834,7 @@
       </div>
     </div>
 
-    <div class="s9-footer-line">Open infrastructure for the other <span>10,000+</span>.</div>
+    <div class="s9-footer-line">Open infrastructure for the other <span>10,000+</span></div>
 
     <div class="slide-footer">
       <span></span>
@@ -860,7 +868,7 @@
     </div>
 
     <div class="slide-footer">
-      <span>Built the day after the Drift exploit. Because nothing else existed.</span>
+      <span>Built the day after the Drift exploit — because nothing else existed</span>
       <span>custos-nox.up.railway.app</span>
     </div>
   </div>

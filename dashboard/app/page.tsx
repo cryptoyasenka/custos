@@ -1,10 +1,8 @@
-import { AlertRow } from "@/components/alert-row";
 import { DetectorCard } from "@/components/detector-card";
 import { DriftTimeline } from "@/components/drift-timeline";
+import { LiveFeed } from "@/components/live-feed";
 import { LiveStatusBar } from "@/components/live-status-bar";
-import { SeverityChart } from "@/components/severity-chart";
 import { DETECTORS } from "@/lib/detectors";
-import { SAMPLE_ALERTS } from "@/lib/sample-alerts";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -44,7 +42,7 @@ export default function Home() {
                 Timeline
               </a>
               <a href="#live" className="text-muted-strong transition-colors hover:text-foreground">
-                Replay
+                Live
               </a>
               <a
                 href="#install"
@@ -87,8 +85,11 @@ export default function Home() {
                 adjacent signer-rotation vector — before the stolen funds leave the chain.
               </p>
               <div className="max-w-2xl rounded-lg border border-border bg-surface px-4 py-3 font-mono text-sm text-muted-strong">
-                <span className="text-foreground">Solana Foundation&apos;s STRIDE program</span> monitors protocols with $10M+ TVL — roughly 50 protocols.{" "}
-                <span className="text-accent">The other 10,000+ multisigs and DAOs have nothing</span>{" "}
+                <span className="text-foreground">Solana Foundation&apos;s STRIDE program</span>{" "}
+                monitors protocols with $10M+ TVL — roughly 50 protocols.{" "}
+                <span className="text-accent">
+                  The other 10,000+ multisigs and DAOs have nothing
+                </span>{" "}
                 — Custos Nox is for them
               </div>
               <div className="flex flex-wrap gap-3">
@@ -168,7 +169,9 @@ export default function Home() {
             </div>
             <div className="grid gap-5 sm:grid-cols-3">
               <div className="flex flex-col gap-3 rounded-lg border border-border bg-surface p-5">
-                <div className="font-mono text-[11px] uppercase tracking-wider text-accent">DAO treasuries</div>
+                <div className="font-mono text-[11px] uppercase tracking-wider text-accent">
+                  DAO treasuries
+                </div>
                 <p className="text-sm leading-relaxed text-muted-strong">
                   Your multisig PDA is one environment variable. Add a Discord, Slack, or Telegram
                   webhook. Any threshold change, timelock removal, or signer rotation fires an alert
@@ -176,7 +179,9 @@ export default function Home() {
                 </p>
               </div>
               <div className="flex flex-col gap-3 rounded-lg border border-border bg-surface p-5">
-                <div className="font-mono text-[11px] uppercase tracking-wider text-accent">Grant committees</div>
+                <div className="font-mono text-[11px] uppercase tracking-wider text-accent">
+                  Grant committees
+                </div>
                 <p className="text-sm leading-relaxed text-muted-strong">
                   Grant multisigs often have fewer signers and less oversight than protocol
                   treasuries. Custos Nox gives them the same real-time coverage as a full-time
@@ -184,11 +189,13 @@ export default function Home() {
                 </p>
               </div>
               <div className="flex flex-col gap-3 rounded-lg border border-border bg-surface p-5">
-                <div className="font-mono text-[11px] uppercase tracking-wider text-accent">Security researchers</div>
+                <div className="font-mono text-[11px] uppercase tracking-wider text-accent">
+                  Security researchers
+                </div>
                 <p className="text-sm leading-relaxed text-muted-strong">
-                  Point Custos Nox at any set of Squads or SPL Governance accounts and get
-                  real-time feed of config changes. Useful for monitoring suspicious multisigs or
-                  building public watchdog dashboards.
+                  Point Custos Nox at any set of Squads or SPL Governance accounts and get real-time
+                  feed of config changes. Useful for monitoring suspicious multisigs or building
+                  public watchdog dashboards.
                 </p>
               </div>
             </div>
@@ -200,8 +207,8 @@ export default function Home() {
             <div className="mb-8 flex flex-col gap-3">
               <h2 className="text-3xl font-semibold tracking-tight">How it works</h2>
               <p className="max-w-2xl text-muted-strong">
-                A WebSocket daemon, five independent detectors, parallel alert fan-out —
-                sub-second latency from on-chain change to alert in your team&apos;s channel
+                A WebSocket daemon, five independent detectors, parallel alert fan-out — sub-second
+                latency from on-chain change to alert in your team&apos;s channel
               </p>
             </div>
             <div className="flex flex-col items-center gap-0 font-mono text-sm">
@@ -211,20 +218,31 @@ export default function Home() {
               </div>
               <div className="flex h-8 flex-col items-center justify-center">
                 <div className="h-full w-px bg-border" />
-                <div className="font-mono text-[10px] uppercase tracking-wider text-muted">WebSocket · &lt;1s</div>
+                <div className="font-mono text-[10px] uppercase tracking-wider text-muted">
+                  WebSocket · &lt;1s
+                </div>
                 <div className="h-2 w-px bg-border" />
               </div>
               <div className="w-full max-w-lg rounded-lg border border-border bg-surface px-6 py-4 text-center">
                 <div className="font-semibold text-foreground">Custos Nox Daemon</div>
                 <div className="mt-3 grid grid-cols-5 gap-1">
-                  {["Timelock", "Weakening", "Priv. Nonce", "Stale Nonce", "Signer Set"].map((d) => (
-                    <div key={d} className="rounded bg-accent/10 px-1 py-1.5 text-center text-[10px] text-accent leading-tight">{d}</div>
-                  ))}
+                  {["Timelock", "Weakening", "Priv. Nonce", "Stale Nonce", "Signer Set"].map(
+                    (d) => (
+                      <div
+                        key={d}
+                        className="rounded bg-accent/10 px-1 py-1.5 text-center text-[10px] text-accent leading-tight"
+                      >
+                        {d}
+                      </div>
+                    ),
+                  )}
                 </div>
               </div>
               <div className="flex h-8 flex-col items-center justify-center">
                 <div className="h-2 w-px bg-border" />
-                <div className="font-mono text-[10px] uppercase tracking-wider text-muted">parallel fan-out</div>
+                <div className="font-mono text-[10px] uppercase tracking-wider text-muted">
+                  parallel fan-out
+                </div>
                 <div className="h-2 w-px bg-border" />
               </div>
               <div className="grid w-full max-w-lg grid-cols-4 gap-3">
@@ -234,7 +252,10 @@ export default function Home() {
                   { label: "Telegram", sub: "bot" },
                   { label: "stdout", sub: "always on" },
                 ].map((sink) => (
-                  <div key={sink.label} className="rounded-lg border border-border bg-surface px-3 py-2.5 text-center">
+                  <div
+                    key={sink.label}
+                    className="rounded-lg border border-border bg-surface px-3 py-2.5 text-center"
+                  >
                     <div className="font-semibold text-foreground">{sink.label}</div>
                     <div className="mt-0.5 text-[10px] text-muted">{sink.sub}</div>
                   </div>
@@ -265,37 +286,22 @@ export default function Home() {
         <section id="live" className="border-b border-border">
           <div className="mx-auto w-full max-w-5xl px-6 py-20">
             <div className="mb-10 flex flex-col gap-3">
-              <h2 className="text-3xl font-semibold tracking-tight">Attack simulation — what the alerts look like</h2>
+              <h2 className="text-3xl font-semibold tracking-tight">
+                Live mainnet — 12 Solana DAOs under continuous watch
+              </h2>
               <p className="max-w-2xl text-muted-strong">
-                These are sample alerts from a devnet attack simulation: we reproduced every step of
-                the Drift April 2026 attack chain on-chain, with Custos Nox watching. Each step
-                fired a distinct detector within a second. The same simulation runs live in the
-                tech demo video.
+                Custos Nox is running on mainnet right now, subscribed to the governance accounts of
+                12 ecosystem DAOs (Mango, Marinade, Pyth, Solend, Jupiter, Raydium, Orca, Bonk,
+                Helius, Squads, Superteam, MonkeDAO). The feed below polls the daemon every 5
+                seconds. When configs are calm the dots stay green; if any of the five detectors
+                fires, the alert lands here within a second.
               </p>
               <p className="max-w-2xl font-mono text-xs uppercase tracking-wider text-muted">
-                ⚠ Devnet simulation — not live mainnet data. Real alerts on your multisig look identical.
+                Falls back to a devnet attack-simulation sample when the daemon is unreachable so
+                you can still see what an active alert looks like.
               </p>
             </div>
-            <div className="grid gap-6 lg:grid-cols-[320px_1fr]">
-              <div className="rounded-lg border border-border bg-surface p-5">
-                <SeverityChart alerts={SAMPLE_ALERTS} />
-              </div>
-              <div className="overflow-hidden rounded-lg border border-border bg-surface">
-                <div className="flex items-center justify-between border-b border-border bg-surface-elevated px-4 py-2.5">
-                  <span className="font-mono text-[11px] uppercase tracking-wider text-muted">
-                    Alert feed · devnet
-                  </span>
-                  <span className="font-mono text-[11px] text-muted">
-                    {SAMPLE_ALERTS.length} events
-                  </span>
-                </div>
-                <ul className="divide-y divide-border">
-                  {SAMPLE_ALERTS.map((alert) => (
-                    <AlertRow key={`${alert.detector}-${alert.minutesAgo}`} alert={alert} />
-                  ))}
-                </ul>
-              </div>
-            </div>
+            <LiveFeed />
           </div>
         </section>
 
@@ -358,8 +364,8 @@ export default function Home() {
                   <code className="rounded bg-surface-elevated px-1 font-mono text-xs">
                     npm run dev
                   </code>{" "}
-                  or the Docker one-liner below. Alerts arrive in Discord, Slack, Telegram, or stdout within a
-                  second of any config change.
+                  or the Docker one-liner below. Alerts arrive in Discord, Slack, Telegram, or
+                  stdout within a second of any config change.
                 </p>
               </div>
             </div>
@@ -403,8 +409,8 @@ docker logs -f custos`}</code>
                 <div className="mb-1 font-mono text-[11px] uppercase tracking-wider text-muted">
                   Alerts go to
                 </div>
-                stdout by default. Optional Discord, Slack, and Telegram webhooks fan out every alert to every
-                configured sink.
+                stdout by default. Optional Discord, Slack, and Telegram webhooks fan out every
+                alert to every configured sink.
               </div>
               <div>
                 <div className="mb-1 font-mono text-[11px] uppercase tracking-wider text-muted">

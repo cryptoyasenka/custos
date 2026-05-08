@@ -55,7 +55,8 @@ async function recordHtml(htmlFile, outputFile, durationMs, doneTitle) {
 }
 
 (async () => {
-  await recordHtml('hook.html',  'hook.webm',  34000, 'ANIMATION_DONE');
-  await recordHtml('outro.html', 'outro.webm', 10000, 'OUTRO_DONE');
+  await recordHtml('hook.html',     'hook.webm',     34000, 'ANIMATION_DONE');
+  await recordHtml('outro.html',    'outro.webm',    20000, 'OUTRO_DONE');
+  await recordHtml('howworks.html', 'howworks.webm',  8000, 'HOWWORKS_DONE');
   console.log('\n✓ All recordings done.');
 })();

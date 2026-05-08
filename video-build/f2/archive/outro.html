@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=1920">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html, body {
@@ -11,83 +10,122 @@
     overflow: hidden;
     font-family: 'Courier New', Courier, monospace;
     color: #e0e0e0;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+  }
+  .slide.active { opacity: 1; }
+
+  /* SLIDE 1 — Logo */
+  .s1-name {
+    font-size: 96px;
+    font-weight: 700;
+    font-family: sans-serif;
+    letter-spacing: 0.08em;
+    color: #ffffff;
+    margin-bottom: 20px;
+  }
+  .s1-tag {
+    font-size: 26px;
+    color: #666;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 48px;
+  }
+  .s1-sub {
+    font-size: 20px;
+    color: #333;
+    letter-spacing: 0.06em;
   }
 
-  .logo {
-    font-size: 72px;
+  /* SLIDE 2 — Stats */
+  .s2-title {
+    font-size: 22px;
+    color: #444;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 56px;
+  }
+  .stats {
+    display: flex;
+    gap: 80px;
+    margin-bottom: 48px;
+  }
+  .stat { text-align: center; }
+  .stat-value {
+    font-size: 64px;
+    font-weight: 700;
+    font-family: sans-serif;
+    color: #ffffff;
+    display: block;
+    margin-bottom: 10px;
+  }
+  .stat-label {
+    font-size: 15px;
+    color: #444;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .s2-name {
+    font-size: 28px;
+    font-family: sans-serif;
+    font-weight: 600;
+    color: #333;
+    letter-spacing: 0.1em;
+  }
+
+  /* SLIDE 3 — GitHub + CTA */
+  .s3-name {
+    font-size: 52px;
     font-weight: 700;
     font-family: sans-serif;
     letter-spacing: 0.06em;
     color: #ffffff;
-    opacity: 0;
-    transition: opacity 1.0s ease;
     margin-bottom: 12px;
   }
-  .logo.show { opacity: 1; }
-
-  .tagline {
+  .s3-tag {
     font-size: 20px;
     color: #555;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    opacity: 0;
-    transition: opacity 0.8s ease;
-    margin-bottom: 60px;
+    margin-bottom: 56px;
   }
-  .tagline.show { opacity: 1; }
-
-  .divider {
-    width: 480px;
-    height: 1px;
-    background: #222;
-    opacity: 0;
-    transition: opacity 0.8s ease;
+  .github-box {
+    background: #111;
+    border: 1px solid #222;
+    padding: 28px 56px;
+    text-align: center;
     margin-bottom: 40px;
   }
-  .divider.show { opacity: 1; }
-
-  .stats {
-    display: flex;
-    gap: 64px;
-    opacity: 0;
-    transition: opacity 0.8s ease;
-    margin-bottom: 48px;
-  }
-  .stats.show { opacity: 1; }
-
-  .stat {
-    text-align: center;
-  }
-  .stat-value {
-    font-size: 36px;
-    font-weight: 700;
-    font-family: sans-serif;
-    color: #c0c0c0;
-    display: block;
-    margin-bottom: 6px;
-  }
-  .stat-label {
-    font-size: 13px;
+  .github-label {
+    font-size: 14px;
     color: #444;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .github-url {
+    font-size: 30px;
+    color: #888;
+    letter-spacing: 0.03em;
+  }
+  .github-url span { color: #bbb; }
+  .cta {
+    font-size: 18px;
+    color: #333;
     letter-spacing: 0.1em;
     text-transform: uppercase;
   }
 
-  .github {
-    font-size: 18px;
-    color: #444;
-    letter-spacing: 0.05em;
-    opacity: 0;
-    transition: opacity 0.8s ease;
-  }
-  .github.show { opacity: 1; }
-  .github span { color: #666; }
-
-  /* subtle grain */
+  /* grain */
   body::after {
     content: '';
     position: fixed; inset: 0;
@@ -97,37 +135,63 @@
 </style>
 </head>
 <body>
-  <div class="logo"    id="logo">Custos Nox</div>
-  <div class="tagline" id="tag">Real-time attack monitor for Solana DAOs</div>
-  <div class="divider" id="div"></div>
-  <div class="stats"   id="stats">
-    <div class="stat">
-      <span class="stat-value">4</span>
-      <span class="stat-label">Detectors</span>
-    </div>
-    <div class="stat">
-      <span class="stat-value">147</span>
-      <span class="stat-label">Tests green</span>
-    </div>
-    <div class="stat">
-      <span class="stat-value">MIT</span>
-      <span class="stat-label">License</span>
-    </div>
-    <div class="stat">
-      <span class="stat-value">Free</span>
-      <span class="stat-label">Forever</span>
-    </div>
+
+  <!-- SLIDE 1: Logo + tagline -->
+  <div class="slide" id="s1">
+    <div class="s1-name">Custos Nox</div>
+    <div class="s1-tag">Real-time attack monitor for Solana DAOs</div>
+    <div class="s1-sub">Solana Frontier Hackathon · 2026</div>
   </div>
-  <div class="github" id="gh"><span>github.com/</span>cryptoyasenka/custos-nox</div>
+
+  <!-- SLIDE 2: Stats -->
+  <div class="slide" id="s2">
+    <div class="s2-title">What's inside</div>
+    <div class="stats">
+      <div class="stat">
+        <span class="stat-value">4</span>
+        <span class="stat-label">Attack<br>Detectors</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">205</span>
+        <span class="stat-label">Tests<br>Passing</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">MIT</span>
+        <span class="stat-label">License</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">Free</span>
+        <span class="stat-label">Forever</span>
+      </div>
+    </div>
+    <div class="s2-name">Custos Nox</div>
+  </div>
+
+  <!-- SLIDE 3: GitHub + CTA -->
+  <div class="slide" id="s3">
+    <div class="s3-name">Custos Nox</div>
+    <div class="s3-tag">Open-source · Self-hosted · Free forever</div>
+    <div class="github-box">
+      <div class="github-label">Source code</div>
+      <div class="github-url"><span>github.com/</span>cryptoyasenka/custos-nox</div>
+    </div>
+    <div class="cta">Self-host in 5 minutes &nbsp;·&nbsp; Watch any Squads multisig or SPL Governance</div>
+  </div>
 
 <script>
-const s = id => document.getElementById(id).classList.add('show');
-setTimeout(() => s('logo'),   800);
-setTimeout(() => s('tag'),   1600);
-setTimeout(() => s('div'),   2200);
-setTimeout(() => s('stats'), 2800);
-setTimeout(() => s('gh'),    3400);
-setTimeout(() => { document.title = 'OUTRO_DONE'; }, 9000);
+  function show(id) {
+    document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+
+  // Slide 1: 0-6s
+  setTimeout(() => show('s1'), 400);
+  // Slide 2: 6-12s
+  setTimeout(() => { show('s2'); }, 6000);
+  // Slide 3: 12-19s
+  setTimeout(() => { show('s3'); }, 12000);
+  // Done signal
+  setTimeout(() => { document.title = 'OUTRO_DONE'; }, 19000);
 </script>
 </body>
 </html>

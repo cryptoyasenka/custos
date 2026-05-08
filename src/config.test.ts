@@ -128,4 +128,25 @@ describe("loadConfigFromEnv", () => {
     expect(cfg.telegramBotToken).toBeNull();
     expect(cfg.telegramChatId).toBeNull();
   });
+
+  it("leaves httpPort null when CUSTOS_HTTP_PORT unset", () => {
+    const cfg = loadConfigFromEnv({ CUSTOS_RPC_URL: "https://a.com" });
+    expect(cfg.httpPort).toBeNull();
+  });
+
+  it("parses CUSTOS_HTTP_PORT as integer", () => {
+    const cfg = loadConfigFromEnv({
+      CUSTOS_RPC_URL: "https://a.com",
+      CUSTOS_HTTP_PORT: "8787",
+    });
+    expect(cfg.httpPort).toBe(8787);
+  });
+
+  it("rejects CUSTOS_HTTP_PORT that is not an integer in 1-65535", () => {
+    for (const bad of ["0", "65536", "-1", "abc", "8.5"]) {
+      expect(() =>
+        loadConfigFromEnv({ CUSTOS_RPC_URL: "https://a.com", CUSTOS_HTTP_PORT: bad }),
+      ).toThrow(/CUSTOS_HTTP_PORT/);
+    }
+  });
 });

@@ -15,6 +15,7 @@ export interface DaemonConfig {
   slackWebhookUrl: string | null;
   telegramBotToken: string | null;
   telegramChatId: string | null;
+  httpPort: number | null;
 }
 
 const VALID_CLUSTERS: readonly Cluster[] = ["mainnet", "devnet", "testnet"];
@@ -65,5 +66,25 @@ export function loadConfigFromEnv(env: NodeJS.ProcessEnv = process.env): DaemonC
   const telegramBotToken = env.CUSTOS_TELEGRAM_BOT_TOKEN?.trim() || null;
   const telegramChatId = env.CUSTOS_TELEGRAM_CHAT_ID?.trim() || null;
 
-  return { rpcUrl, wsUrl, cluster, watch, discordWebhookUrl, slackWebhookUrl, telegramBotToken, telegramChatId };
+  const httpPortRaw = env.CUSTOS_HTTP_PORT?.trim();
+  let httpPort: number | null = null;
+  if (httpPortRaw) {
+    const parsed = Number(httpPortRaw);
+    if (!Number.isInteger(parsed) || parsed < 1 || parsed > 65535) {
+      throw new Error(`CUSTOS_HTTP_PORT must be an integer 1-65535, got '${httpPortRaw}'`);
+    }
+    httpPort = parsed;
+  }
+
+  return {
+    rpcUrl,
+    wsUrl,
+    cluster,
+    watch,
+    discordWebhookUrl,
+    slackWebhookUrl,
+    telegramBotToken,
+    telegramChatId,
+    httpPort,
+  };
 }

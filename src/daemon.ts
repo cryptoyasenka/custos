@@ -1,7 +1,13 @@
 import { pathToFileURL } from "node:url";
 import { Connection } from "@solana/web3.js";
+import { HttpEventSink } from "./alerts/http.js";
 import { type AlertSink, StdoutAlertSink } from "./alerts/stdout.js";
-import { DiscordAlertSink, FanOutAlertSink, SlackAlertSink, TelegramAlertSink } from "./alerts/webhook.js";
+import {
+  DiscordAlertSink,
+  FanOutAlertSink,
+  SlackAlertSink,
+  TelegramAlertSink,
+} from "./alerts/webhook.js";
 import { type DaemonConfig, loadConfigFromEnv } from "./config.js";
 import { SquadsMultisigWeakeningDetector } from "./detectors/multisig-weakening.js";
 import { PrivilegedNonceDetector } from "./detectors/privileged-nonce.js";
@@ -40,12 +46,28 @@ export function redactRpcUrl(url: string): string {
   }
 }
 
-export async function run(config: DaemonConfig, sink: AlertSink): Promise<void> {
+export interface RunOptions {
+  // HttpEventSink also conforms to AlertSink and is included in the sink fan-out
+  // by buildSinkFromConfig, but it owns a Node http server so it needs explicit
+  // start/stop alongside the supervisor lifecycle.
+  httpServer?: HttpEventSink | null;
+}
+
+export async function run(
+  config: DaemonConfig,
+  sink: AlertSink,
+  opts: RunOptions = {},
+): Promise<void> {
   log(
     `rpc=${redactRpcUrl(config.rpcUrl)} cluster=${config.cluster} watching=${config.watch.length} detectors=${DETECTORS.length}`,
   );
   if (config.watch.length === 0) {
     log("WARN: no watch entries configured. Set CUSTOS_WATCH=<program>:<account>[,...]");
+  }
+
+  if (opts.httpServer) {
+    await opts.httpServer.start();
+    log(`http endpoint listening on :${config.httpPort}`);
   }
 
   const supervisor = await startSupervisor({ config, sink, detectors: DETECTORS, log });
@@ -54,6 +76,7 @@ export async function run(config: DaemonConfig, sink: AlertSink): Promise<void> 
     const shutdown = async (signal: string): Promise<void> => {
       log(`received ${signal}, shutting down`);
       await supervisor.stop();
+      if (opts.httpServer) await opts.httpServer.stop();
       resolve();
     };
     process.once("SIGINT", () => void shutdown("SIGINT"));
@@ -61,7 +84,7 @@ export async function run(config: DaemonConfig, sink: AlertSink): Promise<void> 
   });
 }
 
-export function buildSinkFromConfig(config: DaemonConfig): AlertSink {
+export function buildSinkFromConfig(config: DaemonConfig, extraSinks: AlertSink[] = []): AlertSink {
   const sinks: AlertSink[] = [new StdoutAlertSink()];
   if (config.discordWebhookUrl) {
     sinks.push(new DiscordAlertSink({ url: config.discordWebhookUrl, label: "discord-webhook" }));
@@ -70,8 +93,11 @@ export function buildSinkFromConfig(config: DaemonConfig): AlertSink {
     sinks.push(new SlackAlertSink({ url: config.slackWebhookUrl, label: "slack-webhook" }));
   }
   if (config.telegramBotToken && config.telegramChatId) {
-    sinks.push(new TelegramAlertSink({ botToken: config.telegramBotToken, chatId: config.telegramChatId }));
+    sinks.push(
+      new TelegramAlertSink({ botToken: config.telegramBotToken, chatId: config.telegramChatId }),
+    );
   }
+  for (const extra of extraSinks) sinks.push(extra);
   return sinks.length === 1 ? (sinks[0] as AlertSink) : new FanOutAlertSink(sinks);
 }
 
@@ -178,8 +204,15 @@ async function main(argv: string[] = process.argv.slice(2)): Promise<void> {
     return;
   }
 
-  const sink = buildSinkFromConfig(config);
-  await run(config, sink);
+  const httpServer =
+    config.httpPort != null
+      ? new HttpEventSink({
+          port: config.httpPort,
+          getWatchCount: () => config.watch.length,
+        })
+      : null;
+  const sink = buildSinkFromConfig(config, httpServer ? [httpServer] : []);
+  await run(config, sink, { httpServer });
 }
 
 // Only auto-start when this file is executed as the entry point (e.g. via

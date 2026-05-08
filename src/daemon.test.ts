@@ -1,7 +1,12 @@
 import { PublicKey } from "@solana/web3.js";
 import { describe, expect, it, vi } from "vitest";
 import { StdoutAlertSink } from "./alerts/stdout.js";
-import { DiscordAlertSink, FanOutAlertSink, SlackAlertSink, TelegramAlertSink } from "./alerts/webhook.js";
+import {
+  DiscordAlertSink,
+  FanOutAlertSink,
+  SlackAlertSink,
+  TelegramAlertSink,
+} from "./alerts/webhook.js";
 import type { DaemonConfig } from "./config.js";
 import { buildSinkFromConfig, redactRpcUrl, validate } from "./daemon.js";
 
@@ -18,6 +23,7 @@ function makeConfig(overrides: Partial<DaemonConfig> = {}): DaemonConfig {
     slackWebhookUrl: null,
     telegramBotToken: null,
     telegramChatId: null,
+    httpPort: null,
     ...overrides,
   };
 }

@@ -1,15 +1,17 @@
 # CURRENT — custos (Custos Nox)
 
-**Last touched:** 2026-05-08 ~23:55 — Railway blocked, pivot to local-daemon for recording
-**Status:** F2/F3 both content-ready. Railway deploy hit a stuck-config bug (rootDirectory `dashboard` cached server-side, UI shows `.` but build daemon ignores). Pivoting: Yana runs daemon locally during F3 recording. Deadline 2026-05-10 23:59 PDT.
+**Last touched:** 2026-05-09 ~00:22 — Railway daemon LIVE
+**Status:** F2/F3 content-ready. Railway daemon deployed and serving — `https://custos-nox.up.railway.app/health` → `{ok:true, watching:8, ...}`. Live mainnet alerts стримятся через HTTP sink. Deadline 2026-05-10 23:59 PDT.
 
-## Railway blocker (2026-05-08 23:50)
+## Railway deployed (2026-05-09 00:22)
 
-UI saved rootDirectory=`.`, builder=Dockerfile. Build daemon every deploy logs `[DBUG] root directory set as 'dashboard'` and uses dashboard/ as build context — src/ not present, COPY fails. 7 deploys all failed same way. Helius key works (curl getHealth → ok). railway.json + commits 394a173 and 864c180 are correct, won't fix unless Railway propagates UI save server-side.
+After 7 failed deploys overnight (server-side rootDirectory cache bug), build finally went through. Daemon up, Helius mainnet RPC working, monitoring 8 Tier-1 PDAs (Mango, Marinade, Pyth, Solend + 4 SPL Governance forks). HTTP sink на :8080: `/health` + `/events?since=<ts>`.
 
-**Workaround for F3 demo:** Yana runs `npm run dev` (daemon) + `cd dashboard && npm run dev` (Next dev) on her laptop during recording. Both localhost:8080 + localhost:3000. Dashboard auto-reads `NEXT_PUBLIC_CUSTOS_DAEMON_URL=http://localhost:8080` (or unset → default http://localhost:8080 already). Live mainnet feed renders during recording. No Railway needed.
+**For F3 recording — два варианта:**
+- **A. Use Railway** (recommended): set `NEXT_PUBLIC_CUSTOS_DAEMON_URL=https://custos-nox.up.railway.app` when starting `cd dashboard && npm run dev`. Live mainnet feed на дашборде, Yana ноутбук ничего не должен — daemon хостится на Railway.
+- **B. Fully local** (fallback if Railway down): `npm run dev` (daemon) + `cd dashboard && npm run dev` (Next). Localhost:8080 + localhost:3000 как было.
 
-**To retry Railway later:** disconnect + reconnect GitHub source repo in Railway settings. That usually flushes the cached rootDirectory. OR create a fresh service from scratch.
+**Optional improvement (not blocking):** Расширить `CUSTOS_WATCH` env на Railway с 8 до 12 PDAs (добавить Tier-2 из MAINNET-WATCHLIST.md), чтобы все 12 карточек на дашборде имели реальные сигналы. Сейчас 4 нижних всегда «green/quiet» т.к. daemon их не мониторит.
 
 ## ⚠️ READ FIRST on resume — DO NOT roll back
 
@@ -24,7 +26,7 @@ If a future session sees old text saying "F2 mp3 ready, Yana собирает в
 3. ✅ Commit analysis + CURRENT.md (commit `fd4f784`) + team-slide finalize (`f559033`)
 4. ✅ Research mainnet PDAs → `.planning/MAINNET-WATCHLIST.md` (17 DAOs, 8 gov forks)
 5. ✅ Build live mainnet monitor — daemon HTTP sink (`49ce11b`) + dashboard #live rewrite (`04a9d34`), 227 tests green, Next build clean
-6. ⏳ Deploy mainnet daemon to Railway — project linked, non-secret env set, blocked on Helius RPC URL from Yana. See `RAILWAY-DEPLOY.md` for the 3-step finish (paste key → verify logs → set Vercel `NEXT_PUBLIC_CUSTOS_DAEMON_URL`).
+6. ✅ Deploy mainnet daemon to Railway — DONE 2026-05-09 00:22. Live at `https://custos-nox.up.railway.app`. Helius mainnet, 8 PDAs watched, HTTP sink serving `/health` + `/events`.
 7. ✅ F2 deck patched — slide 1 intro + slide 6 Public-Goods monetization + NEW slide 08 team (`18f1853`). 9 slides total now.
 8. ✅ F2 voice regenerated — script v3 + 9 mp3s + Playwright timing extended to 132s (`e7102ba`).
 9. ✅ F3 v5 dashboard-first script written (`a6f572f`) — 7 sections, terminal-zero, replays Drift chain inside dashboard alert feed instead of CLI.

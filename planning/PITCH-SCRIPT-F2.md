@@ -1,11 +1,12 @@
 # F2 — Pitch Video Script (≤2 min, English)
-# UPDATED 2026-05-08 — rewritten for deck-v2.html (10 slides)
+# REVISED 2026-05-08 v2 — restructured for deck-v2.html (8 slides) + Chainalysis-aligned facts + Public Goods angle
 
 **Recording:** OBS / Loom Desktop / Win+G. Fullscreen browser on deck-v2.html.
-**Target:** ≤2:00. 10 slides. Screen-only (no face required, but face adds trust).
+**Target:** ~1:55–2:00. 8 slides. Screen-only (no face required).
 **Deck:** `assets/pitch-slides/deck-v2.html` → open in browser, F11 fullscreen.
 **Intro:** Veo3 clip prepended in CapCut (6–8 sec). Narration starts on slide 1.
-**Style:** calm, direct. Evidence first, enthusiasm second.
+**Style:** calm, direct, builder-to-builder. Evidence first. No buzzwords.
+**Why this revision:** previous deck assumed crypto-fluency in 30 sec. The new arc opens with what a DAO and a multisig are, then lands the incident, the gap, the solution, the proof, and the public-goods close.
 
 ---
 
@@ -13,8 +14,9 @@
 
 - Open deck-v2.html in Chrome/Edge, F11 fullscreen
 - Navigate to Slide 1 — count-up will auto-play on first load
-- Verify animations work (arrow key through all 10 slides once, then Home to return)
+- Verify animations work (arrow key through all 8 slides once, then Home to return)
 - OBS/Loom running, check audio levels
+- HUD bottom-center should read `1 / 8` on first slide
 
 ---
 
@@ -22,79 +24,59 @@
 
 ---
 
-**[SLIDE 1 — The Incident · count-up $285M → watch it animate]**
+**[SLIDE 1 — Incident · count-up $285M]** ~16s
 
-*(pause 1–2 sec while $285M counts up — let the number land)*
+*(pause 1.5 sec while $285M counts up — let the number land)*
 
-"April 1, 2026. Drift Protocol lost $285 million in twelve minutes.
-
-This wasn't a zero-day. Nine days of on-chain preparation — and zero alerts fired."
+"DAOs on Solana hold their treasuries through multisig wallets — three-of-five signatures, like a corporate bank account. Last April, one of them lost $285 million in twelve minutes. Nine days of on-chain preparation. Zero alerts fired."
 
 ---
 
-**[→ SLIDE 2 — Attack Chain · timeline staggers in]**
+**[→ SLIDE 2 — Chain · 4-step timeline staggers in]** ~16s
 
-*(pause while timeline animates)*
+*(pause for stagger ~1.2 sec)*
 
-"The Security Council multisig was migrated to a 2-of-5 threshold with zero timelock —
-minimum quorum, instant execution. A pre-signed drain transaction was armed via durable nonce.
-Every step was visible on-chain. None of it was flagged."
+"Chainalysis confirmed the timeline. The Security Council multisig was migrated to a two-of-five quorum with zero timelock. A pre-signed drain transaction was armed via durable nonce. Every config change visible on-chain. Nothing flagged."
 
 ---
 
-**[→ SLIDE 3 — The Gap · 10,000+ counts up]**
+**[→ SLIDE 3 — Gap · 10,000+ counts up]** ~14s
 
-*(pause while 10,000+ animates)*
+*(pause for 10,000+ count-up ~1.8 sec)*
 
-"Solana Foundation's STRIDE program monitors roughly fifty protocols — the top half-percent by TVL.
-The other ten thousand multisigs and DAOs have nothing. That's who this is for."
-
----
-
-**[→ SLIDE 4 — The Solution · detector cards stagger]**
-
-"Custos Nox is an open-source TypeScript daemon. Five detectors — one per step in the Drift attack chain.
-Any single alert would have bought hours of response time."
+"Solana Foundation's STRIDE program monitors fifty protocols above ten million in TVL. The other ten thousand have nothing."
 
 ---
 
-**[→ SLIDE 5 — Target User · quick flip, ~5 sec]**
+**[→ SLIDE 4 — Solution · detector cards stagger]** ~13s
 
-"First users: Squads multisig operators. Protocol treasuries, grant committees, DAO core teams.
-If you're below STRIDE's threshold, this is for you."
-
----
-
-**[→ SLIDE 6 — Proof of Work · 215 counts up]**
-
-*(pause while 215 animates)*
-
-"It's built. 215 tests, GitHub Actions green, sub-second alert latency.
-A devnet smoke harness reproduces the Drift attack chain with real on-chain transactions."
+"Custos Nox. Open-source TypeScript daemon. One detector per step in the Drift chain — plus one for adjacent attacks. Any single alert would have bought hours of response time."
 
 ---
 
-**[→ SLIDE 7 — Setup · step cards stagger · quick]**
+**[→ SLIDE 5 — Proof + stakes · 215 counts up + killer line]** ~14s
 
-"Self-host in five minutes. One env variable. Free Helius RPC. MIT licensed — no paid tiers, ever."
+*(pause for 215 count-up ~1.2 sec)*
 
----
-
-**[→ SLIDES 8–9 — GTM + Vision · flip through, ~8 sec each]**
-
-*(Slide 8 — GTM rows stagger)*
-"Ten thousand Squads multisigs are visible on-chain right now. GitHub organic, Squads Discord, Superteam network."
-
-*(Slide 9 — Vision rows stagger)*
-"v1 is live — free, self-hosted. v2: hosted alert feed for teams who can't self-host. v3: mainnet watchlist, pre-configured coverage of the top multisigs."
+"It's built. Two-hundred-fifteen tests, sub-second alert latency, MIT licensed. If Drift had this on March 23rd, the first CRITICAL alert would have fired nine days before the drain."
 
 ---
 
-**[→ SLIDE 10 — CTA]**
+**[→ SLIDE 6 — Setup + GTM mention · step cards stagger]** ~14s
 
-"github.com/cryptoyasenka/custos-nox
+"Five minutes to set up. Copy your Squads PDA, set one env variable, run npm. No paid tiers ever — this is a public good. Squads Discord, Superteam network, GitHub organic — the users are visible on-chain right now."
 
-The other ten thousand DAOs on Solana need a Night Guardian."
+---
+
+**[→ SLIDE 7 — Vision · v1/v2/v3 rows stagger]** ~12s
+
+"v1 lives today, self-hosted, free forever. v2: hosted alert feed. v3: pre-configured mainnet watchlist for the whole ecosystem."
+
+---
+
+**[→ SLIDE 8 — Close]** ~10s
+
+"github.com/cryptoyasenka/custos-nox. STRIDE covers fifty. Ten thousand DAOs have nothing. Custos Nox is for them."
 
 ---
 
@@ -103,18 +85,17 @@ The other ten thousand DAOs on Solana need a Night Guardian."
 | Section | ~Sec |
 |---------|------|
 | Veo3 intro (CapCut prepend) | 6–8 |
-| Slide 1 (incident) | 14 |
-| Slide 2 (attack chain) | 16 |
+| Slide 1 (incident + multisig 101) | 16 |
+| Slide 2 (Chainalysis chain) | 16 |
 | Slide 3 (gap) | 14 |
 | Slide 4 (solution) | 13 |
-| Slide 5 (target user) | 9 |
-| Slide 6 (proof) | 12 |
-| Slide 7 (setup) | 8 |
-| Slides 8–9 (GTM + vision) | 20 |
-| Slide 10 (CTA) | 10 |
-| **Total** | **~2:02** |
+| Slide 5 (proof + stakes) | 14 |
+| Slide 6 (setup + GTM) | 14 |
+| Slide 7 (vision) | 12 |
+| Slide 8 (close) | 10 |
+| **Total (incl. Veo3)** | **~2:00** |
 
-If running over: trim slide 9 vision narration (just flip the slide without voiceover).
+If running over: trim slide 7 vision narration to just "v1 lives today. v2 hosted feed. v3 mainnet watchlist."
 
 ---
 
@@ -132,20 +113,23 @@ CapCut: Veo3 clip → 6–8 sec → cut to slide recording starting at Slide 1.
 
 ## KEY LINES TO LAND
 
-1. **"Nine days of on-chain preparation — and zero alerts fired."** — pause after, let it sit
-2. **"The other ten thousand multisigs and DAOs have nothing."** — the core market claim
-3. **"Any single alert would have bought hours of response time."** — the value prop
-4. **"Five minutes. MIT licensed. No paid tiers, ever."** — removes all friction objections
-5. **"The other ten thousand DAOs on Solana need a Night Guardian."** — emotional close
+1. **"Nine days of on-chain preparation. Zero alerts fired."** — pause after, let it sit
+2. **"Chainalysis confirmed the timeline."** — anchors every fact that follows in independent verification
+3. **"The other ten thousand have nothing."** — the core market claim, said flatly
+4. **"Any single alert would have bought hours of response time."** — the value prop
+5. **"If Drift had this on March 23rd, the first CRITICAL alert would have fired nine days before the drain."** — the stakes-moment, said quietly
+6. **"No paid tiers ever — this is a public good."** — Public Goods Award positioning
+7. **"STRIDE covers fifty. Ten thousand DAOs have nothing. Custos Nox is for them."** — close, three flat sentences
 
 ---
 
 ## RECORDING TIPS
 
 - Let the animations play — don't rush to the next slide before the animation finishes
-- Pause 1–2 sec on slide 1 while $285M counts up (it takes ~1.5 sec)
-- Pause on slide 2 for the stagger (takes ~1.2 sec for all 4 steps)
+- Pause 1.5 sec on slide 1 while $285M counts up
+- Pause on slide 2 for the stagger (~1.2 sec for all 4 steps)
 - Pause on slide 3 for the 10,000+ count-up (~1.8 sec)
+- Pause on slide 5 for the 215 count-up (~1.2 sec)
 - Upload to **YouTube Unlisted**. Title: `Custos Nox — F2 Pitch (Solana Frontier 2026)`
 - Verify URL works in incognito before pasting in Arena field A10
-- **Update Arena A10** with the new URL (the old URL https://youtu.be/eX_Ze5lDLrc was pre-deck-v2)
+- **Update Arena A10** with the new URL (any prior deck-v1 URL is obsolete)

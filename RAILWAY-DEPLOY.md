@@ -2,7 +2,9 @@
 
 **Status (2026-05-08):** project linked, non-secret env vars set, deploy NOT triggered yet — waiting on Helius mainnet RPC URL from Yana.
 
-Public domain (already reserved): `https://custos-nox.up.railway.app`
+Public domains (after URL swap 2026-05-09):
+- Daemon (API): `https://custos-daemon.up.railway.app`
+- Dashboard (website, what judges visit): `https://custos-nox.up.railway.app`
 
 ---
 
@@ -58,7 +60,7 @@ If you see `RPC error` or `connection refused`, the Helius URL is wrong — re-s
 Then hit the live endpoint:
 
 ```bash
-curl https://custos-nox.up.railway.app/health
+curl https://custos-daemon.up.railway.app/health
 ```
 
 Should return `{"ok":true,"watching":8,"uptime":..,"lastEventAt":null,"alertsServed":0}` until first real on-chain event.
@@ -68,7 +70,7 @@ Should return `{"ok":true,"watching":8,"uptime":..,"lastEventAt":null,"alertsSer
 In the Vercel project for `custos-nox` dashboard:
 
 1. Settings → Environment Variables
-2. Add: `NEXT_PUBLIC_CUSTOS_DAEMON_URL=https://custos-nox.up.railway.app`
+2. Add: `NEXT_PUBLIC_CUSTOS_DAEMON_URL=https://custos-daemon.up.railway.app`
 3. Apply to: Production (and Preview if you want PR previews to see live feed)
 4. Redeploy from Vercel dashboard (or push any commit to trigger)
 

@@ -12,8 +12,8 @@
 **Daemon state — pick ONE:**
 
 **(A) Mainnet (preferred — strongest narrative):**
-- Railway daemon live at `https://custos-nox.up.railway.app`, Helius RPC plugged in, `/health` returns `{"ok":true,"watching":8,...}`
-- Vercel `NEXT_PUBLIC_CUSTOS_DAEMON_URL=https://custos-nox.up.railway.app`
+- Railway daemon live at `https://custos-daemon.up.railway.app`, Helius RPC plugged in, `/health` returns `{"ok":true,"watching":8,...}`
+- Vercel `NEXT_PUBLIC_CUSTOS_DAEMON_URL=https://custos-daemon.up.railway.app`
 - Dashboard `#live` shows green dot + label "Live mainnet · N events"
 
 **(B) Local devnet fallback (if Railway not finished):**
@@ -33,7 +33,7 @@
 - Confirm alert feed shows 4 rows. **If using mainnet daemon, run the smoke chain against a separate local daemon and screen-record THAT dashboard for the replay segment.** Do not contaminate the mainnet daemon's event log with devnet test alerts.
 
 **Browser tabs (in this order, ready to switch):**
-- **Tab 1:** dashboard hero — `https://custos-nox.vercel.app` or local — scrolled to top
+- **Tab 1:** dashboard hero — `https://custos-nox.up.railway.app` or local — scrolled to top
 - **Tab 2:** Discord `#custos-alerts` — scrolled to bottom, 4 recent embeds visible
 
 **Architecture overlay:**

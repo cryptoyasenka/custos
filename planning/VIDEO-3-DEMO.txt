@@ -30,10 +30,10 @@
   1. Закончи Railway деплой (см. RAILWAY-DEPLOY.md):
      • Helius RPC URL → `railway variable set "CUSTOS_RPC_URL=..."`
      • `railway up`
-     • Проверка: https://custos-nox.up.railway.app/health
-       должно вернуть {"ok":true,"watching":8,...}
+     • Проверка: https://custos-daemon.up.railway.app/health
+       должно вернуть {"ok":true,"watching":12,...}
   2. На Vercel установи env var:
-       NEXT_PUBLIC_CUSTOS_DAEMON_URL=https://custos-nox.up.railway.app
+       NEXT_PUBLIC_CUSTOS_DAEMON_URL=https://custos-daemon.up.railway.app
      → Redeploy.
   3. Открой https://custos-nox.vercel.app → секция #live
      → должна показывать "Live mainnet · N events" (зелёная точка)

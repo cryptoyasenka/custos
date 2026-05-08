@@ -1,6 +1,6 @@
 # F3 запись — два варианта (выбираешь утром 2026-05-09)
 
-**Контекст:** Daemon живой на Railway → `https://custos-nox.up.railway.app/health`. Мониторит 12 mainnet DAO (после redeploy с расширенным `CUSTOS_WATCH`). Live mainnet alerts стримятся через HTTP sink.
+**Контекст:** Daemon живой на Railway → `https://custos-daemon.up.railway.app/health`. Мониторит 12 mainnet DAO (после redeploy с расширенным `CUSTOS_WATCH`). Live mainnet alerts стримятся через HTTP sink.
 
 Скрипт записи (текст + слайды + переключения) уже готов в `planning/TECH-DEMO-SCRIPT-F3.md` v5 (dashboard-first). Голос готов в `video-build/f3/voice/` (9 chunks, ~3:08, AriaNeural). **Скрипт и голос для обоих вариантов одинаковые** — различается только запуск дашборда перед записью.
 
@@ -11,7 +11,7 @@
 **Плюсы:**
 - Не зависит от твоего ноута — daemon на Railway, не упадёт во время записи если винда чихнёт
 - Живой 24/7 → можно перезаписывать сколько раз хочешь без перезапуска daemon
-- "Hosted production" звучит сильнее для жюри если они откроют DevTools и увидят запросы на `custos-nox.up.railway.app`
+- "Hosted production" звучит сильнее для жюри если они откроют DevTools и увидят запросы на `custos-daemon.up.railway.app`
 - Только 1 терминал нужен (для дашборда)
 
 **Минусы:**
@@ -22,14 +22,14 @@
 
 1. Проверь что daemon живой:
    ```
-   curl https://custos-nox.up.railway.app/health
+   curl https://custos-daemon.up.railway.app/health
    ```
    Должно вернуть `{"ok":true,"watching":12,...}`. Если 8 — redeploy ещё не докатился, подожди 1-2 минуты.
 
 2. PowerShell (один терминал):
    ```powershell
    cd C:\Projects\custos\dashboard
-   $env:NEXT_PUBLIC_CUSTOS_DAEMON_URL = "https://custos-nox.up.railway.app"
+   $env:NEXT_PUBLIC_CUSTOS_DAEMON_URL = "https://custos-daemon.up.railway.app"
    npm run dev
    ```
 

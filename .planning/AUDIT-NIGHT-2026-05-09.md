@@ -162,10 +162,8 @@ Drafts уже есть:
 
 ### 🔴🔴🔴 CRITICAL: HELIUS API KEY УТЁК В ПУБЛИЧНЫЙ GIT 🔴🔴🔴
 
-**Что:** `planning/F3-RECORDING-OPTIONS.md` строка 60 содержит:
-```
-$env:CUSTOS_RPC_URL = "https://mainnet.helius-rpc.com/?api-key=2e45da34-dfeb-4bc7-a85c-472e8c16e357"
-```
+**Что:** `planning/F3-RECORDING-OPTIONS.md` строка 60 содержит полный Helius RPC URL c API key.
+Ключ см. в личной памяти (`~/.claude/projects/C--Users-Yana/memory/project_custos_nox_submit_2026-05-10.md`) — здесь не дублирую чтобы не плодить повторное вхождение секрета в публичный репо.
 
 **Проверка показала:**
 - Файл в git tracked (commit `deb510d` — `feat(planning): extend Railway watch to 12 DAOs + F3 recording options doc`)
@@ -180,7 +178,7 @@ $env:CUSTOS_RPC_URL = "https://mainnet.helius-rpc.com/?api-key=2e45da34-dfeb-4bc
 
 **ДЕЙСТВИЕ Yana утром (10 минут):**
 1. Зайти на https://dashboard.helius.dev → API Keys
-2. **Revoke** ключ `2e45da34-dfeb-4bc7-a85c-472e8c16e357`
+2. **Revoke** ключ (значение в личной памяти `project_custos_nox_submit_2026-05-10.md`, локально, не в git)
 3. Создать новый ключ
 4. Railway → custos-daemon service → Variables → обновить `CUSTOS_RPC_URL` на новый ключ
 5. Подождать redeploy (~2 мин), проверить `curl https://custos-daemon.up.railway.app/health` → `watching:12`

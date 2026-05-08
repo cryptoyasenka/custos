@@ -4,7 +4,8 @@
 **Status:** F2 + F3 VOICE-OVER ГОТОВЫ. F2 = 8 mp3 (`video-build/f2/voice/slide-{1..8}.mp3`, total 1:56 без Veo3-intro). F3 = 17 mp3 (`video-build/f3/voice/01..12*.mp3` + `03b-architecture.mp3` для CapCut overlay 0:45–0:55, total 4:45 raw — Yana режет паузы в CapCut под 3:00). Скрипты `gen.sh` запушены в коммите 9aac593. Yana собирает в CapCut. Deadline May 10 23:59 PDT
 
 ## Open files (ALIVE pipeline — после чистки 2026-05-08)
-- `.planning/SESSION-2026-05-08-COMPLETE.md` — full session log (3 commits, 5+1 fixes, decisions, what's next) — READ FIRST on resume
+- `.planning/SESSION-2026-05-08-VOICE.md` — **READ FIRST on resume** — VO stage log (3 commits 9aac593+d67e293+427faeb, 25 mp3 files, slide 2 simplified for non-crypto)
+- `.planning/SESSION-2026-05-08-COMPLETE.md` — earlier deck-polish + archive cleanup session log
 - `.planning/PITCH-DECK-REVIEW-2026-05-08.md` — judge-eye audit (now all 5 improvements APPLIED in commit c13c15a)
 - `planning/VIDEO-2-PITCH.txt` — F2 pipeline (Playwright record + AI voice + CapCut)
 - `planning/VIDEO-3-DEMO.txt` — F3 pipeline (live demo + architecture overlay)

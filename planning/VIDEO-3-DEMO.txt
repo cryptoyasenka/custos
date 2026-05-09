@@ -23,36 +23,44 @@
 
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-ШАГ 1 — ПОДГОТОВЬ ДЕМОН (выбери один сценарий)
+ШАГ 1 — ПОДГОТОВЬ ДЕМОН (см. planning/F3-RECORDING-OPTIONS.md)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-СЦЕНАРИЙ A — MAINNET (предпочтительно для пита́ча):
-  1. Закончи Railway деплой (см. RAILWAY-DEPLOY.md):
-     • Helius RPC URL → `railway variable set "CUSTOS_RPC_URL=..."`
-     • `railway up`
-     • Проверка: https://custos-daemon.up.railway.app/health
-       должно вернуть {"ok":true,"watching":12,...}
-  2. На Vercel установи env var:
-       NEXT_PUBLIC_CUSTOS_DAEMON_URL=https://custos-daemon.up.railway.app
-     → Redeploy.
-  3. Открой https://custos-nox.vercel.app → секция #live
-     → должна показывать "Live mainnet · N events" (зелёная точка)
+ПОЛНЫЙ runbook = `planning/F3-RECORDING-OPTIONS.md` (single source
+of truth). Ниже — короткий пересказ. Открой файл целиком ДО записи.
 
-СЦЕНАРИЙ B — ЛОКАЛЬНЫЙ DEVNET (если Railway не закончен):
-  1. В .env положи:
-       CUSTOS_CLUSTER=devnet
-       CUSTOS_RPC_URL=https://api.devnet.solana.com
-       CUSTOS_HTTP_PORT=8080
-       CUSTOS_WATCH=SQDS4ep65T869zMMBKyuUq6aD6EgTu8psMjkvj52pCf:Cn7XXry3SWbeqkBsH7uWXLViz4ffUqzyb3fi5Dkfr9Ao,11111111111111111111111111111111:BYCMzkaGMTsPLLxzoZE8qqLb56ov6V6hnoAacgnu2KBE
-       CUSTOS_DISCORD_WEBHOOK=<твой webhook>
-  2. `npm run dev` локально → daemon слушает 8080
-  3. На дашборде укажи NEXT_PUBLIC_CUSTOS_DAEMON_URL=http://localhost:8080
-     → секция #live покажет "Devnet sample · N events"
+ВАРИАНТ A — Railway daemon + локальный dashboard (РЕКОМЕНДУЮ):
+  1. Проверка daemon живой:
+       curl https://custos-daemon.up.railway.app/health
+     Должно вернуть {"ok":true,"watching":12,...}
+     ⚠ Daemon на Railway имеет SIGTERM cycle ~10 мин (graceful
+     restart, не crash). Возможны 30-60s паузы. Если в момент
+     записи попалась пауза — стоп, дождись /health = ok, повтор.
+  2. Локально (1 терминал):
+       cd C:\Projects\custos\dashboard
+       $env:NEXT_PUBLIC_CUSTOS_DAEMON_URL = "https://custos-daemon.up.railway.app"
+       npm run dev
+  3. Chrome → http://localhost:3000 → секция #live → должна
+     показывать "Live mainnet · N events" (НЕ "Devnet sample").
 
-В обоих сценариях narration v5 работает — где она говорит
-"twelve Solana DAOs on mainnet" она ссылается на UI который
-показывает все 12 в watchlist (`Watching 12 Solana DAOs in
-real time`), независимо от того mainnet это или devnet.
+ВАРИАНТ B — fully local mainnet daemon (FALLBACK, если Railway
+дёргает SIGTERM в момент записи):
+  1. Терминал 1 — daemon на mainnet:
+       cd C:\Projects\custos
+       $env:CUSTOS_RPC_URL = "<Helius mainnet URL after reroll>"
+       $env:CUSTOS_CLUSTER = "mainnet"
+       $env:CUSTOS_HTTP_PORT = "8080"
+       $env:CUSTOS_WATCH = "<полная строка 12 PDA из .planning/MAINNET-WATCHLIST.md Tier 1+2>"
+       npm run dev
+     В логе: "Watching 12 accounts across N programs".
+  2. Терминал 2 — dashboard (без env переменной → fallback на localhost:8080):
+       cd C:\Projects\custos\dashboard
+       npm run dev
+  3. Chrome → http://localhost:3000 → "Live mainnet · N events".
+
+В обоих вариантах narration v5 работает — где она говорит
+"twelve Solana DAOs on mainnet" UI показывает все 12 в watchlist
+("Watching 12 Solana DAOs in real time").
 
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

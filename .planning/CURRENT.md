@@ -76,7 +76,7 @@ If a future session sees old text saying "F2 mp3 ready, Yana собирает в
 
 ## Constraints / decisions (still active)
 
-- Active tracks: Ukrainian Sidetrack + online Demo Day (2026-04-23) + Public Goods Award $10K
+- Active tracks: Ukrainian Sidetrack + Online Demo Day (luma.com/demodayonline, был ~2026-05-08; pre-recorded видео уйдёт в Arena независимо от того прошёл ли live event) + Public Goods Award $10K. Note: "2026-04-23" в старых заметках — это была дата Discord-intro post в Colosseum, а не Demo Day.
 - Deadline: 2026-05-10 23:59 PDT
 - Yana has Railway credits — mainnet daemon goes there, not local-only
 - Loom = primary upload for F3 (Superteam UA requirement); YouTube Unlisted backup

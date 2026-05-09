@@ -1,10 +1,12 @@
 # Helius API Key Reroll — утренний runbook 2026-05-09
 
-**Зачем:** Helius API key утёк в public git (`planning/F3-RECORDING-OPTIONS.md` line 60 в коммитах `deb510d`, `005cd9f`). Любой может grab и сжечь 1M req/mo лимит. Чем дольше ключ живой — тем выше шанс что judges откроют красную галочку или daemon откажет посреди записи F3.
+> **STATUS: ✅ DONE 2026-05-09 morning.** Старый ключ `2e45da34-...` revoked в Helius dashboard, новый ключ установлен в Railway env (`custos-nox` service → `CUSTOS_RPC_URL`), daemon redeployed и подтверждён `watching:12`. Новый ключ нигде в репо не лежит, только в Railway. Файл оставлен как post-mortem reference.
+
+**Зачем (была):** Helius API key утёк в public git (`planning/F3-RECORDING-OPTIONS.md` line 60 в коммитах `deb510d`, `005cd9f`). Любой может grab и сжечь 1M req/mo лимит. Чем дольше ключ живой — тем выше шанс что judges откроют красную галочку или daemon откажет посреди записи F3.
 
 **Время:** ~5 минут от начала до verify.
 
-**Старый ключ (для revoke):** `2e45da34-dfeb-4bc7-a85c-472e8c16e357` (НЕ копировать в новые места).
+**Старый ключ (для revoke):** `2e45da34-dfeb-4bc7-a85c-472e8c16e357` (НЕ копировать в новые места). После revoke — безвреден даже в git history.
 
 ---
 

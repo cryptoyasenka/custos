@@ -1,6 +1,6 @@
 # CURRENT — custos (Custos Nox)
 
-**Last touched:** 2026-05-09 ~05:46 — CI red на main починен (HEAD=`639c8bc`). Run `25601457714` зелёный за 36s: audit/lint/typecheck/test/build все ✓. Друг увидит зелёные галочки, judges не упрутся в красные. 🔴 CRITICAL остаётся: Helius API key утёк в public git (`planning/F3-RECORDING-OPTIONS.md` line 60, commit deb510d). Yana утром: reroll Helius ключ + Railway env update + sanitize file. Подробности в AUDIT-NIGHT-2026-05-09.md.
+**Last touched:** 2026-05-09 morning — ✅ Helius rotated. Старый `2e45da34-...` revoked в Helius dashboard; новый ключ в Railway env (`custos-nox` service → `CUSTOS_RPC_URL`); daemon redeployed, `watching:12` подтверждён. Новый ключ только в Railway, нигде в репо/файлах. CI зелёный (commit `639c8bc`, run `25601457714`). Submit-blocker по безопасности снят — можно записывать F3 и сабмитить.
 
 **CI fix breakdown (commit `639c8bc`):**
 - `npm audit fix` — axios 1.15.0 (12 CVEs) + uuid 11.0.0 (1 CVE) → upgraded; не breaking. CI шаг `Audit prod deps (high+)` теперь pass.

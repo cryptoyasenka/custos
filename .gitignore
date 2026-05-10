@@ -39,6 +39,8 @@ video-build/неделя*/
 assets/archive/temp-dirs/
 assets/archive/*.mp4
 assets/archive/*.wav
+# Top-level video assets (Veo3 intros, screen captures) — keep local, never push.
+assets/*.mp4
 video-build/f2/archive/*.webm
 video-build/f2/archive/*.mp4
 video-build/f2/archive/*.mp3

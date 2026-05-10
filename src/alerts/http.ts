@@ -175,7 +175,7 @@ export class HttpEventSink implements AlertSink {
   <ul>
     <li><a href="/health"><code>GET /health</code></a> — liveness probe + counters</li>
     <li><a href="/events"><code>GET /events</code></a> — buffered alerts (last 100)</li>
-    <li><code>GET /events?since=&lt;ms&gt;</code> — alerts after timestamp</li>
+    <li><code>GET /events?since=&lt;unix-seconds&gt;</code> — alerts after timestamp</li>
   </ul>
 
   <hr />

@@ -30,6 +30,7 @@
   "scripts": {
     "dev": "tsx watch --env-file=.env src/daemon.ts",
     "build": "tsc",
+    "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
     "lint": "biome check .",

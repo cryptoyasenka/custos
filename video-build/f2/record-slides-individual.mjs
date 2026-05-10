@@ -36,8 +36,9 @@ if (useFresh) {
 }
 
 const SLIDE_DURATIONS_MS = [
-   8000, // s0 — title cold-open (logo + tagline + bullets)
-  11000, // s1 — Drift hook ($285M + 9-days punch) [tightened from 16s now that s0 carries the tagline]
+   8000, // s0  — title cold-open (logo + tagline + bullets)
+  10000, // s0b — multisig primer (3-of-5 signers → treasury) [DAO setup explainer]
+  11000, // s1  — Drift hook ($285M + 9-days punch) [tightened from 16s now that s0 carries the tagline]
   16000, // s2 — Drift attack chain timeline
   14000, // s3 — STRIDE vs 10,000+ gap
   14000, // s4 — 5 detector cards

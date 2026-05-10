@@ -161,6 +161,109 @@
   }
 
   /* ═══════════════════════════════════════════
+     SLIDE 0B — MULTISIG PRIMER (block diagram)
+  ═══════════════════════════════════════════ */
+  .s0b-body {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: stretch; justify-content: flex-start;
+  }
+  .s0b-headline {
+    font-size: 64px; font-weight: 800; line-height: 1.05;
+    text-align: center; margin-bottom: 18px;
+  }
+  .s0b-sub {
+    font-size: 30px; font-weight: 400; color: var(--muted);
+    text-align: center; margin-bottom: 64px; letter-spacing: 0.005em;
+  }
+  .s0b-sub b { color: var(--fg); font-weight: 600; }
+  .s0b-signers {
+    display: flex; gap: 26px; margin-bottom: 38px;
+  }
+  .s0b-signer {
+    flex: 1; height: 184px; border-radius: 16px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 18px 16px; gap: 14px;
+    transition: opacity 360ms ease-out, transform 360ms ease-out;
+  }
+  .s0b-signer.signed {
+    background: rgba(74,222,128,0.08);
+    border: 2px solid var(--green);
+    box-shadow: 0 0 32px rgba(74,222,128,0.18);
+  }
+  .s0b-signer.unsigned {
+    background: #18181b;
+    border: 2px solid #27272a;
+  }
+  .s0b-signer-num {
+    width: 56px; height: 56px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; font-weight: 800;
+  }
+  .s0b-signer.signed .s0b-signer-num {
+    background: var(--green); color: #052e16;
+  }
+  .s0b-signer.unsigned .s0b-signer-num {
+    background: #27272a; color: var(--dimmed);
+    border: 1px solid #3f3f46;
+  }
+  .s0b-signer-label {
+    font-size: 20px; font-weight: 700; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--fg);
+  }
+  .s0b-signer.unsigned .s0b-signer-label { color: var(--dimmed); }
+  .s0b-signer-check {
+    font-size: 28px; line-height: 1; color: var(--green);
+    font-weight: 800;
+  }
+  .s0b-funnel {
+    display: flex; justify-content: center; gap: 60px;
+    margin-bottom: 28px;
+  }
+  .s0b-funnel span {
+    color: var(--green); font-size: 32px; font-weight: 800;
+    line-height: 1; opacity: 0;
+    transform: translateY(-8px);
+    transition: opacity 320ms ease-out, transform 320ms ease-out;
+  }
+  .s0b-funnel.go span { opacity: 1; transform: translateY(0); }
+  .s0b-threshold {
+    align-self: center;
+    padding: 18px 50px; border-radius: 999px;
+    background: rgba(74,222,128,0.12);
+    border: 2px solid var(--green);
+    color: var(--green); font-size: 28px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    margin-bottom: 28px;
+    opacity: 0; transform: translateY(8px);
+    transition: opacity 380ms ease-out, transform 380ms ease-out;
+  }
+  .s0b-threshold.go { opacity: 1; transform: translateY(0); }
+  .s0b-arrow-down {
+    align-self: center; width: 4px; height: 36px;
+    background: linear-gradient(to bottom, var(--green), var(--cyan));
+    margin-bottom: 22px; opacity: 0;
+    transition: opacity 320ms ease-out;
+  }
+  .s0b-arrow-down.go { opacity: 1; }
+  .s0b-treasury {
+    align-self: center;
+    padding: 28px 56px; border-radius: 18px;
+    background: linear-gradient(135deg, rgba(34,211,238,0.10), rgba(34,211,238,0.04));
+    border: 2px solid var(--cyan);
+    box-shadow: 0 0 36px rgba(34,211,238,0.18);
+    color: var(--fg); font-size: 36px; font-weight: 700;
+    letter-spacing: 0.04em; text-align: center;
+    display: flex; align-items: center; gap: 18px;
+    opacity: 0; transform: translateY(10px);
+    transition: opacity 420ms ease-out, transform 420ms ease-out;
+  }
+  .s0b-treasury.go { opacity: 1; transform: translateY(0); }
+  .s0b-treasury .vault {
+    color: var(--cyan); font-size: 40px;
+  }
+
+  /* ═══════════════════════════════════════════
      SLIDE 1 — INCIDENT
   ═══════════════════════════════════════════ */
   .s1-body {
@@ -749,6 +852,66 @@
   </div>
 
   <!-- ══════════════════════════════════════
+       SLIDE 0B — MULTISIG PRIMER
+  ══════════════════════════════════════ -->
+  <div class="slide" id="s0b">
+    <div class="slide-header">
+      <div class="brand">
+        <svg viewBox="0 0 1024 1024"><use href="#logo"/></svg>
+        CUSTOS NOX
+      </div>
+      <div class="slide-label">The Setup</div>
+    </div>
+
+    <div class="s0b-body">
+      <div class="s0b-headline">How a DAO treasury moves on Solana</div>
+      <div class="s0b-sub">Multisig wallets &mdash; <b>three-of-five signatures</b>, like a corporate bank account.</div>
+
+      <div class="s0b-signers">
+        <div class="s0b-signer signed">
+          <div class="s0b-signer-num">1</div>
+          <div class="s0b-signer-label">Signer</div>
+          <div class="s0b-signer-check">&#x2713;</div>
+        </div>
+        <div class="s0b-signer signed">
+          <div class="s0b-signer-num">2</div>
+          <div class="s0b-signer-label">Signer</div>
+          <div class="s0b-signer-check">&#x2713;</div>
+        </div>
+        <div class="s0b-signer signed">
+          <div class="s0b-signer-num">3</div>
+          <div class="s0b-signer-label">Signer</div>
+          <div class="s0b-signer-check">&#x2713;</div>
+        </div>
+        <div class="s0b-signer unsigned">
+          <div class="s0b-signer-num">4</div>
+          <div class="s0b-signer-label">Signer</div>
+        </div>
+        <div class="s0b-signer unsigned">
+          <div class="s0b-signer-num">5</div>
+          <div class="s0b-signer-label">Signer</div>
+        </div>
+      </div>
+
+      <div class="s0b-funnel">
+        <span>&#x2193;</span><span>&#x2193;</span><span>&#x2193;</span>
+      </div>
+
+      <div class="s0b-threshold">Threshold met &middot; 3 of 5 signatures</div>
+      <div class="s0b-arrow-down"></div>
+      <div class="s0b-treasury">
+        <span class="vault">&#x25C6;</span>
+        Treasury transaction executes on-chain
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>Built solo by Yasya · Superteam Ukraine</span>
+      <span>Frontier 2026</span>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
        SLIDE 1 — THE INCIDENT
   ══════════════════════════════════════ -->
   <div class="slide" id="s1">
@@ -1240,9 +1403,25 @@ function countUpRaw(el, target, ms, finalText) {
 /* idx 0 is s0 (title/cold-open) — CSS keyframes handle its reveal, no JS hook. */
 function onSlideEnter(idx) {
   if (idx === 1) {
-    countUp(document.getElementById('s1-amount'), 285, 1500);
+    /* s0b — multisig primer: stagger signer cards then funnel/threshold/treasury */
+    const signers = document.querySelectorAll('#s0b .s0b-signer');
+    signers.forEach((el, i) => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(14px)';
+      setTimeout(() => {
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(0)';
+      }, i * 180 + 80);
+    });
+    setTimeout(() => document.querySelector('#s0b .s0b-funnel')?.classList.add('go'), 1100);
+    setTimeout(() => document.querySelector('#s0b .s0b-threshold')?.classList.add('go'), 1500);
+    setTimeout(() => document.querySelector('#s0b .s0b-arrow-down')?.classList.add('go'), 1900);
+    setTimeout(() => document.querySelector('#s0b .s0b-treasury')?.classList.add('go'), 2200);
   }
   if (idx === 2) {
+    countUp(document.getElementById('s1-amount'), 285, 1500);
+  }
+  if (idx === 3) {
     const steps = document.querySelectorAll('#s2 .tl-step');
     steps.forEach((el, i) => {
       el.style.opacity = '0';
@@ -1254,17 +1433,17 @@ function onSlideEnter(idx) {
       }, i * 240 + 100);
     });
   }
-  if (idx === 3) {
+  if (idx === 4) {
     countUpRaw(document.getElementById('s3-large'), 10000, 1800, '10,000+');
   }
-  if (idx === 4) {
+  if (idx === 5) {
     document.querySelectorAll('#s4 .detector-card').forEach((el, i) => {
       el.style.opacity = '0'; el.style.transform = 'translateY(12px)';
       el.style.transition = 'opacity 340ms ease-out, transform 340ms ease-out';
       setTimeout(() => { el.style.opacity = '1'; el.style.transform = 'translateY(0)'; }, i * 150 + 60);
     });
   }
-  if (idx === 5) {
+  if (idx === 6) {
     countUpRaw(document.getElementById('s6-tests'), 200, 1200, '200+');
     document.querySelectorAll('#s6 .proof-card').forEach((el, i) => {
       el.style.opacity = '0'; el.style.transform = 'translateY(12px)';
@@ -1272,14 +1451,14 @@ function onSlideEnter(idx) {
       setTimeout(() => { el.style.opacity = '1'; el.style.transform = 'translateY(0)'; }, i * 180 + 60);
     });
   }
-  if (idx === 6) {
+  if (idx === 7) {
     document.querySelectorAll('#s7 .step-card').forEach((el, i) => {
       el.style.opacity = '0'; el.style.transform = 'translateY(12px)';
       el.style.transition = 'opacity 340ms ease-out, transform 340ms ease-out';
       setTimeout(() => { el.style.opacity = '1'; el.style.transform = 'translateY(0)'; }, i * 200 + 80);
     });
   }
-  if (idx === 7) {
+  if (idx === 8) {
     document.querySelectorAll('#s9 .vision-row').forEach((el, i) => {
       el.style.opacity = '0'; el.style.transform = 'translateY(14px)';
       el.style.transition = 'opacity 360ms ease-out, transform 360ms ease-out';

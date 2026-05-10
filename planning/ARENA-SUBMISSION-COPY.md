@@ -46,6 +46,8 @@ No
 
 ## LONG DESCRIPTION (A7) — strip ** and ### if Arena doesn't support markdown
 
+Real-time attack-chain alerts for the 99% of Solana multisigs STRIDE doesn't cover.
+
 In April 2026, Drift Protocol lost $285M to an attack that spent days setting up on-chain before executing. Three governance config changes (timelock removal, multisig weakening, privileged-nonce creation) happened in full public view — but no tool alerted anyone.
 
 Solana Foundation's STRIDE monitoring program targets protocols with $10M+ TVL. The other 99% — small DAOs, grant committees, treasury multisigs — have nothing.
@@ -62,7 +64,7 @@ Five detectors run live today. Four cover every on-chain step of the Drift April
 • StaleNonceExecutionDetector — fires when a durable nonce is advanced (pre-signed transaction executes) more than 1 hour after initialization. Catches the final step: the moment the attacker's pre-signed drain tx lands.
 • SignerSetChangeDetector — fires when a Squads v4 multisig's members vector is mutated. Removal or rotation of a legitimate signer is HIGH; pure additions are MEDIUM. The vector Drift didn't use, but other protocols have.
 
-Four of the detectors map directly to one step each in the Drift April 2026 attack chain; the fifth covers an adjacent signer-set takeover vector. Any single alert would have bought hours of response time.
+Any single one of these alerts during the nine-day setup window would have bought hours of response time.
 
 ---
 
@@ -86,12 +88,13 @@ GitHub: https://github.com/cryptoyasenka/custos-nox
 Roadmap:
 • API mode and hosted alert feed — for teams that can't self-host.
 • Mainnet watchlist — pre-configured coverage of the top 50 Squads multisigs by TVL.
+• Detector marketplace — community-contributed detectors with versioned schemas, so any team can ship coverage for their own protocol.
 
 ---
 
 Team:
 
-Solo founder. Full-stack developer with two years building in the Solana ecosystem. Built Custos Nox out of direct frustration: after the Drift exploit I went looking for a tool that would have caught the attack chain before the drain, and found nothing that worked outside STRIDE's $10M+ TVL threshold. Started building the next day. Intend to maintain and grow this as an open-source security primitive for the ecosystem.
+Solo founder. Two years building in Solana ecosystem. Started Custos Nox the day after Drift drained — looked for a tool that would have caught the attack chain on-chain and found nothing outside STRIDE's $10M+ TVL coverage. Intend to maintain this as an open-source security primitive.
 
 ---
 
@@ -107,7 +110,7 @@ Acquisition path:
 
 Monetization:
 • v1 (now): Free, MIT, self-hosted — community trust and adoption first.
-• v2: Hosted alert feed subscription ($10–30/month) for teams who want managed delivery without running infrastructure.
+• v2: Hosted alert feed subscription ($10–30/month per watched address) for teams who want managed delivery without running infrastructure.
 • v3: Mainnet watchlist as a service — subscribe to any public multisig, API access, public threat feed for the ecosystem.
 
 The self-hosted tier stays free permanently. The paid tiers fund maintenance, new detectors, and the eventual hosted platform.

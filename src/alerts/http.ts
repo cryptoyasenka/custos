@@ -15,9 +15,7 @@ import { type AlertSink, safeStringify } from "./stdout.js";
 
 export interface HttpEventSinkOptions {
   port: number;
-  // Bind address. Default "0.0.0.0" matches Node's listen-without-host
-  // behavior; pass "127.0.0.1" when running behind a reverse proxy on the
-  // same host so /events and /health aren't exposed on other interfaces.
+  // Bind address. Defaults to "0.0.0.0"; see CUSTOS_HTTP_HOST in config.ts.
   host?: string;
   bufferSize?: number;
   // Lets daemon.ts pass watch-list size into /health.

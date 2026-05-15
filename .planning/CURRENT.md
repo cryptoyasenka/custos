@@ -1,6 +1,41 @@
 # CURRENT — custos (Custos Nox)
 
-**Last touched:** 2026-05-10 ~15:00 Kyiv. Все 7 audit-фиксов закрыты, prod чистый, F3 запись разблокирована.
+**Last touched:** 2026-05-16 — post-submission 6-dimension repo audit (A–F), all clean.
+
+## 2026-05-16 — post-submission A–F repo audit
+
+Independent re-audit of the public repo while Frontier judging is in progress.
+
+- **A confidentiality — CLEAN.** Only secret ever = the Helius UUID revoked
+  2026-05-09 (cryptographically harmless; live key only in Railway env). Its
+  last tracked working-tree copy lived in `.planning/CSO-AUDIT-2026-05-10.md`
+  → removed (`5cb53f6`). No private key / mnemonic / bearer / real webhook in
+  the tracked tree. History key intentionally NOT filter-repo'd (revoked,
+  rewrite would break forks/SHA mid-judging).
+- **B AI-traces — CLEAN.** Sole commit author `cryptoyasenka`, zero
+  co-author / generator tells in history or tree. The one AI-author
+  attribution (`Auditor: Claude` in CSO-AUDIT) removed with `5cb53f6`.
+- **C junk — FIXED.** Internal AI-authored CSO self-audit removed (`5cb53f6`).
+  `.gitignore` hardened (`5e71105`): `.planning/SF-GRANT-*.md` (private grant
+  financials), Arena/Superteam Playwright scratch, Cyrillic video masters,
+  TTS `.wav`. Verified no tracked deliverable masked.
+- **D consistency — FIXED.** Test count was stale and self-contradictory
+  (215 / 228; PITCH-ONEPAGER said both). Unified to the true **234**
+  (`npm test` → 234 passed) across README badge+body, CONTRIBUTING, dashboard
+  footer+stat, pitch one-pager, Arena copy/draft (`9b72fd7`). Stale-nonce
+  sub-count 12 → 14 (`6d37527`). LICENSE is MIT and every "MIT" claim was
+  already correct. Live URLs and the 5-detector count match reality.
+- **E bugs/logic — CLEAN.** `npx vitest run` → 234/234, exit 0. `webhook.ts`
+  read end-to-end: bounded exponential backoff + Retry-After cap, retry only
+  on 429/5xx, Discord `allowed_mentions: parse:[]`, Telegram HTML-escape on
+  subject/detector/cluster/ctx + href, per-sink fan-out isolation. No bugs.
+- **F polish — CLEAN.** LICENSE present (MIT); no TODO/placeholder in top
+  docs. Accepted non-fixes left alone: next-major upgrade, 23 red CI runs
+  (kept deliberately), filter-repo, CRLF renormalize (live submission repo).
+
+Commits this pass: `5cb53f6`, `5e71105`, `9b72fd7`, `6d37527` — all pushed
+to `origin/main`, in sync. The two ` M ` video-asset files in the working
+tree are operator mid-work edits, left untouched.
 
 ## ✅ Audit-fixes round (2026-05-10 утро/день)
 

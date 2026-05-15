@@ -5,7 +5,7 @@
 ```
 Solana RPC             Supervisor               Detectors               Alert sinks
 (WebSocket)       ───→  baseline fetch    ───→  5 live detectors   ───→ Discord, Slack,
-CUSTOS_RPC_URL         onAccountChange          5s timeout each         stdout
+CUSTOS_RPC_URL         onAccountChange          5s timeout each         Telegram, stdout
                        reconnect + health                               fan-out
 ```
 
@@ -133,6 +133,10 @@ others. Built-in sinks:
   circular `context` values.
 - `DiscordAlertSink` — severity-colored embed, fire-and-forget POST.
 - `SlackAlertSink` — `mrkdwn` blocks, fire-and-forget POST.
+- `TelegramAlertSink` — HTML `parse_mode`, fields escaped; enabled
+  when `CUSTOS_TELEGRAM_BOT_TOKEN` + `CUSTOS_TELEGRAM_CHAT_ID` are set.
+- `HttpEventSink` — buffers the last 100 alerts and serves them on
+  `GET /events` + `GET /health` when `CUSTOS_HTTP_PORT` is set.
 
 Webhook URLs are user-owned; Custos Nox stores no secrets.
 

@@ -70,7 +70,7 @@ export default function Home() {
               <div className="flex flex-wrap items-center gap-3">
                 <span className="inline-flex w-fit items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-muted-strong">
                   <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-                  v0.3 · 5 detectors · MIT
+                  pre-release · 5 detectors · MIT
                 </span>
                 <LiveStatusBar />
               </div>

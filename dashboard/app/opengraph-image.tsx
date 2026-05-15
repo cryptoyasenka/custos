@@ -108,7 +108,7 @@ export default function OGImage() {
         <span
           style={{ fontSize: 12, color: MUTED, letterSpacing: 1.5, textTransform: "uppercase" }}
         >
-          v0.3 · MIT
+          pre-release · MIT
         </span>
       </div>
 
